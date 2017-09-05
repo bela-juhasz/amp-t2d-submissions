@@ -1,0 +1,5 @@
+# Merge reference
+type=command
+dependencies=pop_gen_clean_reference, chr_pos
+command=echo "Subscript for running an IBD and MDS plot"
+command.1=${script.dir}/merge_reference.sh ${ref.merge.dir} ${ref.clean.dir} ${chr.pos.dir}

@@ -1,0 +1,5 @@
+# Pop gen clean reference
+type=command
+dependencies=initialize
+command=echo "Clean the reference data before merging"
+command.1=${script.dir}/pop_gen_clean_reference.sh ${ref.clean.dir} ${script.dir} ${ref.stem.path}

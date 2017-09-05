@@ -1,0 +1,5 @@
+# Merge reference
+type=command
+dependencies=merge_reference
+command=echo "Subscript for running an IBD and MDS plot"
+command.1=${script.dir}/mds.sh ${mds.dir} ${script.dir} ${ref.merge.dir} ${raw.missing.dir}

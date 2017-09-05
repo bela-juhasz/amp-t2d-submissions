@@ -1,0 +1,5 @@
+# Chr pos
+type=command
+dependencies=pop_gen_clean
+command=echo "renaming markers for merging with external data (1KG, etc)"
+command.1=${script.dir}/chr_pos.sh ${chr.pos.dir} ${script.dir} ${pop.gen.clean.dir}

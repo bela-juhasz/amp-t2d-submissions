@@ -1,0 +1,5 @@
+# Exclusion reports
+type=command
+dependencies=exclusion_sets
+command=echo "Output exclusion reports"
+command.1=${script.dir}/exclusion_sets.sh ${exclu.report.dir} ${exclu.set.dir}

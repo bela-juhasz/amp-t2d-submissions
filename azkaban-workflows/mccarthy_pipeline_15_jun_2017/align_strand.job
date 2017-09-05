@@ -1,0 +1,5 @@
+# Align strands
+type=command
+dependencies=platform_qc
+command=echo "Aligning to the given strand file"
+command.1=${script.dir}/align_strand.sh ${strand.align.dir} ${platform.qc.dir}

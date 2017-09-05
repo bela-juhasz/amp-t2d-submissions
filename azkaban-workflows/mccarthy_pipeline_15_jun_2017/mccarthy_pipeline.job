@@ -1,0 +1,3 @@
+#Join all jobs to same end.
+type=noop
+dependencies=raw_heterozyg, raw_ibd, mds, exclusion_reports

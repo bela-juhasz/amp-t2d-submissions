@@ -1,0 +1,5 @@
+# Pop gen clean
+type=command
+dependencies=align_strand
+command=echo "Clean the internal dataset ready for genome runs, MDS plotting, etc"
+command.1=${script.dir}/pop_gen_clean.sh ${pop.gen.clean.dir} ${script.dir} ${complex.regions.path} ${strand.align.dir}

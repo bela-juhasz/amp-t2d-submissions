@@ -1,0 +1,5 @@
+# Exclusion sets
+type=command
+dependencies=raw_gender, platform_qc
+command=echo "Draw together exclusion sets for individuals and markers"
+command.1=${script.dir}/exclusion_sets.sh ${exclu.set.dir} ${platform.qc.dir} ${raw.missing.dir} ${raw.gender.dir} 

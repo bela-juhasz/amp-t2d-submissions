@@ -1,0 +1,5 @@
+# Raw freq
+type=command
+dependencies=initialize
+command=echo "Raw frequencies of the data"
+command.1=${script.dir}/raw_freq.sh ${raw.freq.dir} ${script.dir} ${input.stem.path}
