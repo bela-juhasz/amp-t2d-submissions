@@ -1,0 +1,5 @@
+# Raw heterozigotic
+type=command
+dependencies=raw_freq
+command=echo "Raw heterozygosity of the data"
+command.1=${script.dir}/raw_het.sh ${raw.heterozyg.dir} ${script.dir} ${input.stem.path} ${raw.freq.dir}

@@ -1,0 +1,5 @@
+# Platform QC
+type=command
+dependencies=raw_missing
+command=echo "Grap the exclusion set from the cleaned i/lmiss files (raw_missing)"
+command.1=${script.dir}/platform_qc.sh ${platform.qc.dir} ${input.stem.path} ${raw.missing.dir}

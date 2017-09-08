@@ -1,0 +1,13 @@
+type=command
+command=echo "McCarthy Pipeline 2017 JUN 15 - execution id:"${azkaban.flow.execid}
+# Prepare scripts
+command.1=sh -c "chmod -R 770 ${working.dir}/scripts/"
+command.2=ls -la ${script.dir}/
+
+# Raw missing
+command.3=echo "Raw missingness of the data"
+command.4=sh -c "${script.dir}/raw_missing.sh ${raw.missing.dir} ${script.dir} ${input.stem.path}"
+
+# Raw freq
+command.5=echo "Raw frequencies of the data"
+command.6=${script.dir}/raw_freq.sh ${raw.freq.dir} ${script.dir} ${input.stem.path}

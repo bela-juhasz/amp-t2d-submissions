@@ -1,0 +1,5 @@
+# Raw heterozigotic
+type=command
+dependencies=initialize
+command=echo "Run a rough internal IBD on the raw samples so that we can detect cross-contamination"
+command.1=${script.dir}/raw_ibd.sh ${raw.ibd.dir} ${script.dir} ${input.stem.path} ${complex.regions}

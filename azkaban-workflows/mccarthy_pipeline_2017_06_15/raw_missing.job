@@ -1,0 +1,5 @@
+# Raw missing
+type=command
+dependencies=initialize
+command=echo "Raw missingness of the data"
+command.1=sh -c "${script.dir}/raw_missing.sh ${raw.missing.dir} ${script.dir} ${input.stem.path}"

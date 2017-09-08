@@ -1,0 +1,5 @@
+# Raw heterozigotic
+type=command
+dependencies=initialize
+command=echo "Isolating gender mismatched, etc"
+command.1=${script.dir}/raw_gender.sh ${raw.gender.dir} ${script.dir} ${input.stem.path} 
