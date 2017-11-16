@@ -1,0 +1,33 @@
+Sample:
+  schema:
+    Sample_ID:
+      type: string
+      regex: '^SAM\d+$'
+      nullable: False
+      required: True
+    Subject_ID:
+      type: string
+      regex: '^SAM\d+$'
+      nullable: True
+    Gender:
+      type: string
+      allowed: ['male', 'female', 'unknown']
+    T2D:
+      nullable: True
+      allowed: [0, 1, '0', '1']
+
+Analysis:
+  schema:
+    Analysis_name:
+      type: string
+      required: True
+      nullable: False
+    Experiment_type:
+      type: string
+      required: True
+      nullable: False
+      allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
+    Imputation:
+      required: True
+      nullable: True
+      allowed: [0, 1, '0', '1']
