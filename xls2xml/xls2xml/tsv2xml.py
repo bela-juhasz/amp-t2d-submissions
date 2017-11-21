@@ -1,8 +1,12 @@
-from TSVReader import TSVReader
-from MetadataValidator import MetadataValidator
-from lxml import etree
+"""
+This scripts validates a TSV file with a given schema and convert valid data into XML file
+"""
+# pylint: disable=C0103
 import re
 import argparse
+from lxml import etree
+from .TSVReader import TSVReader
+from .MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an TSV file to a XML file')
@@ -28,8 +32,8 @@ xslt_filename = args.xslt
 tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
 tsv_validator = MetadataValidator(tsv_schema)
 
-if not tsv_reader.isValid():
-    print('TSV file does not contain required fields!')
+if not tsv_reader.is_valid():
+    print 'TSV file does not contain required fields!'
     quit()
 
 headers = tsv_reader.get_headers()
@@ -42,11 +46,11 @@ while row:
             # must start with a letter or underscore
             tag_name = re.sub('^[^a-zA-Z_]+', '_', header)
             # contain only letters, digits, hyphens, underscores and periods
-            tag_name = re.sub('[^0-9a-zA-Z_\-\.]', '_', tag_name)
+            tag_name = re.sub('[^-0-9a-zA-Z_.]', '_', tag_name)
             child_node = etree.SubElement(element_root, tag_name)
             child_node.text = str(row[header])
     else:
-        print("Please fix above error at file " + tsv_filename + "!")
+        print 'Please fix above error at file ' + tsv_filename + '!'
     row = tsv_reader.next_row()
 
 xslt_tree = etree.parse(xslt_filename)
@@ -56,4 +60,4 @@ output_xml = transform(input_xml_root)
 with open(xml_filename, 'w') as xml_file:
     xml_file.write(etree.tostring(output_xml, pretty_print=True))
 
-print('Conversion complete!')
+print 'Conversion complete!'

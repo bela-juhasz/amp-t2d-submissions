@@ -1,16 +1,48 @@
+"""
+This module reads a TSV file and allows the user to get the 1st line and iterate over the
+rest of the file row by row (next_row()). The returned row is a hash which contains only
+the keys that are defined in a configuration file.
+
+This module depends on tsv and pyyaml.
+"""
+
 from tsv import TsvReader
 import yaml
 
-required_headers_key_name = 'required'
-optional_headers_key_name = 'optional'
+REQUIRED_HEADERS_KEY_NAME = 'required'
+OPTIONAL_HEADERS_KEY_NAME = 'optional'
 
-class TSVReader():
+class TSVReader(object):
+    """
+    Reader for TSV file for the fields from a configuration file
+
+    Methods
+    -------
+    is_valid
+        return if the file contain all the REQUIRED field defined in the configuration
+
+    get_headers
+        return the list of field names in the first (non-comment) line of the TSV file.
+
+    next_row
+        return a data row as a hash for all the fields defined in the configuration file.
+
+    """
+
     def __init__(self, tsv_filename, conf_filename, conf_key):
+        """
+        Constructor
+
+        :param tsv_filename: TSV file path
+        :type tsv_filename: basestring
+        :param conf_filename: configuration file path
+        :type conf_filename: basestring
+        :param conf_key: first level key in the configuration to access that section
+        :type conf_key: basestring
+        """
         with open(conf_filename, 'r') as conf_file:
             self.tsv_conf = yaml.load(conf_file)
             self.tsv_conf_key = conf_key
-            self.required_headers = self.tsv_conf[self.tsv_conf_key][required_headers_key_name]
-            self.optional_headers = self.tsv_conf[self.tsv_conf_key][optional_headers_key_name]
         self.tsv_reader = TsvReader(open(tsv_filename, 'r'))
         self.tsv_iterator = iter(self.tsv_reader)
         self.headers = self.tsv_iterator.next()
@@ -19,12 +51,18 @@ class TSVReader():
     def __del__(self):
         self.tsv_reader.close()
 
-    def isValid(self):
+    def is_valid(self):
+        """
+        Check if the TSV file has all the REQUIRED fields defined in the configuration file
+
+        :return: True if all the REQUIRED fields are present
+        :rtype: bool
+        """
         if self.valid is not None:
             return self.valid
 
         self.valid = True
-        required_headers = self.tsv_conf[self.tsv_conf_key][required_headers_key_name]
+        required_headers = self.tsv_conf[self.tsv_conf_key][REQUIRED_HEADERS_KEY_NAME]
         for required_header in required_headers:
             if required_header not in self.headers:
                 self.valid = False
@@ -33,12 +71,23 @@ class TSVReader():
         return self.valid
 
     def get_headers(self):
+        """
+        :return: The list of field names in the first line of the TSV file.
+        :rtype: list
+        """
         return self.headers
 
     def next_row(self):
+        """
+        Retrieve next data row
+
+        :return: A hash containing all the REQUIRED and OPTIONAL fields as keys
+                and the corresponding data as values.
+        :rtype: dict
+        """
         data = {}
 
-        if not self.isValid():
+        if not self.is_valid():
             return data
 
         try:
@@ -51,7 +100,9 @@ class TSVReader():
 
         num_cells = len(this_row)
         has_notnull = False
-        for header in self.required_headers+self.optional_headers:
+        required_headers = self.tsv_conf[self.tsv_conf_key][REQUIRED_HEADERS_KEY_NAME]
+        optional_headers = self.tsv_conf[self.tsv_conf_key][OPTIONAL_HEADERS_KEY_NAME]
+        for header in required_headers+optional_headers:
             cell = ''
 
             header_index = self.headers.index(header)
@@ -60,8 +111,8 @@ class TSVReader():
                 if cell is not None:
                     has_notnull = True
 
-            if type(cell) is unicode:
-                data[header] = cell.encode('ascii','ignore')
+            if isinstance(cell, unicode):
+                data[header] = cell.encode('ascii', 'ignore')
             else:
                 data[header] = cell
 
