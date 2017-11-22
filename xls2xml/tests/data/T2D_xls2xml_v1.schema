@@ -1,6 +1,13 @@
-Sample:
+#Schema file for defining validation rules for each field
+#
+#The validation fules could be found at:
+#http://docs.python-cerberus.org/en/stable/validation-rules.html
+
+Sample: # Key for this schema
   schema:
+    # List of fields to be validated
     Sample_ID:
+      # List of rules to validate this field
       type: string
       regex: '^SAM\d+$'
       nullable: False
