@@ -5,8 +5,8 @@ This scripts validates an Excel file with a given schema and convert valid data 
 import re
 import argparse
 from lxml import etree
-from .XLSReader import XLSReader
-from .MetadataValidator import MetadataValidator
+from XLSReader import XLSReader
+from MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a XML file')

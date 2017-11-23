@@ -5,8 +5,8 @@ This scripts validates a TSV file with a given schema and convert valid data int
 import re
 import argparse
 from lxml import etree
-from .TSVReader import TSVReader
-from .MetadataValidator import MetadataValidator
+from TSVReader import TSVReader
+from MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an TSV file to a XML file')

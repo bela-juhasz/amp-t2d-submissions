@@ -3,8 +3,8 @@ This script validates an excel file with a given schema
 """
 # pylint: disable=C0103
 import argparse
-from .XLSReader import XLSReader
-from .MetadataValidator import MetadataValidator
+from XLSReader import XLSReader
+from MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(description='Validate data from an excel file')
 arg_parser.add_argument('xls', help='Excel file to be validated')

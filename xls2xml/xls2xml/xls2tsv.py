@@ -4,8 +4,8 @@ This scripts validates an Excel file with a given schema and convert valid data 
 # pylint: disable=C0103
 import argparse
 import tsv
-from .XLSReader import XLSReader
-from .MetadataValidator import MetadataValidator
+from XLSReader import XLSReader
+from MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a TSV file')

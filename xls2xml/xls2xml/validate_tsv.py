@@ -3,8 +3,8 @@ This script validates a TSV file with a given schema
 """
 # pylint: disable=C0103
 import argparse
-from .TSVReader import TSVReader
-from .MetadataValidator import MetadataValidator
+from TSVReader import TSVReader
+from MetadataValidator import MetadataValidator
 
 arg_parser = argparse.ArgumentParser(description='Validate data from a TSV file')
 arg_parser.add_argument('tsv', help='TSV file to be validated')
