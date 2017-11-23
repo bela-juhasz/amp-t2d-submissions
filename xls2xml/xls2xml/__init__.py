@@ -1,3 +1,3 @@
-# from MetadataValidator import MetadataValidator
-# from XLSReader import XLSReader
-# from TSVReader import TSVReader
+from MetadataValidator import MetadataValidator
+from XLSReader import XLSReader
+from TSVReader import TSVReader
