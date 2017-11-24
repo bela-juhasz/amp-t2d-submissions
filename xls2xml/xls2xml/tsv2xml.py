@@ -37,16 +37,16 @@ if not tsv_reader.is_valid():
     quit()
 
 headers = tsv_reader.get_headers()
+if not headers:
+    quit()
+tags = {header : header_to_xml_tag(header) for header in headers}
+
 input_xml_root = etree.Element(tsv_conf_key+"Set")
 for row in tsv_reader:
     if tsv_validator.validate_data(row, tsv_conf_key):
         element_root = etree.SubElement(input_xml_root, tsv_conf_key)
         for header in headers:
-            # must start with a letter or underscore
-            tag_name = re.sub('^[^a-zA-Z_]+', '_', header)
-            # contain only letters, digits, hyphens, underscores and periods
-            tag_name = re.sub('[^-0-9a-zA-Z_.]', '_', tag_name)
-            child_node = etree.SubElement(element_root, tag_name)
+            child_node = etree.SubElement(element_root, tags[header])
             child_node.text = str(row[header])
     else:
         print 'Please fix above error at file ' + tsv_filename + '!'

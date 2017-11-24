@@ -2,11 +2,11 @@
 This scripts validates an Excel file with a given schema and convert valid data into XML file
 """
 # pylint: disable=C0103
-import re
 import argparse
 from lxml import etree
 from XLSReader import XLSReader
 from MetadataValidator import MetadataValidator
+from utils import header_to_xml_tag
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a XML file')
@@ -34,6 +34,7 @@ xls_reader = XLSReader(xls_filename, xls_conf)
 headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
 if not headers:
     quit()
+tags = {header : header_to_xml_tag(header) for header in headers}
 
 xls_validator = MetadataValidator(xls_schema)
 
@@ -43,11 +44,7 @@ for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
         element_root = etree.SubElement(input_xml_root, xls_conf_key)
         for header in headers:
-            # must start with a letter or underscore
-            tag_name = re.sub('^[^a-zA-Z_]+', '_', header)
-            # contain only letters, digits, hyphens, underscores and periods
-            tag_name = re.sub('[^-0-9a-zA-Z_.]', '_', tag_name)
-            child_node = etree.SubElement(element_root, tag_name)
+            child_node = etree.SubElement(element_root, tags[header])
             child_node.text = str(row[header])
     else:
         print("Please fix above error at worksheet " + xls_conf_key + ", row "
