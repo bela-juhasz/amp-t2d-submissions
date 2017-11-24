@@ -17,7 +17,7 @@ def test_get_headers():
 
 def test_next_row():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
-    row = tsv_reader.next_row()
+    row = tsv_reader.next()
     assert isinstance(row, dict)
     assert 0 == cmp(row, {'Novel Attributes': '', 'Ethnicity Description': '', 'Description': 'Male normal',
                           'Cell Type': 'Blood', 'Maternal_id': 'SAM111113', 'Center_name': 'WTGC cambridge',

@@ -38,8 +38,7 @@ if not tsv_reader.is_valid():
 
 headers = tsv_reader.get_headers()
 input_xml_root = etree.Element(tsv_conf_key+"Set")
-row = tsv_reader.next_row()
-while row:
+for row in tsv_reader:
     if tsv_validator.validate_data(row, tsv_conf_key):
         element_root = etree.SubElement(input_xml_root, tsv_conf_key)
         for header in headers:
@@ -51,7 +50,6 @@ while row:
             child_node.text = str(row[header])
     else:
         print 'Please fix above error at file ' + tsv_filename + '!'
-    row = tsv_reader.next_row()
 
 xslt_tree = etree.parse(xslt_filename)
 transform = etree.XSLT(xslt_tree)

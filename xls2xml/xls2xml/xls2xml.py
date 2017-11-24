@@ -38,8 +38,8 @@ if not headers:
 xls_validator = MetadataValidator(xls_schema)
 
 input_xml_root = etree.Element(xls_conf_key+"Set")
-row = xls_reader.next_row(xls_conf_key)
-while row:
+xls_reader.active = xls_conf_key
+for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
         element_root = etree.SubElement(input_xml_root, xls_conf_key)
         for header in headers:
@@ -52,7 +52,6 @@ while row:
     else:
         print("Please fix above error at worksheet " + xls_conf_key + ", row "
               + str(row["row_num"]) + "!")
-    row = xls_reader.next_row(xls_conf_key)
 
 xslt_tree = etree.parse(xslt_filename)
 transform = etree.XSLT(xslt_tree)

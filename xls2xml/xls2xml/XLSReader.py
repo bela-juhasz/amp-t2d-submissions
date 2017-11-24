@@ -45,8 +45,20 @@ class XLSReader(object):
             self.xls_conf = yaml.load(conf_file)
         self.workbook = load_workbook(xls_filename, read_only=True)
         self.worksheets = None
+        self._active = None
         self.row_offset = {}
         self.headers = {}
+
+    def __iter__(self):
+        return self
+
+    @property
+    def active(self):
+        return self._active
+
+    @active.setter
+    def active(self, worksheet):
+        self._active = worksheet
 
     def valid_worksheets(self):
         """
@@ -104,8 +116,7 @@ class XLSReader(object):
 
         return [x for x in self.headers[worksheet] if x is not None]
 
-
-    def next_row(self, worksheet):
+    def next(self):
         """
         Retrieve next data row
 
@@ -118,9 +129,14 @@ class XLSReader(object):
         if self.worksheets is None:
             self.valid_worksheets()
 
+        worksheet = self.active
+        if worksheet is None:
+            print 'No worksheet is specified!'
+            raise StopIteration
+
         if worksheet not in self.worksheets:
             print 'Worksheet ' + worksheet + ' is not valid!'
-            return False
+            raise StopIteration
 
         if worksheet not in self.row_offset:
             self.row_offset[worksheet] = 1
@@ -160,4 +176,4 @@ class XLSReader(object):
             data['row_num'] = self.row_offset[worksheet]
             return data
 
-        return False
+        raise StopIteration

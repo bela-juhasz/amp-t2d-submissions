@@ -29,11 +29,9 @@ if not tsv_reader.is_valid():
     quit()
 
 has_error = False
-row = tsv_reader.next_row()
-while row:
+for row in tsv_reader:
     if not tsv_validator.validate_data(row, tsv_conf_key):
         has_error = True
-    row = tsv_reader.next_row()
 
 if has_error:
     print 'Please fix above error at file ' + tsv_filename + '!'

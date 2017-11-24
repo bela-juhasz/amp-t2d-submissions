@@ -35,8 +35,8 @@ tsv_writer = tsv.TsvWriter(open(tsv_filename, 'w'))
 tsv_writer.list_line(headers)
 
 xls_validator = MetadataValidator(xls_schema)
-row = xls_reader.next_row(xls_conf_key)
-while row:
+xls_reader.active = xls_conf_key
+for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
         values = []
         for header in headers:
@@ -47,7 +47,6 @@ while row:
         tsv_writer.list_line(values)
     else:
         print 'Please fix above error at worksheet '+xls_conf_key+', row '+str(row['row_num'])+'!'
-    row = xls_reader.next_row(xls_conf_key)
 
 tsv_writer.close()
 

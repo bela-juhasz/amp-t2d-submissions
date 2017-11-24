@@ -28,10 +28,9 @@ if not worksheets:
     quit()
 
 for ws in worksheets:
-    row = xls_reader.next_row(ws)
-    while row:
+    xls_reader.active = ws
+    for row in xls_reader:
         if not xls_validator.validate_data(row, ws):
             print 'Please fix above error at worksheet '+ws+', row '+str(row['row_num'])+'!'
-        row = xls_reader.next_row(ws)
 
 print 'Validation completed!'

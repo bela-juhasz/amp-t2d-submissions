@@ -51,6 +51,9 @@ class TSVReader(object):
     def __del__(self):
         self.tsv_reader.close()
 
+    def __iter__(self):
+        return self
+
     def is_valid(self):
         """
         Check if the TSV file has all the REQUIRED fields defined in the configuration file
@@ -77,7 +80,7 @@ class TSVReader(object):
         """
         return self.headers
 
-    def next_row(self):
+    def next(self):
         """
         Retrieve next data row
 
@@ -85,19 +88,12 @@ class TSVReader(object):
                 and the corresponding data as values.
         :rtype: dict
         """
-        data = {}
-
         if not self.is_valid():
-            return data
+            raise StopIteration
 
-        try:
-            this_row = self.tsv_iterator.next()
-        except StopIteration:
-            this_row = False
+        this_row = self.tsv_iterator.next()
 
-        if not this_row:
-            return data
-
+        data = {}
         num_cells = len(this_row)
         has_notnull = False
         required_headers = self.tsv_conf[self.tsv_conf_key][REQUIRED_HEADERS_KEY_NAME]
@@ -117,6 +113,6 @@ class TSVReader(object):
                 data[header] = cell
 
         if not has_notnull:
-            return self.next_row()
+            return self.next()
 
         return data
