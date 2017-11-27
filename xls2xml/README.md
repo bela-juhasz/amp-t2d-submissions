@@ -23,9 +23,22 @@ xls2tsv.py
 xls2xml.py
 tsv2xml.py
 ```
+Before running these scripts, you'd better to activate virtualenv for correct environments:
+```commandline
+cd amp-t2d-submissions/xls2xml
+source venv/bin/activate
+```
 Please refer to their command line help for information about what they do and which arguments are required. e.g.:
 ```commandline
-./xls2xml/xls2xml.py -h
+python ./xls2xml/xls2xml.py -h
+```
+Here are some of the examples you could try out:
+```commandline
+python ./xls2xml/validate_xls.py --conf tests/data/T2D_xls2xml_v1.conf --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx 
+python ./xls2xml/validate_tsv.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_samples.tsv
+python ./xls2xml/xls2tsv.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2tsv.tsv
+python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v1.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml.xml
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v1.xslt tests/data/example_samples.tsv tests/data/output_tsv2xml.xml
 ```
 
 ### Writing the configuration files
