@@ -5,7 +5,14 @@ xls2xml module
 This simple tool suite is for validating xls, converting xls to tsv or xml file.
 
 ### Prerequisites
-Please install all the libraries and modules listed in requirements.txt. This suite works best with Python 2.7 or above.
+```commandline
+git clone https://github.com/EBIvariation/amp-t2d-submissions
+cd amp-t2d-submissions/xls2xml
+virtualenv -p python2.7 venv
+source venv/bin/activate
+pip install -r requirements.txt
+deactivate
+```
 
 ### Using the scripts
 There are a few scripts you can run under xls2xml subdirectory:
