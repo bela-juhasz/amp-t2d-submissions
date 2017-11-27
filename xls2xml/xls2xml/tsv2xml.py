@@ -2,7 +2,6 @@
 This scripts validates a TSV file with a given schema and convert valid data into XML file
 """
 # pylint: disable=C0103
-import re
 import argparse
 from lxml import etree
 from TSVReader import TSVReader
