@@ -6,6 +6,7 @@ import argparse
 from lxml import etree
 from TSVReader import TSVReader
 from MetadataValidator import MetadataValidator
+from utils import header_to_xml_tag
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an TSV file to a XML file')
