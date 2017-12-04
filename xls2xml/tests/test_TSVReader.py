@@ -1,8 +1,10 @@
 from xls2xml import TSVReader
 
-def test_is_valid():
+def test_is_not_valid():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Analysis')
     assert not tsv_reader.is_valid()
+
+def test_is_valid():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
     assert tsv_reader.is_valid()
 
