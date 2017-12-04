@@ -17,19 +17,6 @@ OPTIONAL_HEADERS_KEY_NAME = 'optional'
 class XLSReader(object):
     """
     Reader for Excel file for the fields from worksheets defined in a configuration file
-
-    Methods
-    -------
-    valid_worksheets
-        return the list of valid worksheet names in the Excel file
-
-    get_headers_by_worksheet
-        return the list of field names in the first row of a worksheet.
-
-    next_row
-        return a data row in a worksheet as a hash for all the fields defined in the
-        configuration file.
-
     """
 
     def __init__(self, xls_filename, conf_filename):

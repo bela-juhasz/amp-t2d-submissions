@@ -10,14 +10,6 @@ import yaml
 class MetadataValidator(object):
     """
     Data validation with a given schema
-
-    Methods
-    -------
-    validate_data
-        return True if the data pass the validation with rules set in a given schema
-
-    get_errors
-        return the errors if last validation call returns False
     """
 
     def __init__(self, schema_filename):

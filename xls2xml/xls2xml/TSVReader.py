@@ -15,18 +15,6 @@ OPTIONAL_HEADERS_KEY_NAME = 'optional'
 class TSVReader(object):
     """
     Reader for TSV file for the fields from a configuration file
-
-    Methods
-    -------
-    is_valid
-        return if the file contain all the REQUIRED field defined in the configuration
-
-    get_headers
-        return the list of field names in the first (non-comment) line of the TSV file.
-
-    next_row
-        return a data row as a hash for all the fields defined in the configuration file.
-
     """
 
     def __init__(self, tsv_filename, conf_filename, conf_key):

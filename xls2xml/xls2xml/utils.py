@@ -1,6 +1,13 @@
 import re
 
 def header_to_xml_tag(header):
+    """
+    Convert an header to XML specification compliant tag name
+    :param header: header string to be converted
+    :type header: basestring
+    :return: converted string with any illegal chars replaced with underscores
+    :rtype: basestring
+    """
     # are case-sensitive
     tag = header
     # cannot start with the letters xml (or XML, or Xml, etc)
