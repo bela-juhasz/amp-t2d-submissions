@@ -38,12 +38,7 @@ xls_validator = MetadataValidator(xls_schema)
 xls_reader.active = xls_conf_key
 for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
-        values = []
-        for header in headers:
-            if row[header] is None:
-                values.append('')
-            else:
-                values.append(row[header])
+        values = [ '' if row[header] is None else row[header] for header in headers ]
         tsv_writer.list_line(values)
     else:
         print 'Please fix above error at worksheet '+xls_conf_key+', row '+str(row['row_num'])+'!'

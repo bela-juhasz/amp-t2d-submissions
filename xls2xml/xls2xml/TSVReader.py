@@ -64,14 +64,8 @@ class TSVReader(object):
         if self.valid is not None:
             return self.valid
 
-        self.valid = True
-        required_headers = []
-        if REQUIRED_HEADERS_KEY_NAME in self.tsv_conf[self.tsv_conf_key]:
-            required_headers = self.tsv_conf[self.tsv_conf_key][REQUIRED_HEADERS_KEY_NAME]
-        for required_header in required_headers:
-            if required_header not in self.headers:
-                self.valid = False
-                break
+        required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
+        self.valid = set(required_headers) <= set(self.headers) # issubset
 
         return self.valid
 
@@ -98,12 +92,8 @@ class TSVReader(object):
         data = {}
         num_cells = len(this_row)
         has_notnull = False
-        required_headers = []
-        optional_headers = []
-        if REQUIRED_HEADERS_KEY_NAME in self.tsv_conf[self.tsv_conf_key]:
-            required_headers = self.tsv_conf[self.tsv_conf_key][REQUIRED_HEADERS_KEY_NAME]
-        if OPTIONAL_HEADERS_KEY_NAME in self.tsv_conf[self.tsv_conf_key]:
-            optional_headers = self.tsv_conf[self.tsv_conf_key][OPTIONAL_HEADERS_KEY_NAME]
+        required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
+        optional_headers = self.tsv_conf[self.tsv_conf_key].get(OPTIONAL_HEADERS_KEY_NAME, [])
         for header in required_headers+optional_headers:
             cell = ''
 

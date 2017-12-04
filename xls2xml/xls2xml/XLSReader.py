@@ -81,27 +81,10 @@ class XLSReader(object):
                 continue
 
             # Check required headers are present
-            if title not in self.headers:
-                self.headers[title] = []
-            for cell in worksheet[1]:
-                header_value = cell.value
-                if header_value is None:
-                    self.headers[title].append(header_value)
-                else:
-                    self.headers[title].append(header_value.strip())
-
-            required_headers = []
-            if REQUIRED_HEADERS_KEY_NAME in self.xls_conf[title]:
-                required_headers = self.xls_conf[title][REQUIRED_HEADERS_KEY_NAME]
-            required_header_not_found = False
-            for required_header in required_headers:
-                if required_header not in self.headers[title]:
-                    required_header_not_found = True
-                    break
-            if required_header_not_found:
-                continue
-
-            self.worksheets.append(title)
+            self.headers[title] = [cell.value if cell.value is None else cell.value.strip() for cell in worksheet[1]]
+            required_headers = self.xls_conf[title].get(REQUIRED_HEADERS_KEY_NAME, [])
+            if set(required_headers) <= set(self.headers[title]): # issubset
+                self.worksheets.append(title)
 
         return self.worksheets
 
@@ -146,12 +129,8 @@ class XLSReader(object):
         self.row_offset[worksheet] += 1
 
         work_sheet = self.workbook[worksheet]
-        required_headers = []
-        optional_headers = []
-        if REQUIRED_HEADERS_KEY_NAME in self.xls_conf[worksheet]:
-            required_headers = self.xls_conf[worksheet][REQUIRED_HEADERS_KEY_NAME]
-        if OPTIONAL_HEADERS_KEY_NAME in self.xls_conf[worksheet]:
-            optional_headers = self.xls_conf[worksheet][OPTIONAL_HEADERS_KEY_NAME]
+        required_headers = self.xls_conf[worksheet].get(REQUIRED_HEADERS_KEY_NAME, [])
+        optional_headers = self.xls_conf[worksheet].get(OPTIONAL_HEADERS_KEY_NAME, [])
 
         for row in work_sheet.iter_rows(min_row=self.row_offset[worksheet]):
             num_cells = 0
