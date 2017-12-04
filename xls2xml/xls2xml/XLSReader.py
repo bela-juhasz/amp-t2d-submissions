@@ -89,7 +89,10 @@ class XLSReader(object):
                     self.headers[title].append(header_value)
                 else:
                     self.headers[title].append(header_value.strip())
-            required_headers = self.xls_conf[title][REQUIRED_HEADERS_KEY_NAME]
+
+            required_headers = []
+            if REQUIRED_HEADERS_KEY_NAME in self.xls_conf[title]:
+                required_headers = self.xls_conf[title][REQUIRED_HEADERS_KEY_NAME]
             required_header_not_found = False
             for required_header in required_headers:
                 if required_header not in self.headers[title]:
@@ -143,8 +146,12 @@ class XLSReader(object):
         self.row_offset[worksheet] += 1
 
         work_sheet = self.workbook[worksheet]
-        required_headers = self.xls_conf[worksheet][REQUIRED_HEADERS_KEY_NAME]
-        optional_headers = self.xls_conf[worksheet][OPTIONAL_HEADERS_KEY_NAME]
+        required_headers = []
+        optional_headers = []
+        if REQUIRED_HEADERS_KEY_NAME in self.xls_conf[worksheet]:
+            required_headers = self.xls_conf[worksheet][REQUIRED_HEADERS_KEY_NAME]
+        if OPTIONAL_HEADERS_KEY_NAME in self.xls_conf[worksheet]:
+            optional_headers = self.xls_conf[worksheet][OPTIONAL_HEADERS_KEY_NAME]
 
         for row in work_sheet.iter_rows(min_row=self.row_offset[worksheet]):
             num_cells = 0
