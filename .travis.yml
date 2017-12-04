@@ -1,0 +1,10 @@
+language: python
+
+python:
+  - "2.7"
+
+install:
+  - cd xls2xml && pip install -r requirements.txt
+
+script:
+  - cd xls2xml/tests && pytest
