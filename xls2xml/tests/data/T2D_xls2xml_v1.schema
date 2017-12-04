@@ -1,6 +1,6 @@
 #Schema file for defining validation rules for each field
 #
-#The validation fules could be found at:
+#The validation rules could be found at:
 #http://docs.python-cerberus.org/en/stable/validation-rules.html
 
 Sample: # Key for this schema
