@@ -7,3 +7,4 @@ py==1.5.2
 pytest==3.2.5
 PyYAML==3.12
 tsv==1.2
+pylint==1.7.4
