@@ -85,7 +85,9 @@ class TSVReader(object):
         for header in required_headers+optional_headers:
             cell = ''
 
-            header_index = self.headers.index(header)
+            header_index = num_cells
+            if header in self.headers:
+                header_index = self.headers.index(header)
             if header_index < num_cells:
                 cell = this_row[header_index]
                 if cell is not None:

@@ -128,7 +128,9 @@ class XLSReader(object):
             go_to_next_row = False
             has_notnull = False
             for header in required_headers+optional_headers:
-                header_index = self.headers[worksheet].index(header)
+                header_index = num_cells
+                if header in self.headers[worksheet]:
+                    header_index = self.headers[worksheet].index(header)
                 if header_index >= num_cells:
                     go_to_next_row = True
                     break
