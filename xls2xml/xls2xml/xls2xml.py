@@ -55,6 +55,7 @@ transform = etree.XSLT(xslt_tree)
 output_xml = transform(input_xml_root)
 
 with open(xml_filename, 'w') as xml_file:
+    xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     xml_file.write(etree.tostring(output_xml, pretty_print=True))
 
 print 'Conversion complete!'
