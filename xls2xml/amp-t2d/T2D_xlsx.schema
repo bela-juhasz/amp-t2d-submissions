@@ -1,0 +1,97 @@
+#Schema file for defining validation rules for each field
+#
+#The validation rules could be found at:
+#http://docs.python-cerberus.org/en/stable/validation-rules.html
+
+Project:
+  schema:
+    PI email(s):
+      type: string
+      nullable: False
+      required: True
+      regex: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(;[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)*$'
+    Submitter Email(s):
+      type: string
+      nullable: False
+      required: True
+      regex: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(;[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)*$'
+    Project Publications:
+      type: string
+      nullable: True
+      regex: '^PubMed:[0-9]+(;PubMed:[0-9]+)*$'
+    Total number of files being submitted:
+      type: number
+      nullable: False
+      min: 1
+
+Cohort:
+  schema:
+    External Links:
+      type: string
+      nullable: True
+      regex: '[a-zA-Z0-9]+:[a-zA-Z0-9]+'
+    "# T2D Cases":
+      type: number
+      min: 0
+    "# T2D Controls":
+      type: number
+      min: 0
+
+Phenotype_Trait:
+  schema:
+    Age:
+      type: float
+      nullable: False
+      min: 0.1
+
+Sample:
+  schema:
+    Sample_ID:
+      type: string
+      regex: '^SAM\d+$'
+      nullable: False
+    Subject_ID:
+      type: string
+      regex: '^SAM\d+$'
+      nullable: True
+    Gender:
+      type: string
+      allowed: ['male', 'female', 'unknown']
+    T2D:
+      type: number
+      nullable: True
+      allowed: [0, 1]
+    Age:
+      type: number
+      nullable: False
+      min: 1
+    Year of Birth:
+      type: number
+      nullable: True
+      min: 1900
+    Year of first visit:
+      type: number
+      nullable: True
+      min: 1900
+
+Analysis:
+  schema:
+    Analysis_name:
+      type: string
+      nullable: False
+    Experiment_type:
+      type: string
+      nullable: False
+      allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
+    Imputation:
+      type: number
+      nullable: True
+      allowed: [0, 1]
+
+File:
+  schema:
+    Filetype:
+      type: string
+      nullable: False
+      required: True
+      allowed: ['vcf', 'vcf_aggregate', 'readme_file', 'phenotype_file', 'plink', 'tabix', 'other']
