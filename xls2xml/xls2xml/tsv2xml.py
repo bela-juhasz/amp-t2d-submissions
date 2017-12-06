@@ -47,7 +47,7 @@ for row in tsv_reader:
         element_root = etree.SubElement(input_xml_root, tsv_conf_key)
         for header in headers:
             child_node = etree.SubElement(element_root, tags[header])
-            child_node.text = str(row[header])
+            child_node.text = str(row.get(header, ''))
     else:
         print 'Please fix above error at file ' + tsv_filename + '!'
 
