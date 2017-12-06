@@ -23,7 +23,7 @@ def test_next_row():
     assert isinstance(row, dict)
     assert 0 == cmp(row, {'Novel Attributes': '', 'Ethnicity Description': '', 'Description': 'Male normal',
                           'Cell Type': 'Blood', 'Maternal_id': 'SAM111113', 'Center_name': 'WTGC cambridge',
-                          'Gender': 'male', 'Subject_ID': 'SAM111111', 'Paternal_id': 'SAM111115', 'T2D': '0',
+                          'Gender': 'male', 'Subject_ID': 'SAM111111', 'Paternal_id': 'SAM111115', 'T2D': 0,
                           'Hispanic or Latino; of Spanish origin': '', 'Cohort ID': 'CO1111', 'Year of Birth': '1986',
                           'Age': '31', 'Analysis_alias': 'AN001', 'Sample_ID': 'SAM111111', 'Geno_ID': '',
                           'Year of first visit': '', 'Case_Control': 'Control', 'Ethnicity': 'EUWH',

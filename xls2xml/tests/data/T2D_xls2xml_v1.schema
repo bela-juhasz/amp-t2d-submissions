@@ -20,8 +20,9 @@ Sample: # Key for this schema
       type: string
       allowed: ['male', 'female', 'unknown']
     T2D:
+      type: number
       nullable: True
-      allowed: [0, 1, '0', '1']
+      allowed: [0, 1]
 
 Analysis:
   schema:
@@ -35,6 +36,7 @@ Analysis:
       nullable: False
       allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
     Imputation:
+      type: number
       required: True
       nullable: True
-      allowed: [0, 1, '0', '1']
+      allowed: [0, 1]

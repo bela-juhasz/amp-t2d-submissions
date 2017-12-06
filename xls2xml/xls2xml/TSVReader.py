@@ -11,6 +11,13 @@ import yaml
 
 REQUIRED_HEADERS_KEY_NAME = 'required'
 OPTIONAL_HEADERS_KEY_NAME = 'optional'
+DATA_TYPE_KEY_NAME = 'data_type'
+DATA_TYPE_TO_FUNCTION = {
+    'int':      int,
+    'float':    float,
+    'long':     long,
+    'str':      str
+}
 
 class TSVReader(object):
     """
@@ -82,6 +89,7 @@ class TSVReader(object):
         has_notnull = False
         required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
         optional_headers = self.tsv_conf[self.tsv_conf_key].get(OPTIONAL_HEADERS_KEY_NAME, [])
+        data_type = self.tsv_conf[self.tsv_conf_key].get(DATA_TYPE_KEY_NAME, {})
         for header in required_headers+optional_headers:
             cell = ''
 
@@ -95,6 +103,8 @@ class TSVReader(object):
 
             if isinstance(cell, unicode):
                 data[header] = cell.encode('ascii', 'ignore')
+            elif header in data_type:
+                data[header] = DATA_TYPE_TO_FUNCTION[data_type[header]](cell)
             else:
                 data[header] = cell
 
