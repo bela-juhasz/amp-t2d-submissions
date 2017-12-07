@@ -125,15 +125,14 @@ class XLSReader(object):
                 num_cells += 1
 
             data = {}
-            go_to_next_row = False
             has_notnull = False
             for header in required_headers+optional_headers:
                 header_index = num_cells
                 if header in self.headers[worksheet]:
                     header_index = self.headers[worksheet].index(header)
                 if header_index >= num_cells:
-                    go_to_next_row = True
-                    break
+                    data[header] = None
+                    continue
 
                 cell = row[header_index]
                 if cell.value is not None:
@@ -144,11 +143,11 @@ class XLSReader(object):
                 else:
                     data[header] = cell.value
 
-            if go_to_next_row or not has_notnull:
-                self.row_offset[worksheet] += 1
-                continue
+            if has_notnull:
+                data['row_num'] = self.row_offset[worksheet]
+                return data
 
-            data['row_num'] = self.row_offset[worksheet]
-            return data
+            # no data on this row, continue to next
+            self.row_offset[worksheet] += 1
 
         raise StopIteration

@@ -110,7 +110,8 @@ class TSVReader(object):
             else:
                 data[header] = cell
 
-        if not has_notnull:
-            return self.next()
+        if has_notnull:
+            return data
 
-        return data
+        # no data on this row, continue to next
+        return self.next()
