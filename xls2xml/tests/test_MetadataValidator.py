@@ -14,3 +14,16 @@ def test_validate_data():
     reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
     row = reader.next()
     assert validator.validate_data(row, 'Sample')
+
+def test_invalidate_data():
+    validator = MetadataValidator('data/T2D_xls2xml_v1.schema')
+    reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    reader.active = 'Sample'
+    row = reader.next()
+    assert not validator.validate_data(row, 'Analysis')
+    reader.active = 'Analysis'
+    row = reader.next()
+    assert not validator.validate_data(row, 'Sample')
+    reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
+    row = reader.next()
+    assert not validator.validate_data(row, 'Analysis')
