@@ -33,11 +33,13 @@ xls_reader = XLSReader(xls_filename, xls_conf)
 
 headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
 if not headers:
-    quit()
+    print 'Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!'
+    quit(1)
 tags = {header : header_to_xml_tag(header) for header in headers}
 
 xls_validator = MetadataValidator(xls_schema)
 
+has_error = False
 input_xml_root = etree.Element(xls_conf_key+"Set")
 xls_reader.active = xls_conf_key
 for row in xls_reader:
@@ -47,8 +49,12 @@ for row in xls_reader:
             child_node = etree.SubElement(element_root, tags[header])
             child_node.text = str(row.get(header, ''))
     else:
+        has_error = True
         print("Please fix above error at worksheet " + xls_conf_key + ", row "
               + str(row["row_num"]) + "!")
+
+if has_error:
+    quit(1)
 
 xslt_tree = etree.parse(xslt_filename)
 transform = etree.XSLT(xslt_tree)

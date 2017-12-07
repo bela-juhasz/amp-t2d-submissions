@@ -33,14 +33,17 @@ tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
 tsv_validator = MetadataValidator(tsv_schema)
 
 if not tsv_reader.is_valid():
-    print 'TSV file does not contain required fields!'
-    quit()
+    print 'TSV file ' + tsv_filename + ' does not contain required fields!'
+    quit(1)
 
 headers = tsv_reader.get_headers()
 if not headers:
-    quit()
+    print 'TSV file ' + tsv_filename + ' does not have header row!'
+    quit(1)
+
 tags = {header : header_to_xml_tag(header) for header in headers}
 
+has_error = False
 input_xml_root = etree.Element(tsv_conf_key+"Set")
 for row in tsv_reader:
     if tsv_validator.validate_data(row, tsv_conf_key):
@@ -49,7 +52,11 @@ for row in tsv_reader:
             child_node = etree.SubElement(element_root, tags[header])
             child_node.text = str(row.get(header, ''))
     else:
-        print 'Please fix above error at file ' + tsv_filename + '!'
+        has_error = True
+
+if has_error:
+    print 'Please fix above error at file ' + tsv_filename + '!'
+    quit(1)
 
 xslt_tree = etree.parse(xslt_filename)
 transform = etree.XSLT(xslt_tree)
