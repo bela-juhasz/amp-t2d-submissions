@@ -1,0 +1,42 @@
+#Schema file for defining validation rules for each field
+#
+#The validation rules could be found at:
+#http://docs.python-cerberus.org/en/stable/validation-rules.html
+
+Sample: # Key for this schema
+  schema:
+    # List of fields to be validated
+    Sample_ID:
+      # List of rules to validate this field
+      type: string
+      regex: '^SAM\d+$'
+      nullable: False
+      required: True
+    Subject_ID:
+      type: string
+      regex: '^SAM\d+$'
+      nullable: True
+    Gender:
+      type: string
+      allowed: ['male', 'female', 'unknown']
+    T2D:
+      type: number
+      nullable: True
+      allowed: [0, 1]
+
+Analysis:
+  schema:
+    Analysis_name:
+      type: string
+      required: True
+      nullable: False
+    Experiment_type:
+      type: string
+      required: True
+      nullable: False
+      allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
+    Imputation:
+      type: number
+      required: True
+      nullable: True
+      allowed: [0, 1]
