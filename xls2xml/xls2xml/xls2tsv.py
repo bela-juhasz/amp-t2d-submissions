@@ -41,7 +41,7 @@ tsv_writer.list_line(headers)
 
 has_validation_error = False
 xls_validator = MetadataValidator(xls_schema)
-xls_reader.active = xls_conf_key
+xls_reader.active_worksheet = xls_conf_key
 for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
         values = ['' if row.get(header) is None else row.get(header) for header in headers]

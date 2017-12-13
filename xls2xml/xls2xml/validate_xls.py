@@ -32,7 +32,7 @@ if not worksheets:
 
 has_validation_error = False
 for ws in worksheets:
-    xls_reader.active = ws
+    xls_reader.active_worksheet = ws
     for row in xls_reader:
         if not xls_validator.validate_data(row, ws):
             has_validation_error = True

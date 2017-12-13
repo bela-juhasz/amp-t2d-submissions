@@ -45,7 +45,7 @@ xls_validator = MetadataValidator(xls_schema)
 
 has_validation_error = False
 input_xml_root = etree.Element(xls_conf_key+"Set")
-xls_reader.active = xls_conf_key
+xls_reader.active_worksheet = xls_conf_key
 for row in xls_reader:
     if xls_validator.validate_data(row, xls_conf_key):
         element_root = etree.SubElement(input_xml_root, xls_conf_key)

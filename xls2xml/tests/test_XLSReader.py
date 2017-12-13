@@ -28,7 +28,7 @@ def test_get_headers_by_worksheet():
 def test_next_row():
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
 
-    xls_reader.active = 'Sample'
+    xls_reader.active_worksheet = 'Sample'
     row = xls_reader.next()
     assert isinstance(row, dict)
     assert 0 == cmp(row, {'Hispanic or Latino; of Spanish origin': None, 'Phenotype': 'MeSH:D006262',
@@ -40,7 +40,7 @@ def test_next_row():
                           'Ethnicity Description': None, 'Year of Birth': 1986L, 'Sample_ID': 'SAM111111',
                           'Age': 31L, 'Ethnicity': 'EUWH'})
 
-    xls_reader.active = 'Analysis'
+    xls_reader.active_worksheet = 'Analysis'
     row = xls_reader.next()
     assert isinstance(row, dict)
     assert 0 == cmp(row, {'Pipeline Description': 'Alignment using BWA. Variant calling using the standard GATK pipeline. Association done using PLINK',

@@ -34,7 +34,7 @@ class XLSReader(object):
             self.xls_conf = yaml.load(conf_file)
         self.workbook = load_workbook(xls_filename, read_only=True)
         self.worksheets = None
-        self._active = None
+        self._active_worksheet = None
         self.row_offset = {}
         self.headers = {}
 
@@ -42,12 +42,12 @@ class XLSReader(object):
         return self
 
     @property
-    def active(self):
-        return self._active
+    def active_worksheet(self):
+        return self._active_worksheet
 
-    @active.setter
-    def active(self, worksheet):
-        self._active = worksheet
+    @active_worksheet.setter
+    def active_worksheet(self, worksheet):
+        self._active_worksheet = worksheet
 
     def valid_worksheets(self):
         """
@@ -104,7 +104,7 @@ class XLSReader(object):
         if self.worksheets is None:
             self.valid_worksheets()
 
-        worksheet = self.active
+        worksheet = self.active_worksheet
         if worksheet is None:
             print('No worksheet is specified!', file=sys.stderr)
             raise StopIteration
