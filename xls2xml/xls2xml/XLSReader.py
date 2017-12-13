@@ -117,11 +117,10 @@ class XLSReader(object):
             self.row_offset[worksheet] = 1
         self.row_offset[worksheet] += 1
 
-        work_sheet = self.workbook[worksheet]
         required_headers = self.xls_conf[worksheet].get(REQUIRED_HEADERS_KEY_NAME, [])
         optional_headers = self.xls_conf[worksheet].get(OPTIONAL_HEADERS_KEY_NAME, [])
 
-        for row in work_sheet.iter_rows(min_row=self.row_offset[worksheet]):
+        for row in self.workbook[worksheet].iter_rows(min_row=self.row_offset[worksheet]):
             num_cells = 0
             for cell in row:
                 num_cells += 1
