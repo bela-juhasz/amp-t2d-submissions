@@ -103,8 +103,6 @@ class TSVReader(object):
 
             if not cell:
                 data[header] = None
-            elif isinstance(cell, unicode):
-                data[header] = cell.encode('ascii', 'ignore')
             elif header in data_type:
                 data[header] = DATA_TYPE_TO_FUNCTION[data_type[header]](cell)
             else:

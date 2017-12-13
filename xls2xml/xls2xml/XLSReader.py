@@ -139,10 +139,7 @@ class XLSReader(object):
                 if cell.value is not None:
                     has_notnull = True
 
-                if isinstance(cell.value, unicode):
-                    data[header] = cell.value.encode('ascii', 'ignore')
-                else:
-                    data[header] = cell.value
+                data[header] = cell.value
 
             if has_notnull:
                 data['row_num'] = self.row_offset[worksheet]
