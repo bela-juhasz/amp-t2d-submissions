@@ -4,6 +4,8 @@ This module validate data with a given schema
 This module depends on cerberus and pyyaml
 """
 
+from __future__ import print_function
+import sys
 from cerberus import Validator
 import yaml
 
@@ -38,7 +40,7 @@ class MetadataValidator(object):
         document = {}
         document[schema_key] = data
         if not self.validator.validate(document=document):
-            print self.validator.errors
+            print(self.validator.errors, file=sys.stderr)
             return False
 
         return True

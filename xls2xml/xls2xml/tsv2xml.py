@@ -2,6 +2,9 @@
 This scripts validates a TSV file with a given schema and convert valid data into XML file
 """
 # pylint: disable=C0103
+
+from __future__ import print_function
+import sys
 import argparse
 from lxml import etree
 from TSVReader import TSVReader
@@ -33,12 +36,12 @@ tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
 tsv_validator = MetadataValidator(tsv_schema)
 
 if not tsv_reader.is_valid():
-    print 'TSV file ' + tsv_filename + ' does not contain required fields!'
+    print('TSV file ' + tsv_filename + ' does not contain required fields!', file=sys.stderr)
     quit(1)
 
 headers = tsv_reader.get_headers()
 if not headers:
-    print 'TSV file ' + tsv_filename + ' does not have header row!'
+    print('TSV file ' + tsv_filename + ' does not have header row!', file=sys.stderr)
     quit(1)
 
 tags = {header : header_to_xml_tag(header) for header in headers}
@@ -55,7 +58,7 @@ for row in tsv_reader:
         has_error = True
 
 if has_error:
-    print 'Please fix above error at file ' + tsv_filename + '!'
+    print('Please fix above error at file ' + tsv_filename + '!', file=sys.stderr)
     quit(1)
 
 xslt_tree = etree.parse(xslt_filename)
@@ -66,4 +69,4 @@ with open(xml_filename, 'w') as xml_file:
     xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     xml_file.write(etree.tostring(output_xml, pretty_print=True))
 
-print 'Conversion complete!'
+print('Conversion complete!', file=sys.stdout)

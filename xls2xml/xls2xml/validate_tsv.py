@@ -2,6 +2,9 @@
 This script validates a TSV file with a given schema
 """
 # pylint: disable=C0103
+
+from __future__ import print_function
+import sys
 import argparse
 from TSVReader import TSVReader
 from MetadataValidator import MetadataValidator
@@ -25,15 +28,16 @@ tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
 tsv_validator = MetadataValidator(tsv_schema)
 
 if not tsv_reader.is_valid():
-    print 'TSV file does not contain required fields!'
-    quit()
+    print('TSV file does not contain required fields!', file=sys.stderr)
+    quit(1)
 
-has_error = False
+has_validation_error = False
 for row in tsv_reader:
     if not tsv_validator.validate_data(row, tsv_conf_key):
-        has_error = True
+        has_validation_error = True
 
-if has_error:
-    print 'Please fix above error at file ' + tsv_filename + '!'
-else:
-    print 'Validation completed!'
+if has_validation_error:
+    print('Please fix above error at file ' + tsv_filename + '!', file=sys.stderr)
+    quit(1)
+
+print('Validation completed!', file=sys.stdout)

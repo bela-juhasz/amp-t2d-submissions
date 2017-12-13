@@ -2,6 +2,9 @@
 This scripts validates an Excel file with a given schema and convert valid data into TSV file
 """
 # pylint: disable=C0103
+
+from __future__ import print_function
+import sys
 import argparse
 import tsv
 from XLSReader import XLSReader
@@ -29,13 +32,14 @@ xls_reader = XLSReader(xls_filename, xls_conf)
 
 headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
 if not headers:
-    print 'Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!'
+    print('Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!',
+          file=sys.stderr)
     quit(1)
 
 tsv_writer = tsv.TsvWriter(open(tsv_filename, 'w'))
 tsv_writer.list_line(headers)
 
-has_error = False
+has_validation_error = False
 xls_validator = MetadataValidator(xls_schema)
 xls_reader.active = xls_conf_key
 for row in xls_reader:
@@ -43,12 +47,13 @@ for row in xls_reader:
         values = ['' if row.get(header) is None else row.get(header) for header in headers]
         tsv_writer.list_line(values)
     else:
-        has_error = True
-        print 'Please fix above error at worksheet '+xls_conf_key+', row '+str(row['row_num'])+'!'
+        has_validation_error = True
+        print('Please fix above error at worksheet '+xls_conf_key+', row '+str(row['row_num'])+'!',
+              file=sys.stderr)
 
 tsv_writer.close()
 
-if has_error:
+if has_validation_error:
     quit(1)
 
-print 'Conversion complete!'
+print('Conversion complete!', file=sys.stdout)

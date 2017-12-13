@@ -2,6 +2,9 @@
 This script validates an excel file with a given schema
 """
 # pylint: disable=C0103
+
+from __future__ import print_function
+import sys
 import argparse
 from XLSReader import XLSReader
 from MetadataValidator import MetadataValidator
@@ -24,13 +27,19 @@ xls_validator = MetadataValidator(xls_schema)
 worksheets = xls_reader.valid_worksheets()
 
 if not worksheets:
-    print 'There is nothing to be validated'
-    quit()
+    print('There is nothing to be validated', file=sys.stderr)
+    quit(1)
 
+has_validation_error = False
 for ws in worksheets:
     xls_reader.active = ws
     for row in xls_reader:
         if not xls_validator.validate_data(row, ws):
-            print 'Please fix above error at worksheet '+ws+', row '+str(row['row_num'])+'!'
+            has_validation_error = True
+            print('Please fix above error at worksheet '+ws+', row '+str(row['row_num'])+'!',
+                  file=sys.stderr)
 
-print 'Validation completed!'
+if has_validation_error:
+    quit(1)
+
+print('Validation completed!', file=sys.stdout)

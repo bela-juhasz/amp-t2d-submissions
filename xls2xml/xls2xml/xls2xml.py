@@ -2,6 +2,9 @@
 This scripts validates an Excel file with a given schema and convert valid data into XML file
 """
 # pylint: disable=C0103
+
+from __future__ import print_function
+import sys
 import argparse
 from lxml import etree
 from XLSReader import XLSReader
@@ -33,13 +36,14 @@ xls_reader = XLSReader(xls_filename, xls_conf)
 
 headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
 if not headers:
-    print 'Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!'
+    print('Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!',
+          file=sys.stderr)
     quit(1)
 tags = {header : header_to_xml_tag(header) for header in headers}
 
 xls_validator = MetadataValidator(xls_schema)
 
-has_error = False
+has_validation_error = False
 input_xml_root = etree.Element(xls_conf_key+"Set")
 xls_reader.active = xls_conf_key
 for row in xls_reader:
@@ -49,11 +53,11 @@ for row in xls_reader:
             child_node = etree.SubElement(element_root, tags[header])
             child_node.text = str(row.get(header, ''))
     else:
-        has_error = True
+        has_validation_error = True
         print("Please fix above error at worksheet " + xls_conf_key + ", row "
-              + str(row["row_num"]) + "!")
+              + str(row["row_num"]) + "!", file=sys.stderr)
 
-if has_error:
+if has_validation_error:
     quit(1)
 
 xslt_tree = etree.parse(xslt_filename)
@@ -64,4 +68,4 @@ with open(xml_filename, 'w') as xml_file:
     xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     xml_file.write(etree.tostring(output_xml, pretty_print=True))
 
-print 'Conversion complete!'
+print('Conversion complete!', file=sys.stdout)

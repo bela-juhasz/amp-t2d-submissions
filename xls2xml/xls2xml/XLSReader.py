@@ -7,6 +7,8 @@ a configuration file.
 This module depends on openpyxl and pyyaml.
 """
 
+from __future__ import print_function
+import sys
 from openpyxl import load_workbook
 import yaml
 
@@ -84,7 +86,7 @@ class XLSReader(object):
         """
         worksheets = self.valid_worksheets()
         if worksheet not in worksheets:
-            print 'Worksheet '+worksheet+' is not available or not valid!'
+            print('Worksheet '+worksheet+' is not available or not valid!', file=sys.stderr)
             return []
 
         return [x for x in self.headers[worksheet] if x is not None]
@@ -104,11 +106,11 @@ class XLSReader(object):
 
         worksheet = self.active
         if worksheet is None:
-            print 'No worksheet is specified!'
+            print('No worksheet is specified!', file=sys.stderr)
             raise StopIteration
 
         if worksheet not in self.worksheets:
-            print 'Worksheet ' + worksheet + ' is not valid!'
+            print('Worksheet ' + worksheet + ' is not valid!', file=sys.stderr)
             raise StopIteration
 
         if worksheet not in self.row_offset:
