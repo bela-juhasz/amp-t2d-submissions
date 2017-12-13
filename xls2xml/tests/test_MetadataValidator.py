@@ -2,7 +2,7 @@ from xls2xml import MetadataValidator
 from xls2xml import XLSReader
 from xls2xml import TSVReader
 
-def test_validate_data():
+def test_valid_data():
     validator = MetadataValidator('data/T2D_xls2xml_v1.schema')
     reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
     reader.active = 'Sample'
@@ -15,7 +15,7 @@ def test_validate_data():
     row = reader.next()
     assert validator.validate_data(row, 'Sample')
 
-def test_invalidate_data():
+def test_invalid_data():
     validator = MetadataValidator('data/T2D_xls2xml_v1.schema')
     reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
     reader.active = 'Sample'
