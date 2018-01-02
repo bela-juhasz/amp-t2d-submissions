@@ -1,0 +1,31 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20150721
+##source=PLINKv1.90
+##INFO=<ID=PR,Number=0,Type=Flag,Description="Provisional reference allele, may not be based on real reference genome">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##contig=<ID=1>
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAM111111	FEM1	SAM111113	SAM111114	SAM111115	SAM111116	SAM111117	SAM111118
+1	14147	TBGI000006	T	C	.	.	PR;AC=0;AN=6	GT	0/0	./.	0/0	./.	./.	./.	0/0	./.
+1	71213	TBGI000010	A	G	.	.	PR;AC=6;AN=14	GT	0/0	1/1	./.	0/0	1/1	1/1	0/0	0/0
+1	74192	TBGI000024	T	C	.	.	PR;AC=2;AN=12	GT	0/0	./.	0/0	0/0	1/1	./.	0/0	0/0
+1	75081	TBGI000027	A	C	.	.	PR;AC=6;AN=16	GT	0/0	1/1	0/0	0/0	1/1	1/1	0/0	0/0
+1	75969	TBGI000032	C	T	.	.	PR;AC=4;AN=16	GT	0/0	1/1	0/0	0/0	1/1	0/0	0/0	0/0
+1	76044	TBGI000033	G	A	.	.	PR;AC=4;AN=14	GT	0/0	1/1	0/0	./.	1/1	0/0	0/0	0/0
+1	76852	TBGI000035	G	A	.	.	PR;AC=2;AN=16	GT	0/0	0/0	0/0	0/0	0/0	1/1	0/0	0/0
+1	76953	TBGI000036	T	G	.	.	PR;AC=6;AN=16	GT	0/0	1/1	0/0	0/0	1/1	1/1	0/0	0/0
+1	87157	TBGI000046	G	T	.	.	PR;AC=2;AN=10	GT	./.	./.	./.	0/0	1/1	0/0	0/0	0/0
+1	90947	TBGI000054	C	A	.	.	PR;AC=2;AN=8	GT	0/0	./.	./.	./.	./.	1/1	0/0	0/0
+1	92016	TBGI000058	A	G	.	.	PR;AC=2;AN=8	GT	1/1	./.	./.	0/0	./.	./.	0/0	0/0
+1	93460	TBGI000066	A	T	.	.	PR;AC=2;AN=4	GT	./.	1/1	./.	./.	./.	./.	./.	0/0
+1	147625	TBGI000068	C	T	.	.	PR;AC=2;AN=12	GT	0/0	./.	./.	0/0	1/1	0/0	0/0	0/0
+1	147901	TBGI000069	T	C	.	.	PR;AC=2;AN=14	GT	0/0	0/0	0/0	./.	0/0	1/1	0/0	0/0
+1	150005	TBGI000073	T	G	.	.	PR;AC=4;AN=12	GT	0/0	./.	./.	0/0	1/1	1/1	0/0	0/0
+1	150754	TBGI000074	A	T	.	.	PR;AC=4;AN=14	GT	0/0	./.	0/0	0/0	1/1	1/1	0/0	0/0
+1	150976	TBGI000075	G	A	.	.	PR;AC=2;AN=14	GT	0/0	0/0	./.	0/0	0/0	1/1	0/0	0/0
+1	151264	TBGI000076	C	T	.	.	PR;AC=2;AN=16	GT	0/0	0/0	0/0	0/0	0/0	1/1	0/0	0/0
+1	152418	TBGI000078	A	G	.	.	PR;AC=4;AN=14	GT	0/0	./.	0/0	0/0	1/1	1/1	0/0	0/0
+1	152492	TBGI000079	A	G	.	.	PR;AC=2;AN=16	GT	0/0	0/0	0/0	0/0	0/0	1/1	0/0	0/0
+1	152739	TBGI000080	A	G	.	.	PR;AC=6;AN=14	GT	0/0	1/1	./.	0/0	1/1	1/1	0/0	0/0

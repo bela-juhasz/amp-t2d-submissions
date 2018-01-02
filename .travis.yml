@@ -5,8 +5,12 @@ python:
 
 install:
   - cd xls2xml && pip install -r requirements.txt && cd ..
+  - cd samples_checker && pip install -r requirements.txt && cd ..
 
 script:
   - cd xls2xml && pylint --errors-only ./xls2xml/ && cd ..
   - cd xls2xml && pylint --errors-only ./tests/ && cd ..
   - cd xls2xml/tests && pytest && cd ../..
+  - cd samples_checker && pylint --errors-only ./samples_checker/ && cd ..
+  - cd samples_checker && pylint --errors-only ./tests/ && cd ..
+  - cd samples_checker/tests && pytest && cd ../..

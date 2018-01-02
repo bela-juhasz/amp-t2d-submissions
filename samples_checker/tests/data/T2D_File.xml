@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FILE_SET>
+  <FILE>
+    <FILE_NAME>genotypes.8.vcf</FILE_NAME>
+    <FILE_TYPE>vcf</FILE_TYPE>
+  </FILE>
+  <FILE>
+    <FILE_NAME>summary.hyperinsulinism.tsv</FILE_NAME>
+    <FILE_TYPE/>
+  </FILE>
+  <FILE>
+    <FILE_NAME>genotypes.6.vcf</FILE_NAME>
+    <FILE_TYPE>vcf</FILE_TYPE>
+  </FILE>
+  <FILE>
+    <FILE_NAME>genotypes.4.vcf</FILE_NAME>
+    <FILE_TYPE>vcf</FILE_TYPE>
+  </FILE>
+</FILE_SET>
