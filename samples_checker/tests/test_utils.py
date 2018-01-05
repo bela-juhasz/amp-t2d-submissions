@@ -34,9 +34,12 @@ def test_get_genotype_ids():
     assert samples_out == ['SAM111116', 'SAM111115', 'SAM111114', 'SAM111113',
                            'FEM1', 'SAM111111']
 
-def test_check_samples_in_file():
-    samples_in = {'SAM111116': '', 'SAM111115': '', 'SAM111114': '', 'SAM111113': '',
-                  'SAM111112': 'FEM1', 'SAM111111': ''}
-    difference = utils.check_samples_in_file(samples_in, 'data/genotypes.6.vcf', 'vcf')
-    assert isinstance(difference, list)
-    assert difference == ['SAM111112']
+def test_get_sample_difference():
+    submission_samples = {'SAM111116': '', 'SAM111115': '', 'SAM111114': '', 'SAM111113': '',
+                          'SAM111112': 'FEM1', 'SAM111111': ''}
+    diff_submission_submitted_file, diff_submitted_file_submission =\
+        utils.get_sample_difference(submission_samples, 'data/genotypes.6.vcf', 'vcf')
+    assert isinstance(diff_submitted_file_submission, list)
+    assert diff_submitted_file_submission == ['SAM111112']
+    assert isinstance(diff_submission_submitted_file, list)
+    assert diff_submission_submitted_file == ['FEM1']

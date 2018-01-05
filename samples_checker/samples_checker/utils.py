@@ -68,33 +68,38 @@ def get_genotype_ids(samples):
     """
     return [samples[key] if samples[key] else key for key in samples]
 
-def check_samples_in_file(samples, file_name, file_type):
+def get_sample_difference(submission_samples, submitted_file, submitted_file_type):
     """
-    Check that all the samples contained in the file_name are found in the samples
-    :param samples: mapping between sample_id and genotype_id
-    :type samples: dict
-    :param file_name: path to the file
-    :type file_name: basestring
-    :param file_type: the type of the file, e.g.: vcf
-    :type file_type: basestring
-    :return: list of samples that are not found
-    :rtype: list
+    Get the set difference between the submission samples and the samples found in submitted_file
+    :param submission_samples: mapping between sample_id and genotype_id from submission xls
+    :type submission_samples: dict
+    :param submitted_file: path to the submitted file
+    :type submitted_file: basestring
+    :param submitted_file_type: the type of the submitted file, e.g.: vcf
+    :type submitted_file_type: basestring
+    :return: two lists of submission_samples
+    :rtype: multiple lists
     """
-    if not samples or not file_type or not file_name:
-        return []
+    if not submission_samples or not submitted_file_type or not submitted_file:
+        return [], []
 
-    if file_type not in FILE_TYPE_TO_FUNCTION:
-        return []
+    if submitted_file_type not in FILE_TYPE_TO_FUNCTION:
+        return [], []
 
-    samples_in_file = FILE_TYPE_TO_FUNCTION[file_type](file_name)
+    samples_from_submitted_file = FILE_TYPE_TO_FUNCTION[submitted_file_type](submitted_file)
 
-    sample_ids = []
-    if file_type == 'vcf':
-        sample_ids = get_genotype_ids(samples)
+    samples_from_submission = []
+    if submitted_file_type == 'vcf':
+        samples_from_submission = get_genotype_ids(submission_samples)
     else:
-        sample_ids = get_sample_ids(samples)
+        samples_from_submission = get_sample_ids(submission_samples)
 
-    return list(set(samples_in_file)-set(sample_ids))
+    diff_submission_submitted_file = list(set(samples_from_submission)-
+                                          set(samples_from_submitted_file))
+    diff_submitted_file_submission = list(set(samples_from_submitted_file)-
+                                          set(samples_from_submission))
+
+    return diff_submission_submitted_file, diff_submitted_file_submission
 
 FILE_TYPE_TO_FUNCTION = {
     'vcf':  get_samples_from_vcf
