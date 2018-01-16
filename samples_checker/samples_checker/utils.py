@@ -70,7 +70,7 @@ def get_genotype_ids(samples):
 
 def get_sample_difference(submission_samples, submitted_file, submitted_file_type):
     """
-    Get the set difference between the submission samples and the samples found in submitted_file
+    Get the set difference between the submission_samples and the samples found in submitted_file
     :param submission_samples: mapping between sample_id and genotype_id from submission xls
     :type submission_samples: dict
     :param submitted_file: path to the submitted file
@@ -80,20 +80,30 @@ def get_sample_difference(submission_samples, submitted_file, submitted_file_typ
     :return: two lists of submission_samples
     :rtype: multiple lists
     """
+
+    # Check arguments
     if not submission_samples or not submitted_file_type or not submitted_file:
         return [], []
 
+    # Make sure we know how to get the samples out of submitted_file
     if submitted_file_type not in FILE_TYPE_TO_FUNCTION:
         return [], []
 
+    # Get the sample set out of submitted_file
     samples_from_submitted_file = FILE_TYPE_TO_FUNCTION[submitted_file_type](submitted_file)
 
+    # Get the sample set from submission template
     samples_from_submission = []
     if submitted_file_type == 'vcf':
+        # this is a special case for AMP where you can specify a geno id for a sample.
+        # the geno id is used in the vcf file.
+        # for other submitted vcf file, you will still get the samples keys.
         samples_from_submission = get_genotype_ids(submission_samples)
     else:
+        # for everything else, just get the keys from submission_samples dictionary
         samples_from_submission = get_sample_ids(submission_samples)
 
+    # Get the bi-directional set differences between above two sets.
     diff_submission_submitted_file = list(set(samples_from_submission)-
                                           set(samples_from_submitted_file))
     diff_submitted_file_submission = list(set(samples_from_submitted_file)-
