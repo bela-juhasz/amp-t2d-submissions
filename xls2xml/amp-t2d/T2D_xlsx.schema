@@ -37,13 +37,6 @@ Cohort:
       type: number
       min: 0
 
-Phenotype_Trait:
-  schema:
-    Age:
-      type: float
-      nullable: False
-      min: 0.1
-
 Sample:
   schema:
     Sample_ID:
@@ -94,4 +87,4 @@ File:
       type: string
       nullable: False
       required: True
-      allowed: ['vcf', 'vcf_aggregate', 'readme_file', 'phenotype_file', 'plink', 'tabix', 'other']
+      allowed: ['vcf', 'vcf_aggregate', 'readme_file', 'phenotype_file', 'tabix', 'other']

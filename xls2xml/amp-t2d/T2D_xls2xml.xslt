@@ -27,34 +27,56 @@ with underscores.
           <xsl:value-of select="Center_name"/>
         </xsl:attribute>
         <xsl:attribute name="broker_name">
-          <xsl:value-of select="Center_name"/>
+          <xsl:value-of select="string('AMP T2D')"/>
         </xsl:attribute>
         <xsl:attribute name="analysis_center">
-          <xsl:value-of select="Center_name"/>
+          <xsl:value-of select="Analysis_center"/>
         </xsl:attribute>
         <xsl:attribute name="analysis_date">
           <xsl:value-of select="Analysis_date"/>
         </xsl:attribute>
         <TITLE><xsl:value-of select="Title"/></TITLE>
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
-        <STUDY_REF><xsl:value-of select="Project_name"/></STUDY_REF>
-        <EXPERIMENT_REF><xsl:value-of select="Experiment_type"/></EXPERIMENT_REF>
-        <RUN_REF><xsl:value-of select="Run_Accession_s_"/></RUN_REF>
+        <RUN_REF>
+          <xsl:attribute name="refname">
+            <xsl:value-of select="Run_Accession_s_"/>
+          </xsl:attribute>
+          <xsl:attribute name="refcenter">
+            <xsl:value-of select="Center_name"/>
+          </xsl:attribute>
+        </RUN_REF>
         <ANALYSIS_TYPE>
-          <REFERENCE_ALIGNMENT>
-            <ASSEMBLY>
-              <STANDARD>
-                <xsl:attribute name="refname">
-                  <xsl:value-of select="Standard_refname_or_Sequence_accession"/>
-                </xsl:attribute>
-                <xsl:attribute name="accession">
-                  <xsl:value-of select="Sequence_accession_label"/>
-                </xsl:attribute>
-              </STANDARD>
-            </ASSEMBLY>
-          </REFERENCE_ALIGNMENT>
+          <SEQUENCE_VARIATION>
+            <EXPERIMENT_TYPE><xsl:value-of select="Experiment_type"/></EXPERIMENT_TYPE>
+            <PLATFORM><xsl:value-of select="Platform"/></PLATFORM>
+            <IMPUTATION><xsl:value-of select="Imputation"/></IMPUTATION>
+          </SEQUENCE_VARIATION>
         </ANALYSIS_TYPE>
-        <ANALYSIS_LINKS><xsl:value-of select="External_link"/></ANALYSIS_LINKS>
+        <FILES>
+          <FILE></FILE>
+        </FILES>
+        <ANALYSIS_LINKS>
+          <ANALYSIS_LINK>
+            <XREF_LINK>
+              <DB><xsl:value-of select="substring-before(External_link, ':')"/></DB>
+              <ID><xsl:value-of select="substring-after(External_ink, ':')"/></ID>
+            </XREF_LINK>
+          </ANALYSIS_LINK>
+        </ANALYSIS_LINKS>
+        <ANALYSIS_ATTRIBUTES>
+          <ANALYSIS_ATTRIBUTE>
+            <TAG>pipeline_description</TAG>
+            <VALUE><xsl:value-of select="Pipeline_Description"/></VALUE>
+          </ANALYSIS_ATTRIBUTE>
+          <ANALYSIS_ATTRIBUTE>
+            <TAG>imputation</TAG>
+            <VALUE><xsl:value-of select="Imputation"/></VALUE>
+          </ANALYSIS_ATTRIBUTE>
+          <ANALYSIS_ATTRIBUTE>
+            <TAG>software</TAG>
+            <VALUE><xsl:value-of select="Software"/></VALUE>
+          </ANALYSIS_ATTRIBUTE>
+        </ANALYSIS_ATTRIBUTES>
       </ANALYSIS>
     </xsl:for-each>
   </ANALYSIS_SET>
@@ -88,14 +110,14 @@ with underscores.
         <xsl:attribute name="center_name">
           <xsl:value-of select="Center_name"/>
         </xsl:attribute>
-        <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
         <SAMPLE_NAME display_name="Human">
           <TAXON_ID>9606</TAXON_ID>
           <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
           <COMMON_NAME>human</COMMON_NAME>
         </SAMPLE_NAME>
+        <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
         <SAMPLE_ATTRIBUTES>
-			    <SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
             <TAG>subject_id</TAG>
             <VALUE><xsl:value-of select="Subject_ID"/></VALUE>
           </SAMPLE_ATTRIBUTE>
@@ -112,12 +134,48 @@ with underscores.
             <VALUE><xsl:value-of select="Gender"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
-            <TAG>T2D</TAG>
+            <TAG>T2D_status</TAG>
             <VALUE><xsl:value-of select="T2D"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
             <TAG>year_of_birth</TAG>
             <VALUE><xsl:value-of select="Year_of_Birth"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>ethnicity</TAG>
+            <VALUE><xsl:value-of select="Ethnicity"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>ethnicity_description</TAG>
+            <VALUE><xsl:value-of select="Ethnicity_Description"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>case_control</TAG>
+            <VALUE><xsl:value-of select="Case_Control"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>of_spanish_origin</TAG>
+            <VALUE><xsl:value-of select="Hispanic_or_Latino__of_Spanish_origin"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>age</TAG>
+            <VALUE><xsl:value-of select="Age"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>year_of_first_visit</TAG>
+            <VALUE><xsl:value-of select="Year_of_first_visit"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>cell_type</TAG>
+            <VALUE><xsl:value-of select="Cell_Type"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>maternal_alias</TAG>
+            <VALUE><xsl:value-of select="Maternal_id"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>paternal_alias</TAG>
+            <VALUE><xsl:value-of select="Paternal_id"/></VALUE>
           </SAMPLE_ATTRIBUTE>
         </SAMPLE_ATTRIBUTES>
       </SAMPLE>
@@ -135,15 +193,40 @@ with underscores.
         </xsl:attribute>
         <DESCRIPTOR>
           <STUDY_TITLE><xsl:value-of select="Project_Name"/></STUDY_TITLE>
-          <STUDY_ABSTRACT><xsl:value-of select="Project_Description"/></STUDY_ABSTRACT>
+          <STUDY_TYPE>
+            <xsl:attribute name="existing_study_type">
+              <xsl:value-of select="string('Other')"/>
+            </xsl:attribute>
+          </STUDY_TYPE>
+          <STUDY_DESCRIPTION><xsl:value-of select="Project_Description"/></STUDY_DESCRIPTION>
         </DESCRIPTOR>
+        <STUDY_LINKS>
+          <STUDY_LINK>
+            <URL_LINK>
+              <LABEL>Project website</LABEL>
+              <URL><xsl:value-of select="Project_website_link"/></URL>
+            </URL_LINK>
+          </STUDY_LINK>
+          <STUDY_LINK>
+            <URL_LINK>
+              <LABEL>Data URL</LABEL>
+              <URL><xsl:value-of select="Data_URL"/></URL>
+            </URL_LINK>
+          </STUDY_LINK>
+          <STUDY_LINK>
+            <XREF_LINK>
+              <DB><xsl:value-of select="substring-before(External_Links, ':')"/></DB>
+              <ID><xsl:value-of select="substring-after(External_Links, ':')"/></ID>
+            </XREF_LINK>
+          </STUDY_LINK>
+          <STUDY_LINK>
+            <XREF_LINK>
+              <DB><xsl:value-of select="substring-before(Project_Publications, ':')"/></DB>
+              <ID><xsl:value-of select="substring-after(Project_Publications, ':')"/></ID>
+            </XREF_LINK>
+          </STUDY_LINK>
+        </STUDY_LINKS>
       </STUDY>
-      <STUDY_ATTRIBUTES>
-        <STUDY_ATTRIBUTE>
-          <TAG>PI(s)</TAG>
-          <VALUE><xsl:value-of select="PI_s_"/></VALUE>
-        </STUDY_ATTRIBUTE>
-      </STUDY_ATTRIBUTES>
     </xsl:for-each>
   </STUDY_SET>
 </xsl:template>
