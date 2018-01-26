@@ -6,10 +6,8 @@ This scripts validates an Excel file with a given schema and convert valid data 
 from __future__ import print_function
 import sys
 import argparse
-from lxml import etree
 from XLSReader import XLSReader
-from MetadataValidator import MetadataValidator
-from utils import header_to_xml_tag
+import utils
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a XML file')
@@ -34,38 +32,15 @@ xslt_filename = args.xslt
 
 xls_reader = XLSReader(xls_filename, xls_conf)
 
-headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
-if not headers:
-    print('Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!',
-          file=sys.stderr)
-    quit(1)
-tags = {header : header_to_xml_tag(header) for header in headers}
-
-xls_validator = MetadataValidator(xls_schema)
-
-has_validation_error = False
-input_xml_root = etree.Element(xls_conf_key+"Set")
-xls_reader.active_worksheet = xls_conf_key
-for row in xls_reader:
-    if xls_validator.validate_data(row, xls_conf_key):
-        element_root = etree.SubElement(input_xml_root, xls_conf_key)
-        for header in headers:
-            child_node = etree.SubElement(element_root, tags[header])
-            child_node.text = str(row.get(header, '') or '')
-    else:
-        has_validation_error = True
-        print("Please fix above error at worksheet " + xls_conf_key + ", row "
-              + str(row["row_num"]) + "!", file=sys.stderr)
-
-if has_validation_error:
+rows = []
+has_no_error = utils.extract_rows(xls_reader, xls_conf_key, xls_schema, rows)
+if not has_no_error:
     quit(1)
 
-xslt_tree = etree.parse(xslt_filename)
-transform = etree.XSLT(xslt_tree)
-output_xml = transform(input_xml_root)
+input_xml_root = utils.rows_to_xml(rows, xls_conf_key)
+output_xml = utils.transform_xml(input_xml_root, xslt_filename)
 
 with open(xml_filename, 'w') as xml_file:
-    xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    xml_file.write(etree.tostring(output_xml, pretty_print=True))
+    utils.write_to_xml(output_xml, xml_file)
 
 print('Conversion complete!', file=sys.stdout)

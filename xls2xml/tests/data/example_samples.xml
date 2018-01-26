@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
   <SAMPLE center_name="WTGC cambridge">
     <DESCRIPTION>Male normal</DESCRIPTION>
@@ -63,12 +64,12 @@
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>year_of_birth</TAG>
-        <VALUE>None</VALUE>
+        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
-    <DESCRIPTION>None</DESCRIPTION>
+    <DESCRIPTION/>
     <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
@@ -97,12 +98,12 @@
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>year_of_birth</TAG>
-        <VALUE>None</VALUE>
+        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
-    <DESCRIPTION>None</DESCRIPTION>
+    <DESCRIPTION/>
     <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
@@ -131,12 +132,12 @@
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>year_of_birth</TAG>
-        <VALUE>None</VALUE>
+        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
-    <DESCRIPTION>None</DESCRIPTION>
+    <DESCRIPTION/>
     <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
@@ -165,12 +166,12 @@
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>year_of_birth</TAG>
-        <VALUE>None</VALUE>
+        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
-    <DESCRIPTION>None</DESCRIPTION>
+    <DESCRIPTION/>
     <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
@@ -199,7 +200,7 @@
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>year_of_birth</TAG>
-        <VALUE>None</VALUE>
+        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
