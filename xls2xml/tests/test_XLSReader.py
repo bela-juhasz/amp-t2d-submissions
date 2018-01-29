@@ -2,15 +2,15 @@ from xls2xml import XLSReader
 
 def test_valid_worksheets():
     xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
-    worksheets = xls_reader.valid_worksheets();
+    worksheets = xls_reader.valid_worksheets()
     assert isinstance(worksheets, list)
-    assert set(worksheets) == {'Sample', 'Analysis'}
+    assert set(worksheets) == {'Sample', 'Analysis', 'File'}
 
 def test_get_valid_keys():
     xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
-    worksheets = xls_reader.valid_worksheets();
+    worksheets = xls_reader.valid_worksheets()
     assert isinstance(worksheets, list)
-    assert set(worksheets) == {'Sample', 'Analysis'}
+    assert set(worksheets) == {'Sample', 'Analysis', 'File'}
 
 def test_set_current_key():
     xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')

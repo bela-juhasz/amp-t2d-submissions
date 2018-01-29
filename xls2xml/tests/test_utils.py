@@ -102,3 +102,12 @@ def test_write_empty_xml():
     assert transformed_xml.getroot() is None # to make sure the transformed_xml is empty
     with open('data/out_empty.xml', 'w') as xml_file:
         utils.write_to_xml(transformed_xml, xml_file)
+
+def test_multiple_sheets_to_xml():
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    output_xml = utils.multiple_sheets_to_xml(xls_reader, str('Analysis,File').split(','),
+                                              'data/T2D_xls2xml_v1.schema', 'data/T2D_xls2xml_v2.xslt')
+    print(etree.tostring(output_xml, pretty_print=True))
+    with open('data/example_analysis.xml', 'r') as analysis_example:
+        assert analysis_example.readline()
+        assert etree.tostring(output_xml, pretty_print=True) == analysis_example.read()

@@ -16,7 +16,7 @@ arg_parser.add_argument('xml', help='XML file to be written to')
 arg_parser.add_argument('--conf', required=True, dest='conf',
                         help='Configuration file contains list of worksheets and fields')
 arg_parser.add_argument('--conf-key', required=True, dest='confKey',
-                        help='Key to retrieve the list of field')
+                        help='Keys/tabs (comma delimited) to retrieve the list of field')
 arg_parser.add_argument('--schema', required=True, dest='schema',
                         help='Schema definition for data field')
 arg_parser.add_argument('--xslt', required=True, dest='xslt',
@@ -26,19 +26,13 @@ args = arg_parser.parse_args()
 xls_filename = args.xls
 xml_filename = args.xml
 xls_conf = args.conf
-xls_conf_key = args.confKey
+xls_conf_keys = args.confKey.split(',')
 xls_schema = args.schema
 xslt_filename = args.xslt
 
 xls_reader = XLSReader(xls_filename, xls_conf)
 
-rows = []
-has_no_error = utils.extract_rows(xls_reader, xls_conf_key, xls_schema, rows)
-if not has_no_error:
-    quit(1)
-
-input_xml_root = utils.rows_to_xml(rows, xls_conf_key)
-output_xml = utils.transform_xml(input_xml_root, xslt_filename)
+output_xml = utils.multiple_sheets_to_xml(xls_reader, xls_conf_keys, xls_schema, xslt_filename)
 
 with open(xml_filename, 'w') as xml_file:
     utils.write_to_xml(output_xml, xml_file)

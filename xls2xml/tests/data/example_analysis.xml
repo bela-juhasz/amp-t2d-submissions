@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ANALYSIS_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
+  <ANALYSIS alias="AN001" center_name="WTGC" broker_name="AMP T2D" analysis_center="" analysis_date="2013-11-01T10:10:10.0Z">
+    <TITLE>WTGC T2D Analysis</TITLE>
+    <DESCRIPTION/>
+    <RUN_REF refname="EGAR01000000002" refcenter="WTGC"/>
+    <ANALYSIS_TYPE>
+      <SEQUENCE_VARIATION>
+        <EXPERIMENT_TYPE>Exome sequencing</EXPERIMENT_TYPE>
+        <PLATFORM>Illumina Genome Analyzer II</PLATFORM>
+        <IMPUTATION>0</IMPUTATION>
+      </SEQUENCE_VARIATION>
+    </ANALYSIS_TYPE>
+    <FILES>
+      <File filename="genotypes.vcf.gz" filetype="vcf" checksum_method="MD5" checksum="2ed857d771b1b69fb81a09b1cc0d7909" unencrypted_checksum="2ed857d771b1b69fb81a09b1cc0d7908"/>
+      <File filename="summary.hyperinsulinism.tsv" filetype="plink" checksum_method="MD5" checksum="2ed857d771b1b69fb81a09b1cc0d7909" unencrypted_checksum="2ed857d771b1b69fb81a09b1cc0d7908"/>
+    </FILES>
+    <ANALYSIS_LINKS>
+      <ANALYSIS_LINK>
+        <XREF_LINK>
+          <DB/>
+          <ID/>
+        </XREF_LINK>
+      </ANALYSIS_LINK>
+    </ANALYSIS_LINKS>
+    <ANALYSIS_ATTRIBUTES>
+      <ANALYSIS_ATTRIBUTE>
+        <TAG>pipeline_description</TAG>
+        <VALUE>Alignment using BWA. Variant calling using the standard GATK pipeline. Association done using PLINK</VALUE>
+      </ANALYSIS_ATTRIBUTE>
+      <ANALYSIS_ATTRIBUTE>
+        <TAG>imputation</TAG>
+        <VALUE>0</VALUE>
+      </ANALYSIS_ATTRIBUTE>
+      <ANALYSIS_ATTRIBUTE>
+        <TAG>software</TAG>
+        <VALUE>BWA, GATK, PLINK</VALUE>
+      </ANALYSIS_ATTRIBUTE>
+    </ANALYSIS_ATTRIBUTES>
+  </ANALYSIS>
+</ANALYSIS_SET>

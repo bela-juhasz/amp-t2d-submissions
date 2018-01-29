@@ -131,3 +131,27 @@ def write_to_xml(input_xml, outfile):
     outfile.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     if input_xml.getroot() is not None:
         outfile.write(etree.tostring(input_xml, pretty_print=True))
+
+def multiple_sheets_to_xml(xls_reader, conf_keys, xls_schema_filename, xslt_filename):
+    """
+    Retrieve data from multiple worksheets and transform into an xml tree
+
+    :param xls_reader: xml file reader
+    :type xls_reader: XLSReader
+    :param conf_keys: list of worksheet titles
+    :type conf_keys: list
+    :param xls_schema_filename: path to the validation rules definition file
+    :type xls_schema_filename: basestring
+    :param xslt_filename: path to the xslt transformation rules definition
+    :type xslt_filename: basestring
+    :return: transformed xml tree object
+    :rtype: etree.Element
+    """
+    input_xml_root = etree.Element("ResultSet")
+    for key in conf_keys:
+        rows = []
+        if extract_rows(xls_reader, key, xls_schema_filename, rows):
+            input_xml_root.append(rows_to_xml(rows, key))
+
+    output_xml = transform_xml(input_xml_root, xslt_filename)
+    return output_xml
