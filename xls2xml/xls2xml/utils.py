@@ -129,4 +129,5 @@ def write_to_xml(input_xml, outfile):
     :type outfile: File
     """
     outfile.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    outfile.write(etree.tostring(input_xml, pretty_print=True))
+    if input_xml.getroot() is not None:
+        outfile.write(etree.tostring(input_xml, pretty_print=True))

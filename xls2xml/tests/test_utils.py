@@ -92,3 +92,13 @@ def test_write_to_xml():
     io_stream.seek(0)
     assert io_stream.read() == open('data/example_samples.xml').read()
     io_stream.close()
+
+def test_write_empty_xml():
+    rows = []
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    assert utils.extract_rows(xls_reader, 'File', 'data/T2D_xls2xml_v1.schema', rows)
+    input_xml = utils.rows_to_xml(rows, 'File')
+    transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
+    assert transformed_xml.getroot() is None # to make sure the transformed_xml is empty
+    with open('data/out_empty.xml', 'w') as xml_file:
+        utils.write_to_xml(transformed_xml, xml_file)
