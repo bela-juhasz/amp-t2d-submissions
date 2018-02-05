@@ -5,12 +5,26 @@ xls2xml module
 This simple tool suite is for validating xls, converting xls to tsv or xml file.
 
 ### Prerequisites
+This package depends on the following packages (e.g. on RedHat 7):
+```commandline
+gcc openssl-devel bzip2-devel libxml2 libxml2-devel libxslt libxslt-devel python-wheel python2-pip
+```
+To install all the other Python dependencies with virtualenv:
 ```commandline
 git clone https://github.com/EBIvariation/amp-t2d-submissions
 cd amp-t2d-submissions/xls2xml
 virtualenv -p python2.7 venv
 source venv/bin/activate
 pip install -r requirements.txt
+deactivate
+```
+Making this tool portable (on similar system):
+```commandline
+# First copy all the files including virtualenv ENV to their new destination
+# Then in the new location, replace the absolute paths in the script
+sed -i 's/\/path\/to\/old\/venv/\/path\/to\/new\/venv/g' venv/bin/*
+source venv/bin/activate
+# Run your jobs
 deactivate
 ```
 
