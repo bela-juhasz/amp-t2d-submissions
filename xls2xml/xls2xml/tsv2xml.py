@@ -41,6 +41,6 @@ input_xml_root = utils.rows_to_xml(rows, tsv_conf_key)
 output_xml = utils.transform_xml(input_xml_root, xslt_filename)
 
 with open(xml_filename, 'w') as xml_file:
-    utils.write_to_xml(output_xml, xml_file)
+    utils.save_xml(output_xml, xml_file)
 
 print('Conversion complete!', file=sys.stdout)

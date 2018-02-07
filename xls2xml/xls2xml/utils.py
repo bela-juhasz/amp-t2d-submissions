@@ -37,9 +37,9 @@ def validate_file(reader, validation_schema_filename):
     """
     has_validation_error = False
     validator = MetadataValidator(validation_schema_filename)
-    keys = reader.get_valid_keys()
+    keys = reader.get_valid_conf_keys()
     for key in keys:
-        reader.set_current_key(key)
+        reader.set_current_conf_key(key)
         for row in reader:
             if not validator.validate_data(row, key):
                 has_validation_error = True
@@ -62,7 +62,7 @@ def extract_rows(reader, current_key, validation_schema_filename, rows):
     :return: False if there is error or True for success
     :rtype: bool
     """
-    reader.set_current_key(current_key)
+    reader.set_current_conf_key(current_key)
     headers = reader.get_current_headers()
     if not headers:
         print('There is no header row!', file=sys.stderr)
@@ -119,9 +119,9 @@ def transform_xml(input_xml, xslt_filename):
     output_xml = transform(input_xml)
     return output_xml
 
-def write_to_xml(input_xml, outfile):
+def save_xml(input_xml, outfile):
     """
-    Write the contents of an xml tree to a file handle
+    Save the contents of an xml tree and write them to a file handle
 
     :param input_xml: the input xml tree
     :type input_xml: etree._Element

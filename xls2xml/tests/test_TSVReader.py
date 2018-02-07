@@ -1,25 +1,25 @@
 from xls2xml import TSVReader
 
-def test_get_valid_keys():
+def test_get_valid_conf_keys():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
-    assert set(tsv_reader.get_valid_keys()) == {'Sample'}
+    assert set(tsv_reader.get_valid_conf_keys()) == {'Sample'}
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Analysis')
-    assert tsv_reader.get_valid_keys() == []
+    assert tsv_reader.get_valid_conf_keys() == []
 
-def test_set_current_key():
-    # set_current_key() should does nothing
+def test_set_current_conf_key():
+    # set_current_conf_key() should does nothing
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
     assert tsv_reader.is_valid()
-    assert set(tsv_reader.get_valid_keys()) == {'Sample'}
-    tsv_reader.set_current_key('Analysis')
+    assert set(tsv_reader.get_valid_conf_keys()) == {'Sample'}
+    tsv_reader.set_current_conf_key('Analysis')
     assert tsv_reader.is_valid()
-    assert set(tsv_reader.get_valid_keys()) == {'Sample'}
+    assert set(tsv_reader.get_valid_conf_keys()) == {'Sample'}
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Analysis')
     assert not tsv_reader.is_valid()
-    assert tsv_reader.get_valid_keys() == []
-    tsv_reader.set_current_key('Sample')
+    assert tsv_reader.get_valid_conf_keys() == []
+    tsv_reader.set_current_conf_key('Sample')
     assert not tsv_reader.is_valid()
-    assert tsv_reader.get_valid_keys() == []
+    assert tsv_reader.get_valid_conf_keys() == []
 
 
 def test_is_not_valid():
@@ -50,3 +50,5 @@ def test_next():
                           'Age': '31', 'Analysis_alias': 'AN001', 'Sample_ID': 'SAM111111', 'Geno_ID': None,
                           'Year of first visit': None, 'Case_Control': 'Control', 'Ethnicity': 'EUWH',
                           'Phenotype': 'MeSH:D006262'})
+    for row in tsv_reader:
+        assert isinstance(row, dict)

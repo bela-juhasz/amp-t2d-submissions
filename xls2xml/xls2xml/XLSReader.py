@@ -79,17 +79,20 @@ class XLSReader(Reader):
             required_headers = self.xls_conf[title].get(REQUIRED_HEADERS_KEY_NAME, [])
             if set(required_headers) <= set(self.headers[title]): # issubset
                 self.worksheets.append(title)
+            else:
+                print('Worksheet '+title+' does not have all the required headers!', file=sys.stderr)
+                self.valid = False
 
         return self.worksheets
 
-    def get_valid_keys(self):
+    def get_valid_conf_keys(self):
         """
         :return: the list of valid worksheet names
         :rtype: list
         """
         return self.valid_worksheets()
 
-    def set_current_key(self, current_key):
+    def set_current_conf_key(self, current_key):
         """
         Set the active_worksheet with value in $current_key
 
@@ -100,8 +103,24 @@ class XLSReader(Reader):
         """
         self.active_worksheet = current_key
 
+    def is_valid(self):
+        """
+        Check that is all the worksheets contain required headers
+
+        :return: True if all the worksheets contain required headers. False otherwise
+        :rtype: bool
+        """
+        if self.valid is None:
+            self.valid = True
+            self.valid_worksheets()
+
+        return self.valid
+
+
     def get_current_headers(self):
         """
+        Retrieve the list of worksheets that have all the required headers
+
         :return: the list of valid worksheet names in the Excel file
         :rtype: list
         """

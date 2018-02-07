@@ -36,7 +36,7 @@ if not has_no_error:
 
 tsv_writer = tsv.TsvWriter(open(tsv_filename, 'w'))
 
-xls_reader.set_current_key(xls_conf_key)
+xls_reader.set_current_conf_key(xls_conf_key)
 headers = xls_reader.get_current_headers()
 tsv_writer.list_line(headers)
 

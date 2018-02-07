@@ -25,8 +25,12 @@ tsv_conf_key = args.confKey
 tsv_schema = args.schema
 
 tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
-has_no_error = validate_file(tsv_reader, tsv_schema)
+if not tsv_reader.is_valid():
+    print('TSV file does not have all the required fields!', file=sys.stderr)
+    print('Validation failed!', file=sys.stderr)
+    quit(1)
 
+has_no_error = validate_file(tsv_reader, tsv_schema)
 if not has_no_error:
     print('Validation failed!', file=sys.stderr)
     quit(1)

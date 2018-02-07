@@ -22,8 +22,11 @@ xls_conf = args.conf
 xls_schema = args.schema
 
 xls_reader = XLSReader(xls_filename, xls_conf)
-has_no_error = validate_file(xls_reader, xls_schema)
+if not xls_reader.is_valid():
+    print('Validation failed!', file=sys.stderr)
+    quit(1)
 
+has_no_error = validate_file(xls_reader, xls_schema)
 if not has_no_error:
     print('Validation failed!', file=sys.stderr)
     quit(1)

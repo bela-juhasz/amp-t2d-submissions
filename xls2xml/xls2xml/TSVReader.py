@@ -33,6 +33,8 @@ class TSVReader(Reader):
         :type tsv_filename: basestring
         :param conf_filename: configuration file path
         :type conf_filename: basestring
+        :param conf_key: first level key in the configuration to access that section
+        :type conf_key: basestring
         """
         with open(conf_filename, 'r') as conf_file:
             self.tsv_conf = yaml.load(conf_file)
@@ -48,7 +50,7 @@ class TSVReader(Reader):
     def __iter__(self):
         return self
 
-    def get_valid_keys(self):
+    def get_valid_conf_keys(self):
         """
         Get the configuration key
 
@@ -59,7 +61,7 @@ class TSVReader(Reader):
             return [self.tsv_conf_key]
         return []
 
-    def set_current_key(self, current_key):
+    def set_current_conf_key(self, current_key):
         pass # do nothing
 
     def is_valid(self):

@@ -31,7 +31,7 @@ def test_validate_file():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
     assert utils.validate_file(tsv_reader, validation_schema)
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
-    xls_reader.set_current_key('Sample')
+    xls_reader.set_current_conf_key('Sample')
     assert utils.validate_file(xls_reader, validation_schema)
 
 def test_extract_rows():
@@ -52,7 +52,7 @@ def test_extract_rows():
     assert isinstance(rows, list)
     assert 6 == len(rows)
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
-    xls_reader.set_current_key('Sample')
+    xls_reader.set_current_conf_key('Sample')
     for a, b in zip(rows, xls_reader):
         assert 0 == cmp(a, b)
 
@@ -81,14 +81,14 @@ def test_transform_xml():
         assert example_xml.readline() == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         assert etree.tostring(output_xml, pretty_print=True) == example_xml.read()
 
-def test_write_to_xml():
+def test_save_xml():
     rows = []
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
     assert utils.extract_rows(xls_reader, 'Sample', 'data/T2D_xls2xml_v1.schema', rows)
     input_xml = utils.rows_to_xml(rows, 'Sample')
     transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
     io_stream = StringIO()
-    utils.write_to_xml(transformed_xml, io_stream)
+    utils.save_xml(transformed_xml, io_stream)
     io_stream.seek(0)
     assert io_stream.read() == open('data/example_samples.xml').read()
     io_stream.close()
@@ -101,13 +101,12 @@ def test_write_empty_xml():
     transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
     assert transformed_xml.getroot() is None # to make sure the transformed_xml is empty
     with open('data/out_empty.xml', 'w') as xml_file:
-        utils.write_to_xml(transformed_xml, xml_file)
+        utils.save_xml(transformed_xml, xml_file)
 
 def test_multiple_sheets_to_xml():
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
     output_xml = utils.multiple_sheets_to_xml(xls_reader, str('Analysis,File').split(','),
                                               'data/T2D_xls2xml_v1.schema', 'data/T2D_xls2xml_v2.xslt')
-    print(etree.tostring(output_xml, pretty_print=True))
     with open('data/example_analysis.xml', 'r') as analysis_example:
         assert analysis_example.readline()
         assert etree.tostring(output_xml, pretty_print=True) == analysis_example.read()

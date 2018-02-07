@@ -17,11 +17,11 @@ class Reader(object):
         pass
 
     @abstractmethod
-    def get_valid_keys(self):
+    def get_valid_conf_keys(self):
         pass
 
     @abstractmethod
-    def set_current_key(self, current_key):
+    def set_current_conf_key(self, current_key):
         pass
 
     @abstractmethod
