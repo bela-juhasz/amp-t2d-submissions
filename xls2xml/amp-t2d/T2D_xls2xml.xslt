@@ -16,7 +16,7 @@ with underscores.
 <xsl:output method="xml" indent="yes"/>
 
 <!--> Analysis <-->
-<xsl:template match="/AnalysisSet">
+<xsl:template match="AnalysisSet">
   <ANALYSIS_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
     <xsl:for-each select="Analysis">
       <ANALYSIS>
@@ -53,7 +53,25 @@ with underscores.
           </SEQUENCE_VARIATION>
         </ANALYSIS_TYPE>
         <FILES>
-          <FILE></FILE>
+          <xsl:for-each select="/ResultSet/FileSet/File[Analysis_alias=$analysis_alias]">
+            <File>
+              <xsl:attribute name="filename">
+                <xsl:value-of select="Filename"/>
+              </xsl:attribute>
+              <xsl:attribute name="filetype">
+                <xsl:value-of select="Filetype"/>
+              </xsl:attribute>
+              <xsl:attribute name="checksum_method">
+                <xsl:value-of select="string('MD5')"/>
+              </xsl:attribute>
+              <xsl:attribute name="checksum">
+                <xsl:value-of select="Encrypted_checksum"/>
+              </xsl:attribute>
+              <xsl:attribute name="unencrypted_checksum">
+                <xsl:value-of select="Unencrypted_checksum"/>
+              </xsl:attribute>
+            </File>
+          </xsl:for-each>
         </FILES>
         <ANALYSIS_LINKS>
           <ANALYSIS_LINK>
@@ -100,7 +118,7 @@ with underscores.
 </xsl:template-->
 
 <!--> Sample <-->
-<xsl:template match="/SampleSet"><!-->Should match <key_in_config>+'Set'<-->
+<xsl:template match="SampleSet"><!-->Should match <key_in_config>+'Set'<-->
   <SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
     <xsl:for-each select="Sample"><!-->Should select from <key_in_config><-->
       <SAMPLE>
@@ -184,7 +202,7 @@ with underscores.
 </xsl:template>
 
 <!--> Study <-->
-<xsl:template match="/ProjectSet">
+<xsl:template match="ProjectSet">
   <STUDY_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd">
     <xsl:for-each select="Project">
       <STUDY>
