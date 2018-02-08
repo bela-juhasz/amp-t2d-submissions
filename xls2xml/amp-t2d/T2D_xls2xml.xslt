@@ -237,4 +237,8 @@ with underscores.
   </STUDY_SET>
 </xsl:template>
 
+<xsl:template match="FileSet"/>
+
+<xsl:template match="CohortSet"/>
+
 </xsl:stylesheet>
