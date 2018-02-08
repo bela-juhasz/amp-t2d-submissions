@@ -50,22 +50,6 @@ Sample:
     Gender:
       type: string
       allowed: ['male', 'female', 'unknown']
-    T2D:
-      type: number
-      nullable: True
-      allowed: [0, 1]
-    Age:
-      type: number
-      nullable: False
-      min: 1
-    Year of Birth:
-      type: number
-      nullable: True
-      min: 1900
-    Year of first visit:
-      type: number
-      nullable: True
-      min: 1900
 
 Analysis:
   schema:
@@ -76,6 +60,18 @@ Analysis:
       type: string
       nullable: False
       allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
+    Platform:
+      type: string
+      nullable: False
+      allowed: ['Illumina HiSeq 2000',  'Illumina HiSeq 2500',  'Illumina HiSeq 1000',
+                'Illumina HiScanSQ', 'Illumina MiSeq', 'Illumina Genome Analyzer',
+                'Illumina Genome Analyzer II', 'Illumina Genome Analyzer IIx',
+                'AB SOLiD System 2.0', 'AB SOLiD System 3.0', 'AB SOLiD 3 Plus System',
+                'AB SOLiD 4 System', 'AB SOLiD 4hq System', 'AB SOLiD PI System',
+                'AB 5500 Genetic Analyzer', 'AB 5500xl Genetic Analyzer', 'AB SOLiD System',
+                '454 GS FLX', '454 GS', '454 GS 20', '454 GS FLX+', '454 GS FLX Titanium',
+                '454 GS Junior', 'Complete Genomics', 'unspecified']
+
     Imputation:
       type: number
       nullable: True

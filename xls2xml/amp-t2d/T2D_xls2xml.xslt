@@ -15,7 +15,7 @@ with underscores.
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 <xsl:output method="xml" indent="yes"/>
 
-<!--> Analysis <-->
+<!--> Analysis & File <-->
 <xsl:template match="AnalysisSet">
   <ANALYSIS_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
     <xsl:for-each select="Analysis">
@@ -35,6 +35,9 @@ with underscores.
         <xsl:attribute name="analysis_date">
           <xsl:value-of select="Analysis_date"/>
         </xsl:attribute>
+        <xsl:variable name="analysis_alias">
+          <xsl:value-of select="Analysis_alias"/>
+        </xsl:variable>
         <TITLE><xsl:value-of select="Title"/></TITLE>
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
         <RUN_REF>
@@ -100,24 +103,7 @@ with underscores.
   </ANALYSIS_SET>
 </xsl:template>
 
-<!--> Experiment <-->
-<!--xsl:template match="/AnalysisSet">
-  <EXPERITMENT_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.experiment.xsd">
-    <EXPERIMENT>
-      <xsl:attribute name="center_name">
-        <xsl:value-of select="Center_name"/>
-      </xsl:attribute>
-      <TITLE><xsl:value-of select="Title"/></TITLE>
-      <STUDY_REF>
-        <xsl:attribute name="refname">
-          <xsl:value-of select="Project_name"/>
-        </xsl:attribute>
-      </STUDY_REF>
-    </EXPERIMENT>
-  </EXPERITMENT_SET>
-</xsl:template-->
-
-<!--> Sample <-->
+<!--> Sample & Cohort <-->
 <xsl:template match="SampleSet"><!-->Should match <key_in_config>+'Set'<-->
   <SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
     <xsl:for-each select="Sample"><!-->Should select from <key_in_config><-->
@@ -125,9 +111,9 @@ with underscores.
         <xsl:attribute name="alias">
           <xsl:value-of select="Sample_ID"/>
         </xsl:attribute>
-        <xsl:attribute name="center_name">
-          <xsl:value-of select="Center_name"/>
-        </xsl:attribute>
+        <xsl:variable name="cohort_id">
+          <xsl:value-of select="Cohort_ID"/>
+        </xsl:variable>
         <SAMPLE_NAME display_name="Human">
           <TAXON_ID>9606</TAXON_ID>
           <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
@@ -140,52 +126,54 @@ with underscores.
             <VALUE><xsl:value-of select="Subject_ID"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
-            <TAG>phenotype</TAG>
-            <VALUE><xsl:value-of select="Phenotype"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>cell_type</TAG>
-            <VALUE><xsl:value-of select="Cell_Type"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
             <TAG>gender</TAG>
             <VALUE><xsl:value-of select="Gender"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
-            <TAG>T2D_status</TAG>
-            <VALUE><xsl:value-of select="T2D"/></VALUE>
+            <TAG>analysis_alias</TAG>
+            <VALUE><xsl:value-of select="Analysis_alias"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
-            <TAG>year_of_birth</TAG>
-            <VALUE><xsl:value-of select="Year_of_Birth"/></VALUE>
+            <TAG>cohort_id</TAG>
+            <VALUE><xsl:value-of select="Cohort_ID"/></VALUE>
           </SAMPLE_ATTRIBUTE>
+          <xsl:for-each select="/ResultSet/CohortSet/Cohort[Cohort_ID=$cohort_id]">
+            <SAMPLE_ATTRIBUTE>
+              <TAG>cohort_name</TAG>
+              <VALUE><xsl:value-of select="Cohort_Name"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>cohort_description</TAG>
+              <VALUE><xsl:value-of select="Cohort_Description"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>cohort_links</TAG>
+              <VALUE><xsl:value-of select="Cohort_Links"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>cohort_publications</TAG>
+              <VALUE><xsl:value-of select="Cohort_Publications"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>case_control_selection_criteria</TAG>
+              <VALUE><xsl:value-of select="Case_Control_selection_criteria"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>external_links</TAG>
+              <VALUE><xsl:value-of select="External_Links"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </xsl:for-each>
           <SAMPLE_ATTRIBUTE>
-            <TAG>ethnicity</TAG>
-            <VALUE><xsl:value-of select="Ethnicity"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>ethnicity_description</TAG>
-            <VALUE><xsl:value-of select="Ethnicity_Description"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>case_control</TAG>
-            <VALUE><xsl:value-of select="Case_Control"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>of_spanish_origin</TAG>
-            <VALUE><xsl:value-of select="Hispanic_or_Latino__of_Spanish_origin"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>age</TAG>
-            <VALUE><xsl:value-of select="Age"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>year_of_first_visit</TAG>
-            <VALUE><xsl:value-of select="Year_of_first_visit"/></VALUE>
+            <TAG>high_level_phenotype</TAG>
+            <VALUE><xsl:value-of select="High_level_Phenotype"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
             <TAG>cell_type</TAG>
             <VALUE><xsl:value-of select="Cell_Type"/></VALUE>
+          </SAMPLE_ATTRIBUTE>
+          <SAMPLE_ATTRIBUTE>
+            <TAG>case_control</TAG>
+            <VALUE><xsl:value-of select="Case_Control"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
             <TAG>maternal_alias</TAG>
