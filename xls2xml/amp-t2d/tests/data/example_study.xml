@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<STUDY_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd">
+  <STUDY alias="AMPT2D">
+    <DESCRIPTOR>
+      <STUDY_TITLE>AMP DCC T2D  submission example</STUDY_TITLE>
+      <STUDY_TYPE existing_study_type="Other"/>
+      <STUDY_DESCRIPTION>RAREMETALWORKER  Association analysis of a control cohort of 4522 Biobank samples using Illumina Infinium Human beadchip array platform.</STUDY_DESCRIPTION>
+    </DESCRIPTOR>
+    <STUDY_LINKS>
+      <STUDY_LINK>
+        <URL_LINK>
+          <LABEL>Project website</LABEL>
+          <URL>https://www.ebi.ac.uk/ega/home</URL>
+        </URL_LINK>
+      </STUDY_LINK>
+      <STUDY_LINK>
+        <URL_LINK>
+          <LABEL>Data URL</LABEL>
+          <URL>https://www.ebi.ac.uk/ega/home</URL>
+        </URL_LINK>
+      </STUDY_LINK>
+      <STUDY_LINK>
+        <XREF_LINK>
+          <DB>EGA</DB>
+          <ID>EGAD10000000000</ID>
+        </XREF_LINK>
+      </STUDY_LINK>
+      <STUDY_LINK>
+        <XREF_LINK>
+          <DB>PubMed</DB>
+          <ID>12345678</ID>
+        </XREF_LINK>
+      </STUDY_LINK>
+    </STUDY_LINKS>
+  </STUDY>
+</STUDY_SET>
