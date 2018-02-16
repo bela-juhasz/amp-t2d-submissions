@@ -1,13 +1,14 @@
 """
-This module reads a TSV file and allows the user to get the 1st line and iterate over the
-rest of the file row by row (next_row()). The returned row is a hash which contains only
-the keys that are defined in a configuration file.
+This module reads a TSV file and allows the user to get the headers at the first row and
+iterate over the rest of the file row by row. The returned row is a hash which contains
+only the keys that are defined in a configuration file.
 
 This module depends on tsv and pyyaml.
 """
-
+from __future__ import print_function
 from tsv import TsvReader
 import yaml
+from Reader import Reader
 
 REQUIRED_HEADERS_KEY_NAME = 'required'
 OPTIONAL_HEADERS_KEY_NAME = 'optional'
@@ -19,7 +20,7 @@ DATA_TYPE_TO_FUNCTION = {
     'str':      str
 }
 
-class TSVReader(object):
+class TSVReader(Reader):
     """
     Reader for TSV file for the fields from a configuration file
     """
@@ -49,6 +50,20 @@ class TSVReader(object):
     def __iter__(self):
         return self
 
+    def get_valid_conf_keys(self):
+        """
+        Get the configuration key
+
+        :return: a list that contains the only configuration key
+        :rtype: list
+        """
+        if self.is_valid():
+            return [self.tsv_conf_key]
+        return []
+
+    def set_current_conf_key(self, current_key):
+        pass # do nothing
+
     def is_valid(self):
         """
         Check if the TSV file has all the REQUIRED fields defined in the configuration file
@@ -64,7 +79,7 @@ class TSVReader(object):
 
         return self.valid
 
-    def get_headers(self):
+    def get_current_headers(self):
         """
         :return: The list of field names in the first line of the TSV file.
         :rtype: list

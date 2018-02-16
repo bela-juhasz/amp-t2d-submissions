@@ -6,10 +6,8 @@ This scripts validates an Excel file with a given schema and convert valid data 
 from __future__ import print_function
 import sys
 import argparse
-from lxml import etree
 from XLSReader import XLSReader
-from MetadataValidator import MetadataValidator
-from utils import header_to_xml_tag
+import utils
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a XML file')
@@ -18,7 +16,7 @@ arg_parser.add_argument('xml', help='XML file to be written to')
 arg_parser.add_argument('--conf', required=True, dest='conf',
                         help='Configuration file contains list of worksheets and fields')
 arg_parser.add_argument('--conf-key', required=True, dest='confKey',
-                        help='Key to retrieve the list of field')
+                        help='Keys/tabs (comma delimited) to retrieve the list of field')
 arg_parser.add_argument('--schema', required=True, dest='schema',
                         help='Schema definition for data field')
 arg_parser.add_argument('--xslt', required=True, dest='xslt',
@@ -28,44 +26,19 @@ args = arg_parser.parse_args()
 xls_filename = args.xls
 xml_filename = args.xml
 xls_conf = args.conf
-xls_conf_key = args.confKey
+xls_conf_keys = args.confKey.split(',')
 xls_schema = args.schema
 xslt_filename = args.xslt
 
 xls_reader = XLSReader(xls_filename, xls_conf)
 
-headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
-if not headers:
-    print('Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!',
-          file=sys.stderr)
+try:
+    output_xml = utils.multiple_sheets_to_xml(xls_reader, xls_conf_keys, xls_schema, xslt_filename)
+except Exception as e:
+    print(e.message, file=sys.stderr)
     quit(1)
-tags = {header : header_to_xml_tag(header) for header in headers}
-
-xls_validator = MetadataValidator(xls_schema)
-
-has_validation_error = False
-input_xml_root = etree.Element(xls_conf_key+"Set")
-xls_reader.active_worksheet = xls_conf_key
-for row in xls_reader:
-    if xls_validator.validate_data(row, xls_conf_key):
-        element_root = etree.SubElement(input_xml_root, xls_conf_key)
-        for header in headers:
-            child_node = etree.SubElement(element_root, tags[header])
-            child_node.text = str(row.get(header, '') or '')
-    else:
-        has_validation_error = True
-        print("Please fix above error at worksheet " + xls_conf_key + ", row "
-              + str(row["row_num"]) + "!", file=sys.stderr)
-
-if has_validation_error:
-    quit(1)
-
-xslt_tree = etree.parse(xslt_filename)
-transform = etree.XSLT(xslt_tree)
-output_xml = transform(input_xml_root)
 
 with open(xml_filename, 'w') as xml_file:
-    xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    xml_file.write(etree.tostring(output_xml, pretty_print=True))
+    utils.save_xml(output_xml, xml_file)
 
 print('Conversion complete!', file=sys.stdout)

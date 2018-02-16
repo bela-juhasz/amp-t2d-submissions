@@ -8,7 +8,7 @@ import sys
 import argparse
 import tsv
 from XLSReader import XLSReader
-from MetadataValidator import MetadataValidator
+import utils
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an excel file to a TSV file')
@@ -29,31 +29,26 @@ xls_conf_key = args.confKey
 xls_schema = args.schema
 
 xls_reader = XLSReader(xls_filename, xls_conf)
-
-headers = xls_reader.get_headers_by_worksheet(xls_conf_key)
-if not headers:
-    print('Worksheet ' + xls_conf_key + ' does not have header row in ' + xls_filename + '!',
-          file=sys.stderr)
+rows = []
+has_no_error = utils.extract_rows(xls_reader, xls_conf_key, xls_schema, rows)
+if not has_no_error:
     quit(1)
 
 tsv_writer = tsv.TsvWriter(open(tsv_filename, 'w'))
+
+xls_reader.set_current_conf_key(xls_conf_key)
+headers = []
+try:
+    headers = xls_reader.get_current_headers()
+except Exception as e:
+    print(e.message, file=sys.stderr)
+    quit(1)
 tsv_writer.list_line(headers)
 
-has_validation_error = False
-xls_validator = MetadataValidator(xls_schema)
-xls_reader.active_worksheet = xls_conf_key
-for row in xls_reader:
-    if xls_validator.validate_data(row, xls_conf_key):
-        values = ['' if row.get(header) is None else row.get(header) for header in headers]
-        tsv_writer.list_line(values)
-    else:
-        has_validation_error = True
-        print('Please fix above error at worksheet '+xls_conf_key+', row '+str(row['row_num'])+'!',
-              file=sys.stderr)
+for row in rows:
+    values = ['' if row.get(header) is None else row.get(header) for header in headers]
+    tsv_writer.list_line(values)
 
 tsv_writer.close()
-
-if has_validation_error:
-    quit(1)
 
 print('Conversion complete!', file=sys.stdout)

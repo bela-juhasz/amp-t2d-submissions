@@ -2,14 +2,13 @@
 This scripts validates a TSV file with a given schema and convert valid data into XML file
 """
 # pylint: disable=C0103
+# pylint: disable=relative-import
 
 from __future__ import print_function
 import sys
 import argparse
-from lxml import etree
 from TSVReader import TSVReader
-from MetadataValidator import MetadataValidator
-from utils import header_to_xml_tag
+import utils
 
 arg_parser = argparse.ArgumentParser(
     description='Transform and output validated data from an TSV file to a XML file')
@@ -33,40 +32,15 @@ tsv_schema = args.schema
 xslt_filename = args.xslt
 
 tsv_reader = TSVReader(tsv_filename, tsv_conf, tsv_conf_key)
-tsv_validator = MetadataValidator(tsv_schema)
-
-if not tsv_reader.is_valid():
-    print('TSV file ' + tsv_filename + ' does not contain required fields!', file=sys.stderr)
+rows = []
+has_validation_error = utils.extract_rows(tsv_reader, tsv_conf_key, tsv_schema, rows)
+if has_validation_error:
     quit(1)
 
-headers = tsv_reader.get_headers()
-if not headers:
-    print('TSV file ' + tsv_filename + ' does not have header row!', file=sys.stderr)
-    quit(1)
-
-tags = {header : header_to_xml_tag(header) for header in headers}
-
-has_error = False
-input_xml_root = etree.Element(tsv_conf_key+"Set")
-for row in tsv_reader:
-    if tsv_validator.validate_data(row, tsv_conf_key):
-        element_root = etree.SubElement(input_xml_root, tsv_conf_key)
-        for header in headers:
-            child_node = etree.SubElement(element_root, tags[header])
-            child_node.text = str(row.get(header, ''))
-    else:
-        has_error = True
-
-if has_error:
-    print('Please fix above error at file ' + tsv_filename + '!', file=sys.stderr)
-    quit(1)
-
-xslt_tree = etree.parse(xslt_filename)
-transform = etree.XSLT(xslt_tree)
-output_xml = transform(input_xml_root)
+input_xml_root = utils.rows_to_xml(rows, tsv_conf_key)
+output_xml = utils.transform_xml(input_xml_root, xslt_filename)
 
 with open(xml_filename, 'w') as xml_file:
-    xml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    xml_file.write(etree.tostring(output_xml, pretty_print=True))
+    utils.save_xml(output_xml, xml_file)
 
 print('Conversion complete!', file=sys.stdout)

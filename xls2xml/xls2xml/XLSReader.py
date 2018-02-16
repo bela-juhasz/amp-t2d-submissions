@@ -11,12 +11,13 @@ from __future__ import print_function
 import sys
 from openpyxl import load_workbook
 import yaml
+from Reader import Reader
 
 WORKSHEETS_KEY_NAME = 'worksheets'
 REQUIRED_HEADERS_KEY_NAME = 'required'
 OPTIONAL_HEADERS_KEY_NAME = 'optional'
 
-class XLSReader(object):
+class XLSReader(Reader):
     """
     Reader for Excel file for the fields from worksheets defined in a configuration file
     """
@@ -37,6 +38,7 @@ class XLSReader(object):
         self._active_worksheet = None
         self.row_offset = {}
         self.headers = {}
+        self.valid = None
 
     def __iter__(self):
         return self
@@ -51,6 +53,8 @@ class XLSReader(object):
 
     def valid_worksheets(self):
         """
+        Get the list of the names of worksheets which have all the configured required headers
+
         :return: list of valid worksheet names in the Excel file
         :rtype: list
         """
@@ -70,26 +74,62 @@ class XLSReader(object):
                 continue
 
             # Check required headers are present
-            self.headers[title] = [cell.value if cell.value is None else cell.value.strip() for cell in worksheet[1]]
+            self.headers[title] = [cell.value if cell.value is None else cell.value.strip()
+                                   for cell in worksheet[1]]
             required_headers = self.xls_conf[title].get(REQUIRED_HEADERS_KEY_NAME, [])
             if set(required_headers) <= set(self.headers[title]): # issubset
                 self.worksheets.append(title)
+            else:
+                print('Worksheet '+title+' does not have all the required headers!', file=sys.stderr)
+                self.valid = False
 
         return self.worksheets
 
-    def get_headers_by_worksheet(self, worksheet):
+    def get_valid_conf_keys(self):
         """
-        :param worksheet: the name of the worksheet
-        :type worksheet: basestring
+        :return: the list of valid worksheet names
+        :rtype: list
+        """
+        return self.valid_worksheets()
+
+    def set_current_conf_key(self, current_key):
+        """
+        Set the active_worksheet with value in $current_key
+
+        :param current_key: the name of the worksheet
+        :type current_key:  basestring
+        :return: nothing
+        :rtype: void
+        """
+        self.active_worksheet = current_key
+
+    def is_valid(self):
+        """
+        Check that is all the worksheets contain required headers
+
+        :return: True if all the worksheets contain required headers. False otherwise
+        :rtype: bool
+        """
+        if self.valid is None:
+            self.valid = True
+            self.valid_worksheets()
+
+        return self.valid
+
+
+    def get_current_headers(self):
+        """
+        Retrieve the list of worksheets that have all the required headers
+
         :return: the list of valid worksheet names in the Excel file
         :rtype: list
         """
         worksheets = self.valid_worksheets()
-        if worksheet not in worksheets:
-            print('Worksheet '+worksheet+' is not available or not valid!', file=sys.stderr)
-            return []
+        current_worksheet = self.active_worksheet
+        if current_worksheet not in worksheets:
+            raise Exception('Worksheet '+current_worksheet+' is not available or not valid!')
 
-        return [x for x in self.headers[worksheet] if x is not None]
+        return [x for x in self.headers[current_worksheet] if x is not None]
 
     def next(self):
         """
