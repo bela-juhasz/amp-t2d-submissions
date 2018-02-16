@@ -1,3 +1,4 @@
+import pytest
 from StringIO import StringIO
 from lxml import etree
 from xls2xml import utils
@@ -113,3 +114,7 @@ def test_multiple_sheets_to_xml():
     with open('data/example_analysis.xml', 'r') as analysis_example:
         assert analysis_example.readline()
         assert etree.tostring(output_xml, pretty_print=True) == analysis_example.read()
+
+    with pytest.raises(Exception):
+        utils.multiple_sheets_to_xml(xls_reader, str('Exception,Expected').split(','),
+                                     'data/T2D_xls2xml_v1.schema', 'data/T2D_xls2xml_v2.xslt')

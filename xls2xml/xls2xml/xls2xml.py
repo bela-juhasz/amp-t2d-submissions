@@ -32,7 +32,11 @@ xslt_filename = args.xslt
 
 xls_reader = XLSReader(xls_filename, xls_conf)
 
-output_xml = utils.multiple_sheets_to_xml(xls_reader, xls_conf_keys, xls_schema, xslt_filename)
+try:
+    output_xml = utils.multiple_sheets_to_xml(xls_reader, xls_conf_keys, xls_schema, xslt_filename)
+except Exception as e:
+    print(e.message, file=sys.stderr)
+    quit(1)
 
 with open(xml_filename, 'w') as xml_file:
     utils.save_xml(output_xml, xml_file)

@@ -157,7 +157,7 @@ def multiple_sheets_to_xml(xls_reader, conf_keys, xls_schema_filename, xslt_file
         if extract_rows(xls_reader, key, xls_schema_filename, rows):
             input_xml_root.append(rows_to_xml(rows, key))
         else:
-            quit(1)
+            raise Exception('Failed to extract data for worksheet ' + key)
 
     output_xml = transform_xml(input_xml_root, xslt_filename)
     return output_xml
