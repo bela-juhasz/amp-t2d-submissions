@@ -56,6 +56,9 @@ def test_extract_rows():
     for a, b in zip(rows, xls_reader):
         assert 0 == cmp(a, b)
 
+    rows = []
+    assert not utils.extract_rows(xls_reader, 'FalseExpected', validation_schema, rows)
+
 def test_rows_to_xml():
     rows = []
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')

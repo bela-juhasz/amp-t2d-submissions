@@ -63,7 +63,11 @@ def extract_rows(reader, current_key, validation_schema_filename, rows):
     :rtype: bool
     """
     reader.set_current_conf_key(current_key)
-    headers = reader.get_current_headers()
+    try:
+        headers = reader.get_current_headers()
+    except Exception as e:
+        print(e.message, file=sys.stderr)
+        return False
     if not headers:
         print('There is no header row!', file=sys.stderr)
         return False
@@ -152,6 +156,8 @@ def multiple_sheets_to_xml(xls_reader, conf_keys, xls_schema_filename, xslt_file
         rows = []
         if extract_rows(xls_reader, key, xls_schema_filename, rows):
             input_xml_root.append(rows_to_xml(rows, key))
+        else:
+            quit(1)
 
     output_xml = transform_xml(input_xml_root, xslt_filename)
     return output_xml

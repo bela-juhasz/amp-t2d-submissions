@@ -127,9 +127,7 @@ class XLSReader(Reader):
         worksheets = self.valid_worksheets()
         current_worksheet = self.active_worksheet
         if current_worksheet not in worksheets:
-            print('Worksheet '+current_worksheet+' is not available or not valid!',
-                  file=sys.stderr)
-            return []
+            raise Exception('Worksheet '+current_worksheet+' is not available or not valid!')
 
         return [x for x in self.headers[current_worksheet] if x is not None]
 

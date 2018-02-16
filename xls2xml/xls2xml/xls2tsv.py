@@ -37,7 +37,12 @@ if not has_no_error:
 tsv_writer = tsv.TsvWriter(open(tsv_filename, 'w'))
 
 xls_reader.set_current_conf_key(xls_conf_key)
-headers = xls_reader.get_current_headers()
+headers = []
+try:
+    headers = xls_reader.get_current_headers()
+except Exception as e:
+    print(e.message, file=sys.stderr)
+    quit(1)
 tsv_writer.list_line(headers)
 
 for row in rows:

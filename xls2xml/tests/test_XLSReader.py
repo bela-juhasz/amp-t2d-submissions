@@ -1,3 +1,4 @@
+import pytest
 from xls2xml import XLSReader
 
 def test_valid_worksheets():
@@ -43,6 +44,9 @@ def test_get_current_headers():
                             u'Sequence_accession_label', u'External_link', u'Software',
                             u'Pipeline Description', u'Run Accession(s)', u'Center_name',
                             u'Analysis_date'}
+    xls_reader.set_current_conf_key('ExceptionExpected')
+    with pytest.raises(Exception):
+        xls_reader.get_current_headers()
 
 def test_next_row():
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
