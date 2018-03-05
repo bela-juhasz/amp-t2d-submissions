@@ -12,7 +12,7 @@
     </ANALYSIS_TYPE>
     <FILES>
       <FILE filename="genotypes.vcf.gz" filetype="vcf" checksum_method="MD5" checksum="2ed857d771b1b69fb81a09b1cc0d7909" unencrypted_checksum="2ed857d771b1b69fb81a09b1cc0d7908"/>
-      <FILE filename="example.HEIGHT.SUMMARY.txt" filetype="vcf_aggregate" checksum_method="MD5" checksum="2ed857d771b1b69fb81a09b1cc0d7909" unencrypted_checksum="2ed857d771b1b69fb81a09b1cc0d7908"/>
+      <FILE filename="example.HEIGHT.SUMMARY.txt" filetype="other" checksum_method="MD5" checksum="2ed857d771b1b69fb81a09b1cc0d7909" unencrypted_checksum="2ed857d771b1b69fb81a09b1cc0d7908"/>
     </FILES>
     <ANALYSIS_ATTRIBUTES>
       <ANALYSIS_ATTRIBUTE>
