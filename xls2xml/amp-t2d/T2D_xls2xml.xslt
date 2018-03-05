@@ -17,7 +17,8 @@ with underscores.
 
 <!--> Analysis & File <-->
 <xsl:template match="AnalysisSet">
-  <ANALYSIS_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
+  <ANALYSIS_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
     <xsl:for-each select="Analysis">
       <ANALYSIS>
         <xsl:attribute name="alias">
@@ -52,12 +53,14 @@ with underscores.
           <SEQUENCE_VARIATION>
             <EXPERIMENT_TYPE><xsl:value-of select="Experiment_type"/></EXPERIMENT_TYPE>
             <PLATFORM><xsl:value-of select="Platform"/></PLATFORM>
-            <IMPUTATION><xsl:value-of select="Imputation"/></IMPUTATION>
+            <xsl:if test="Imputation=1">
+              <IMPUTATION><xsl:value-of select="Imputation"/></IMPUTATION>
+            </xsl:if>
           </SEQUENCE_VARIATION>
         </ANALYSIS_TYPE>
         <FILES>
           <xsl:for-each select="/ResultSet/FileSet/File[Analysis_alias=$analysis_alias]">
-            <File>
+            <FILE>
               <xsl:attribute name="filename">
                 <xsl:value-of select="Filename"/>
               </xsl:attribute>
@@ -73,25 +76,24 @@ with underscores.
               <xsl:attribute name="unencrypted_checksum">
                 <xsl:value-of select="Unencrypted_checksum"/>
               </xsl:attribute>
-            </File>
+            </FILE>
           </xsl:for-each>
         </FILES>
-        <ANALYSIS_LINKS>
-          <ANALYSIS_LINK>
-            <XREF_LINK>
-              <DB><xsl:value-of select="substring-before(External_link, ':')"/></DB>
-              <ID><xsl:value-of select="substring-after(External_ink, ':')"/></ID>
-            </XREF_LINK>
-          </ANALYSIS_LINK>
-        </ANALYSIS_LINKS>
+        <xsl:if test="External_link!=''">
+          <ANALYSIS_LINKS>
+            <ANALYSIS_LINK>
+              <XREF_LINK>
+                <LABEL>External Link</LABEL>
+                <DB><xsl:value-of select="substring-before(External_link, ':')"/></DB>
+                <ID><xsl:value-of select="substring-after(External_link, ':')"/></ID>
+              </XREF_LINK>
+            </ANALYSIS_LINK>
+          </ANALYSIS_LINKS>
+        </xsl:if>
         <ANALYSIS_ATTRIBUTES>
           <ANALYSIS_ATTRIBUTE>
             <TAG>pipeline_description</TAG>
             <VALUE><xsl:value-of select="Pipeline_Description"/></VALUE>
-          </ANALYSIS_ATTRIBUTE>
-          <ANALYSIS_ATTRIBUTE>
-            <TAG>imputation</TAG>
-            <VALUE><xsl:value-of select="Imputation"/></VALUE>
           </ANALYSIS_ATTRIBUTE>
           <ANALYSIS_ATTRIBUTE>
             <TAG>software</TAG>
@@ -105,7 +107,8 @@ with underscores.
 
 <!--> Sample & Cohort <-->
 <xsl:template match="SampleSet"><!-->Should match <key_in_config>+'Set'<-->
-  <SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
+  <SAMPLE_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
     <xsl:for-each select="Sample"><!-->Should select from <key_in_config><-->
       <SAMPLE>
         <xsl:attribute name="alias">
@@ -120,6 +123,17 @@ with underscores.
           <COMMON_NAME>human</COMMON_NAME>
         </SAMPLE_NAME>
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
+        <SAMPLE_LINKS>
+          <xsl:for-each select="/ResultSet/CohortSet/Cohort[Cohort_ID=$cohort_id]">
+            <SAMPLE_LINK>
+              <XREF_LINK>
+                <LABEL>Cohort External Link</LABEL>
+                <DB><xsl:value-of select="substring-before(External_Links, ':')"/></DB>
+                <ID><xsl:value-of select="substring-after(External_Links, ':')"/></ID>
+              </XREF_LINK>
+            </SAMPLE_LINK>
+          </xsl:for-each>
+        </SAMPLE_LINKS>
         <SAMPLE_ATTRIBUTES>
           <SAMPLE_ATTRIBUTE>
             <TAG>subject_id</TAG>
@@ -147,10 +161,6 @@ with underscores.
               <VALUE><xsl:value-of select="Cohort_Description"/></VALUE>
             </SAMPLE_ATTRIBUTE>
             <SAMPLE_ATTRIBUTE>
-              <TAG>cohort_links</TAG>
-              <VALUE><xsl:value-of select="Cohort_Links"/></VALUE>
-            </SAMPLE_ATTRIBUTE>
-            <SAMPLE_ATTRIBUTE>
               <TAG>cohort_publications</TAG>
               <VALUE><xsl:value-of select="Cohort_Publications"/></VALUE>
             </SAMPLE_ATTRIBUTE>
@@ -159,8 +169,8 @@ with underscores.
               <VALUE><xsl:value-of select="Case_Control_selection_criteria"/></VALUE>
             </SAMPLE_ATTRIBUTE>
             <SAMPLE_ATTRIBUTE>
-              <TAG>external_links</TAG>
-              <VALUE><xsl:value-of select="External_Links"/></VALUE>
+              <TAG>ethnicity</TAG>
+              <VALUE><xsl:value-of select="Ethnicity"/></VALUE>
             </SAMPLE_ATTRIBUTE>
           </xsl:for-each>
           <SAMPLE_ATTRIBUTE>
@@ -191,7 +201,8 @@ with underscores.
 
 <!--> Study <-->
 <xsl:template match="ProjectSet">
-  <STUDY_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd">
+  <STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd">
     <xsl:for-each select="Project">
       <STUDY>
         <xsl:attribute name="alias">
@@ -221,12 +232,14 @@ with underscores.
           </STUDY_LINK>
           <STUDY_LINK>
             <XREF_LINK>
+              <LABEL>External Link</LABEL>
               <DB><xsl:value-of select="substring-before(External_Links, ':')"/></DB>
               <ID><xsl:value-of select="substring-after(External_Links, ':')"/></ID>
             </XREF_LINK>
           </STUDY_LINK>
           <STUDY_LINK>
             <XREF_LINK>
+              <LABEL>Project Publication</LABEL>
               <DB><xsl:value-of select="substring-before(Project_Publications, ':')"/></DB>
               <ID><xsl:value-of select="substring-after(Project_Publications, ':')"/></ID>
             </XREF_LINK>

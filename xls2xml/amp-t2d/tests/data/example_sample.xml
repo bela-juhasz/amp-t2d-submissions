@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
+<SAMPLE_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
   <SAMPLE alias="SAM111111">
     <SAMPLE_NAME display_name="Human">
       <TAXON_ID>9606</TAXON_ID>
@@ -7,6 +7,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION>Male normal</DESCRIPTION>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>EGA</DB>
+          <ID>EGAD00000000012</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -33,10 +42,6 @@
         <VALUE>Healthy Caucasian Cohort recruited between the ages of 30 to 50 </VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE>https://www.ebi.ac.uk/ega/home</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE>PMID:1111111</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -45,8 +50,8 @@
         <VALUE>Control</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>EGA:EGAD00000000012</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>
@@ -77,6 +82,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION>normal</DESCRIPTION>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>EGA</DB>
+          <ID>EGAD00000000012</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -103,10 +117,6 @@
         <VALUE>Healthy Caucasian Cohort recruited between the ages of 30 to 50 </VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE>https://www.ebi.ac.uk/ega/home</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE>PMID:1111111</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -115,8 +125,8 @@
         <VALUE>Control</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>EGA:EGAD00000000012</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>
@@ -147,6 +157,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION/>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>BioSD</DB>
+          <ID>SAMEG315415</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -173,10 +192,6 @@
         <VALUE>Caucasian individuals with T1D</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
@@ -185,8 +200,8 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>BioSD:SAMEG315415</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>
@@ -217,6 +232,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION/>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>BioSD</DB>
+          <ID>SAMEG315415</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -243,10 +267,6 @@
         <VALUE>Caucasian individuals with T1D</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
@@ -255,8 +275,8 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>BioSD:SAMEG315415</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>
@@ -287,6 +307,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION/>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>BioSD</DB>
+          <ID>SAMEG315415</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -313,10 +342,6 @@
         <VALUE>Caucasian individuals with T1D</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
@@ -325,8 +350,8 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>BioSD:SAMEG315415</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>
@@ -357,6 +382,15 @@
       <COMMON_NAME>human</COMMON_NAME>
     </SAMPLE_NAME>
     <DESCRIPTION/>
+    <SAMPLE_LINKS>
+      <SAMPLE_LINK>
+        <XREF_LINK>
+          <LABEL>Cohort External Link</LABEL>
+          <DB>BioSD</DB>
+          <ID>SAMEG315415</ID>
+        </XREF_LINK>
+      </SAMPLE_LINK>
+    </SAMPLE_LINKS>
     <SAMPLE_ATTRIBUTES>
       <SAMPLE_ATTRIBUTE>
         <TAG>subject_id</TAG>
@@ -383,10 +417,6 @@
         <VALUE>Caucasian individuals with T1D</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>cohort_links</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_publications</TAG>
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
@@ -395,8 +425,8 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>external_links</TAG>
-        <VALUE>BioSD:SAMEG315415</VALUE>
+        <TAG>ethnicity</TAG>
+        <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>high_level_phenotype</TAG>

@@ -41,11 +41,9 @@ Sample:
   schema:
     Sample_ID:
       type: string
-      regex: '^SAM\d+$'
       nullable: False
     Subject_ID:
       type: string
-      regex: '^SAM\d+$'
       nullable: True
     Gender:
       type: string
