@@ -8,6 +8,11 @@
     </SAMPLE_NAME>
     <DESCRIPTION>Male normal</DESCRIPTION>
     <SAMPLE_LINKS>
+      <XREF_LINK>
+        <LABEL>Sample External Link</LABEL>
+        <DB>BioSD</DB>
+        <ID>SAME315415</ID>
+      </XREF_LINK>
       <SAMPLE_LINK>
         <XREF_LINK>
           <LABEL>Cohort External Link</LABEL>
