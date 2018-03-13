@@ -33,7 +33,7 @@
         <VALUE>male</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -108,7 +108,7 @@
         <VALUE>female</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -183,7 +183,7 @@
         <VALUE>female</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -246,7 +246,7 @@
         <VALUE>female</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -309,7 +309,7 @@
         <VALUE>male</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -372,7 +372,7 @@
         <VALUE>male</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_alias</TAG>
+        <TAG>analysis_name</TAG>
         <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>

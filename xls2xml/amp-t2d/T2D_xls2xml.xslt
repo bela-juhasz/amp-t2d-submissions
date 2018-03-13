@@ -54,7 +54,7 @@ with underscores.
     <xsl:for-each select="Analysis">
       <ANALYSIS>
         <xsl:attribute name="alias">
-          <xsl:value-of select="Analysis_alias"/>
+          <xsl:value-of select="Analysis_name"/>
         </xsl:attribute>
         <xsl:attribute name="center_name">
           <xsl:value-of select="Center_name"/>
@@ -68,8 +68,8 @@ with underscores.
         <xsl:attribute name="analysis_date">
           <xsl:value-of select="Analysis_date"/>
         </xsl:attribute>
-        <xsl:variable name="analysis_alias">
-          <xsl:value-of select="Analysis_alias"/>
+        <xsl:variable name="analysis_name">
+          <xsl:value-of select="Analysis_name"/>
         </xsl:variable>
         <TITLE><xsl:value-of select="Title"/></TITLE>
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
@@ -91,7 +91,7 @@ with underscores.
           </SEQUENCE_VARIATION>
         </ANALYSIS_TYPE>
         <FILES>
-          <xsl:for-each select="/ResultSet/FileSet/File[Analysis_alias=$analysis_alias]">
+          <xsl:for-each select="/ResultSet/FileSet/File[Analysis_name=$analysis_name]">
             <FILE>
               <xsl:attribute name="filename">
                 <xsl:value-of select="Filename"/>
@@ -204,8 +204,8 @@ with underscores.
             <VALUE><xsl:value-of select="Gender"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
-            <TAG>analysis_alias</TAG>
-            <VALUE><xsl:value-of select="Analysis_alias"/></VALUE>
+            <TAG>analysis_name</TAG>
+            <VALUE><xsl:value-of select="Analysis_name"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
             <TAG>cohort_id</TAG>
