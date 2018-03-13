@@ -144,10 +144,18 @@ with underscores.
           </xsl:for-each>
         </SAMPLE_LINKS>
         <SAMPLE_ATTRIBUTES>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>subject_id</TAG>
-            <VALUE><xsl:value-of select="Subject_ID"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
+          <xsl:if test="Subject_ID!=''">
+            <SAMPLE_ATTRIBUTE>
+              <TAG>subject_id</TAG>
+              <VALUE><xsl:value-of select="Subject_ID"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </xsl:if>
+          <xsl:if test="Subject_ID=''">
+            <SAMPLE_ATTRIBUTE>
+              <TAG>subject_id</TAG>
+              <VALUE><xsl:value-of select="Sample_ID"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </xsl:if>
           <SAMPLE_ATTRIBUTE>
             <TAG>gender</TAG>
             <VALUE><xsl:value-of select="Gender"/></VALUE>
@@ -173,10 +181,12 @@ with underscores.
               <TAG>cohort_publications</TAG>
               <VALUE><xsl:value-of select="Cohort_Publications"/></VALUE>
             </SAMPLE_ATTRIBUTE>
-            <SAMPLE_ATTRIBUTE>
-              <TAG>case_control_selection_criteria</TAG>
-              <VALUE><xsl:value-of select="Case_Control_selection_criteria"/></VALUE>
-            </SAMPLE_ATTRIBUTE>
+            <xsl:if test="Case_Control_selection_criteria!=''">
+              <SAMPLE_ATTRIBUTE>
+                <TAG>case_control_selection_criteria</TAG>
+                <VALUE><xsl:value-of select="Case_Control_selection_criteria"/></VALUE>
+              </SAMPLE_ATTRIBUTE>
+            </xsl:if>
             <SAMPLE_ATTRIBUTE>
               <TAG>ethnicity</TAG>
               <VALUE><xsl:value-of select="Ethnicity"/></VALUE>
@@ -194,14 +204,18 @@ with underscores.
             <TAG>case_control</TAG>
             <VALUE><xsl:value-of select="Case_Control"/></VALUE>
           </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>maternal_alias</TAG>
-            <VALUE><xsl:value-of select="Maternal_id"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>paternal_alias</TAG>
-            <VALUE><xsl:value-of select="Paternal_id"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
+          <xsl:if test="Maternal_id!=''">
+            <SAMPLE_ATTRIBUTE>
+              <TAG>maternal_alias</TAG>
+              <VALUE><xsl:value-of select="Maternal_id"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </xsl:if>
+          <xsl:if test="Paternal_id!=''">
+            <SAMPLE_ATTRIBUTE>
+              <TAG>paternal_alias</TAG>
+              <VALUE><xsl:value-of select="Paternal_id"/></VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </xsl:if>
         </SAMPLE_ATTRIBUTES>
       </SAMPLE>
     </xsl:for-each>

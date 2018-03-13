@@ -203,10 +203,6 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>case_control_selection_criteria</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>ethnicity</TAG>
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -221,14 +217,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>case_control</TAG>
         <VALUE>Case</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>maternal_alias</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>paternal_alias</TAG>
-        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
@@ -278,10 +266,6 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>case_control_selection_criteria</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>ethnicity</TAG>
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -296,14 +280,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>case_control</TAG>
         <VALUE>Case</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>maternal_alias</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>paternal_alias</TAG>
-        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
@@ -353,10 +329,6 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>case_control_selection_criteria</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>ethnicity</TAG>
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -371,14 +343,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>case_control</TAG>
         <VALUE>Case</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>maternal_alias</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>paternal_alias</TAG>
-        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
@@ -428,10 +392,6 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>case_control_selection_criteria</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>ethnicity</TAG>
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -446,14 +406,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>case_control</TAG>
         <VALUE>Case</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>maternal_alias</TAG>
-        <VALUE/>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>paternal_alias</TAG>
-        <VALUE/>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
