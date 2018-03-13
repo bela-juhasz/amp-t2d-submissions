@@ -12,8 +12,40 @@ Please note that because XML tag must start with a letter or underscore and cont
 letters, digits, hyphens, underscores and periods, any violating characters should be replaced
 with underscores.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+                xmlns:exsl="http://exslt.org/common"
+                extension-element-prefixes="exsl">
 <xsl:output method="xml" indent="yes"/>
+
+<xsl:template name="parseDelimitedString">
+  <xsl:param name="str"/>
+  <xsl:param name="delimiter" select="','"/>
+  <xsl:variable name="_delimiter">
+    <xsl:choose>
+      <xsl:when test="string-length($delimiter)=0">,</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$delimiter"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="_str">
+    <xsl:choose>
+      <xsl:when test="contains($str, $delimiter)">
+        <xsl:value-of select="normalize-space($str)" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="concat(normalize-space($str), $_delimiter)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="first" select="substring-before($_str, $_delimiter)" />
+  <xsl:variable name="remaining" select="substring-after($_str, $_delimiter)" />
+  <item><xsl:value-of select="$first" /></item>
+  <xsl:if test="$remaining!=''">
+    <xsl:call-template name="parseDelimitedString">
+      <xsl:with-param name="str" select="$remaining" />
+      <xsl:with-param name="delimiter" select="$_delimiter" />
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
 
 <!--> Analysis & File <-->
 <xsl:template match="AnalysisSet">
@@ -95,10 +127,21 @@ with underscores.
             <TAG>pipeline_description</TAG>
             <VALUE><xsl:value-of select="Pipeline_Description"/></VALUE>
           </ANALYSIS_ATTRIBUTE>
-          <ANALYSIS_ATTRIBUTE>
-            <TAG>software</TAG>
-            <VALUE><xsl:value-of select="Software"/></VALUE>
-          </ANALYSIS_ATTRIBUTE>
+          <xsl:if test="Software!=''">
+            <xsl:variable name="itemsProxy">
+              <xsl:call-template name="parseDelimitedString">
+                <xsl:with-param name="str" select="Software" />
+                <xsl:with-param name="delimiter" select="','" />
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:variable name="items" select="exsl:node-set($itemsProxy)" />
+            <xsl:for-each select="$items/item">
+              <ANALYSIS_ATTRIBUTE>
+                <TAG>software</TAG>
+                <VALUE><xsl:value-of select="."/></VALUE>
+              </ANALYSIS_ATTRIBUTE>
+            </xsl:for-each>
+          </xsl:if>
         </ANALYSIS_ATTRIBUTES>
       </ANALYSIS>
     </xsl:for-each>

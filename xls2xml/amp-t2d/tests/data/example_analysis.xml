@@ -21,7 +21,15 @@
       </ANALYSIS_ATTRIBUTE>
       <ANALYSIS_ATTRIBUTE>
         <TAG>software</TAG>
-        <VALUE>BWA, GATK, PLINK</VALUE>
+        <VALUE>BWA</VALUE>
+      </ANALYSIS_ATTRIBUTE>
+      <ANALYSIS_ATTRIBUTE>
+        <TAG>software</TAG>
+        <VALUE>GATK</VALUE>
+      </ANALYSIS_ATTRIBUTE>
+      <ANALYSIS_ATTRIBUTE>
+        <TAG>software</TAG>
+        <VALUE>PLINK</VALUE>
       </ANALYSIS_ATTRIBUTE>
     </ANALYSIS_ATTRIBUTES>
   </ANALYSIS>
