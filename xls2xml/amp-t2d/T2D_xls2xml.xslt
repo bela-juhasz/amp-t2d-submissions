@@ -125,11 +125,13 @@ with underscores.
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
         <SAMPLE_LINKS>
           <xsl:if test="External_Links!=''">
-            <XREF_LINK>
-              <LABEL>Sample External Link</LABEL>
-              <DB><xsl:value-of select="substring-before(External_Links, ':')"/></DB>
-              <ID><xsl:value-of select="substring-after(External_Links, ':')"/></ID>
-            </XREF_LINK>
+            <SAMPLE_LINK>
+              <XREF_LINK>
+                <LABEL>Sample External Link</LABEL>
+                <DB><xsl:value-of select="substring-before(External_Links, ':')"/></DB>
+                <ID><xsl:value-of select="substring-after(External_Links, ':')"/></ID>
+              </XREF_LINK>
+            </SAMPLE_LINK>
           </xsl:if>
           <xsl:for-each select="/ResultSet/CohortSet/Cohort[Cohort_ID=$cohort_id]">
             <SAMPLE_LINK>
