@@ -179,7 +179,7 @@ with underscores.
         <xsl:variable name="cohort_id">
           <xsl:value-of select="Cohort_ID"/>
         </xsl:variable>
-        <SAMPLE_NAME display_name="Human">
+        <SAMPLE_NAME>
           <TAXON_ID>9606</TAXON_ID>
           <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
           <COMMON_NAME>human</COMMON_NAME>

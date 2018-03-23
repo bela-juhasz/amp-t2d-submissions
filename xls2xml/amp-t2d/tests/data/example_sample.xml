@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SAMPLE_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
   <SAMPLE alias="SAM111111">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
@@ -79,7 +79,7 @@
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE alias="SAM111112">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
@@ -150,7 +150,7 @@
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE alias="SAM111113">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
@@ -209,7 +209,7 @@
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE alias="SAM111114">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
@@ -268,7 +268,7 @@
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE alias="SAM111115">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
@@ -327,7 +327,7 @@
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE alias="SAM111116">
-    <SAMPLE_NAME display_name="Human">
+    <SAMPLE_NAME>
       <TAXON_ID>9606</TAXON_ID>
       <SCIENTIFIC_NAME>homo sapiens</SCIENTIFIC_NAME>
       <COMMON_NAME>human</COMMON_NAME>
