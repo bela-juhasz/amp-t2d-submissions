@@ -1,0 +1,84 @@
+#Schema file for defining validation rules for each field
+#
+#The validation rules could be found at:
+#http://docs.python-cerberus.org/en/stable/validation-rules.html
+
+Project:
+  schema:
+    PI email(s):
+      type: string
+      nullable: False
+      required: True
+      regex: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(;[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)*$'
+    Submitter Email(s):
+      type: string
+      nullable: False
+      required: True
+      regex: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(;[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)*$'
+    Project Publications:
+      type: string
+      nullable: True
+      regex: '^PubMed:[0-9]+(;PubMed:[0-9]+)*$'
+    Total number of files being submitted:
+      type: number
+      nullable: False
+      min: 1
+
+Cohort:
+  schema:
+    External Links:
+      type: string
+      nullable: True
+      regex: '[a-zA-Z0-9]+:[a-zA-Z0-9]+'
+    "# T2D Cases":
+      type: number
+      min: 0
+    "# T2D Controls":
+      type: number
+      min: 0
+
+Sample:
+  schema:
+    Sample_ID:
+      type: string
+      nullable: False
+    Subject_ID:
+      type: string
+      nullable: True
+    Gender:
+      type: string
+      allowed: ['male', 'female', 'unknown']
+
+Analysis:
+  schema:
+    Analysis_name:
+      type: string
+      nullable: False
+    Experiment_type:
+      type: string
+      nullable: False
+      allowed: ['Whole genome sequencing', 'Exome sequencing', 'Genotyping by array']
+    Platform:
+      type: string
+      nullable: False
+      allowed: ['Illumina HiSeq 2000',  'Illumina HiSeq 2500',  'Illumina HiSeq 1000',
+                'Illumina HiScanSQ', 'Illumina MiSeq', 'Illumina Genome Analyzer',
+                'Illumina Genome Analyzer II', 'Illumina Genome Analyzer IIx',
+                'AB SOLiD System 2.0', 'AB SOLiD System 3.0', 'AB SOLiD 3 Plus System',
+                'AB SOLiD 4 System', 'AB SOLiD 4hq System', 'AB SOLiD PI System',
+                'AB 5500 Genetic Analyzer', 'AB 5500xl Genetic Analyzer', 'AB SOLiD System',
+                '454 GS FLX', '454 GS', '454 GS 20', '454 GS FLX+', '454 GS FLX Titanium',
+                '454 GS Junior', 'Complete Genomics', 'unspecified']
+
+    Imputation:
+      type: number
+      nullable: True
+      allowed: [0, 1]
+
+File:
+  schema:
+    Filetype:
+      type: string
+      nullable: False
+      required: True
+      allowed: ['vcf', 'vcf_aggregate', 'readme_file', 'phenotype_file', 'tabix', 'other']
