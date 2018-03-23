@@ -30,11 +30,11 @@ source venv/bin/activate
 # validating the submission xlsx file
 python ./xls2xml/validate_xls.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_25_01_2018.xlsx 
 # generating sample xml
-python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Sample,Cohort --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_25_01_2018.xlsx amp-t2d/output_sample.xml
+python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Sample,Cohort --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_12_03_18.xlsx amp-t2d/output_sample.xml
 # generating study xml
-python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Project --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_25_01_2018.xlsx amp-t2d/output_study.xml
+python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Project --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_12_03_18.xlsx amp-t2d/output_study.xml
 # generating analysis xml
-python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Analysis,File --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_25_01_2018.xlsx amp-t2d/output_analysis.xml
+python ./xls2xml/xls2xml.py --conf amp-t2d/T2D_xlsx.conf --schema amp-t2d/T2D_xlsx.schema --conf-key Analysis,File,Sample --xslt amp-t2d/T2D_xls2xml.xslt amp-t2d/tests/data/example_AMP_T2D_Submission_form_V2_DB_12_03_18.xlsx amp-t2d/output_analysis.xml
 deactivate
 ```
 After this, you will find the XML files are generated in amp-t2d/output_*.xml

@@ -3,6 +3,12 @@
   <ANALYSIS alias="AN001" center_name="WTGC" broker_name="AMP T2D" analysis_center="" analysis_date="2013-11-01T10:10:10.0Z">
     <TITLE>WTGC T2D Analysis</TITLE>
     <DESCRIPTION/>
+    <SAMPLE_REF refname="SAM111111" refcenter="WTGC" label="SAM111111"/>
+    <SAMPLE_REF refname="SAM111112" refcenter="WTGC" label="FEM1"/>
+    <SAMPLE_REF refname="SAM111113" refcenter="WTGC" label="SAM111113"/>
+    <SAMPLE_REF refname="SAM111114" refcenter="WTGC" label="SAM111114"/>
+    <SAMPLE_REF refname="SAM111115" refcenter="WTGC" label="SAM111115"/>
+    <SAMPLE_REF refname="SAM111116" refcenter="WTGC" label="SAM111116"/>
     <RUN_REF refname="EGAR01000000002" refcenter="WTGC"/>
     <ANALYSIS_TYPE>
       <SEQUENCE_VARIATION>

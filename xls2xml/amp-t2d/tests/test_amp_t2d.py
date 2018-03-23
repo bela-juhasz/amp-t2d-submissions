@@ -12,7 +12,7 @@ def test_validate_xls():
 def test_xls2xml_analysis():
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2_DB_12_03_18.xlsx',
                            '../T2D_xlsx.conf')
-    output_xml = utils.multiple_sheets_to_xml(xls_reader, str('Analysis,File').split(','),
+    output_xml = utils.multiple_sheets_to_xml(xls_reader, str('Analysis,File,Sample').split(','),
                                               '../T2D_xlsx.schema', '../T2D_xls2xml.xslt')
     with open('data/example_analysis.xml', 'r') as analysis_example:
         assert analysis_example.readline()

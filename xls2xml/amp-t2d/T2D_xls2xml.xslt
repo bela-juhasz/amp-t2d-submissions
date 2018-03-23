@@ -71,8 +71,27 @@ with underscores.
         <xsl:variable name="analysis_name">
           <xsl:value-of select="Analysis_name"/>
         </xsl:variable>
+        <xsl:variable name="center_name">
+          <xsl:value-of select="Center_name"/>
+        </xsl:variable>
         <TITLE><xsl:value-of select="Title"/></TITLE>
         <DESCRIPTION><xsl:value-of select="Description"/></DESCRIPTION>
+        <xsl:for-each select="/ResultSet/SampleSet/Sample[Analysis_name=$analysis_name]">
+          <SAMPLE_REF>
+            <xsl:attribute name="refname">
+              <xsl:value-of select="Sample_ID"/>
+            </xsl:attribute>
+            <xsl:attribute name="refcenter">
+              <xsl:value-of select="$center_name"/>
+            </xsl:attribute>
+            <xsl:attribute name="label">
+              <xsl:choose>
+                <xsl:when test="Geno_ID!=''"><xsl:value-of select="Geno_ID"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="Sample_ID"/></xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </SAMPLE_REF>
+        </xsl:for-each>
         <RUN_REF>
           <xsl:attribute name="refname">
             <xsl:value-of select="Run_Accession_s_"/>
@@ -202,10 +221,6 @@ with underscores.
           <SAMPLE_ATTRIBUTE>
             <TAG>gender</TAG>
             <VALUE><xsl:value-of select="Gender"/></VALUE>
-          </SAMPLE_ATTRIBUTE>
-          <SAMPLE_ATTRIBUTE>
-            <TAG>analysis_name</TAG>
-            <VALUE><xsl:value-of select="Analysis_name"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
             <TAG>cohort_id</TAG>

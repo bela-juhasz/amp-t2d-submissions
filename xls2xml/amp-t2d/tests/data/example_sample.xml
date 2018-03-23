@@ -33,10 +33,6 @@
         <VALUE>male</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
         <VALUE>CO1111</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -106,10 +102,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>gender</TAG>
         <VALUE>female</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
@@ -183,10 +175,6 @@
         <VALUE>female</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
         <VALUE>CO1112</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -244,10 +232,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>gender</TAG>
         <VALUE>female</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
@@ -309,10 +293,6 @@
         <VALUE>male</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
         <VALUE>CO1112</VALUE>
       </SAMPLE_ATTRIBUTE>
@@ -370,10 +350,6 @@
       <SAMPLE_ATTRIBUTE>
         <TAG>gender</TAG>
         <VALUE>male</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>analysis_name</TAG>
-        <VALUE>AN001</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
         <TAG>cohort_id</TAG>
