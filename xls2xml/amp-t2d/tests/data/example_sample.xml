@@ -61,7 +61,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>PATO:0000461</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -136,7 +136,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>PATO:0000461</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -207,7 +207,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>EFO:0001360</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -270,7 +270,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>EFO:0001360</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -333,7 +333,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>EFO:0001360</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
@@ -396,7 +396,7 @@
         <VALUE>Caucasian</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>high_level_phenotype</TAG>
+        <TAG>phenotype</TAG>
         <VALUE>EFO:0001360</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>

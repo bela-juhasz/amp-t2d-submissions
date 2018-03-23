@@ -236,7 +236,7 @@ with underscores.
             </SAMPLE_ATTRIBUTE>
           </xsl:for-each>
           <SAMPLE_ATTRIBUTE>
-            <TAG>high_level_phenotype</TAG>
+            <TAG>phenotype</TAG>
             <VALUE><xsl:value-of select="High_level_Phenotype"/></VALUE>
           </SAMPLE_ATTRIBUTE>
           <SAMPLE_ATTRIBUTE>
