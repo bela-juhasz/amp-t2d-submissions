@@ -1,5 +1,5 @@
 import gzip, math, sys, pysam, hashlib
-import Gzopen 
+from gzopen import gzopen 
 
 #################
 # global Variables
