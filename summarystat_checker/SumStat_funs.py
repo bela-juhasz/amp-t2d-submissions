@@ -1,4 +1,4 @@
-import gzip, math, sys, pysam, hashlib
+import math, sys, pysam, hashlib
 from gzopen import gzopen 
 
 #################

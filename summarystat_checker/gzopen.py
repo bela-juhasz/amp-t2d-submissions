@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import gzip
 class gzopen(object): # taken from Guillame Fillion @CRG http://www.genomearchitecture.com/2014/01/how-to-gunzip-on-the-fly-with-python
    """Generic opener that decompresses gzipped files
    if needed. Encapsulates an open file or a GzipFile.
