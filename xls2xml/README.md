@@ -54,6 +54,8 @@ python ./xls2xml/xls2tsv.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sam
 python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v1.xslt tests/data/example_samples.tsv tests/data/output_tsv2xml.xml
 python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_single.xml
 python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_multiple.xml
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv tests/data/output_tsv2xml_single.xml
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv,tests/data/example_files.tsv tests/data/output_tsv2xml_multiple.xml
 ```
 
 ### Writing the configuration files

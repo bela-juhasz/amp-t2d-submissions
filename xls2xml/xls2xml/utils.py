@@ -136,14 +136,12 @@ def save_xml(input_xml, outfile):
     if input_xml.getroot() is not None:
         outfile.write(etree.tostring(input_xml, pretty_print=True))
 
-def multiple_sheets_to_xml(xls_reader, conf_keys, xls_schema_filename, xslt_filename):
+def multiple_objects_to_xml(input_readers, xls_schema_filename, xslt_filename):
     """
-    Retrieve data from multiple worksheets and transform into an xml tree
+    Retrieve data from multiple objects and transform into an xml tree
 
-    :param xls_reader: xml file reader
-    :type xls_reader: XLSReader
-    :param conf_keys: list of worksheet titles
-    :type conf_keys: list
+    :param input_readers: XLS or TSV file readers in {conf_key : file_reader} form
+    :type xls_reader: dict
     :param xls_schema_filename: path to the validation rules definition file
     :type xls_schema_filename: basestring
     :param xslt_filename: path to the xslt transformation rules definition
@@ -152,9 +150,9 @@ def multiple_sheets_to_xml(xls_reader, conf_keys, xls_schema_filename, xslt_file
     :rtype: etree.Element
     """
     input_xml_root = etree.Element("ResultSet")
-    for key in conf_keys:
+    for key in input_readers:
         rows = []
-        if extract_rows(xls_reader, key, xls_schema_filename, rows):
+        if extract_rows(input_readers[key], key, xls_schema_filename, rows):
             input_xml_root.append(rows_to_xml(rows, key))
         else:
             raise Exception('Failed to extract data for worksheet ' + key)
