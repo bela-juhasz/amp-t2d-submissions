@@ -33,7 +33,7 @@ tsv_schema = args.schema
 xslt_filename = args.xslt
 
 key_files = dict(zip(tsv_conf_keys, tsv_filenames))
-tsv_readers = { key : TSVReader(key_files[key], tsv_conf, key) for key in key_files }
+tsv_readers = [ (key, TSVReader(key_files[key], tsv_conf, key)) for key in key_files ]
 
 try:
     output_xml = utils.multiple_objects_to_xml(tsv_readers, tsv_schema, xslt_filename)

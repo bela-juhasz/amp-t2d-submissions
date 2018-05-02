@@ -140,8 +140,8 @@ def multiple_objects_to_xml(input_readers, xls_schema_filename, xslt_filename):
     """
     Retrieve data from multiple objects and transform into an xml tree
 
-    :param input_readers: XLS or TSV file readers in {conf_key : file_reader} form
-    :type xls_reader: dict
+    :param input_readers: XLS or TSV file readers in [ (conf_key, file_reader) ] form
+    :type xls_reader: list of tuples
     :param xls_schema_filename: path to the validation rules definition file
     :type xls_schema_filename: basestring
     :param xslt_filename: path to the xslt transformation rules definition
@@ -150,9 +150,10 @@ def multiple_objects_to_xml(input_readers, xls_schema_filename, xslt_filename):
     :rtype: etree.Element
     """
     input_xml_root = etree.Element("ResultSet")
-    for key in input_readers:
+    for reader in input_readers:
         rows = []
-        if extract_rows(input_readers[key], key, xls_schema_filename, rows):
+        key = reader[0]
+        if extract_rows(reader[1], key, xls_schema_filename, rows):
             input_xml_root.append(rows_to_xml(rows, key))
         else:
             raise Exception('Failed to extract data for worksheet ' + key)

@@ -31,7 +31,7 @@ xls_schema = args.schema
 xslt_filename = args.xslt
 
 xls_reader = XLSReader(xls_filename, xls_conf)
-xls_readers = { key : xls_reader for key in xls_conf_keys }
+xls_readers = [ (key, xls_reader) for key in xls_conf_keys ]
 
 try:
     output_xml = utils.multiple_objects_to_xml(xls_readers, xls_schema, xslt_filename)

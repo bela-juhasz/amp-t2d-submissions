@@ -109,7 +109,7 @@ def test_write_empty_xml():
 
 def test_multiple_sheets_to_xml():
     xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
-    xls_readers = { 'Analysis' : xls_reader, 'File' : xls_reader }
+    xls_readers = [ ('Analysis', xls_reader), ('File', xls_reader) ]
     output_xml = utils.multiple_objects_to_xml(xls_readers, 'data/T2D_xls2xml_v1.schema',
                                                'data/T2D_xls2xml_v2.xslt')
     with open('data/example_analysis.xml', 'r') as analysis_example:
@@ -117,14 +117,14 @@ def test_multiple_sheets_to_xml():
         assert etree.tostring(output_xml, pretty_print=True) == analysis_example.read()
 
     with pytest.raises(Exception):
-        xls_readers = {'Exception': xls_reader, 'Expected': xls_reader}
+        xls_readers = [ ('Exception', xls_reader), ('Expected', xls_reader) ]
         utils.multiple_objects_to_xml(xls_readers, 'data/T2D_xls2xml_v1.schema',
                                       'data/T2D_xls2xml_v2.xslt')
 
 def test_multiple_tsvs_to_xml():
     analysis_tsv_reader = TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Analysis')
     files_tsv_reader = TSVReader('data/example_files.tsv', 'data/T2D_xls2xml_v1.conf', 'File')
-    tsv_readers = { 'Analysis' : analysis_tsv_reader, 'File' : files_tsv_reader }
+    tsv_readers = [ ('Analysis', analysis_tsv_reader), ('File', files_tsv_reader) ]
     output_xml = utils.multiple_objects_to_xml(tsv_readers, 'data/T2D_xls2xml_v1.schema',
                                             'data/T2D_xls2xml_v2.xslt')
     with open('data/example_analysis.xml', 'r') as analysis_example:
@@ -132,9 +132,9 @@ def test_multiple_tsvs_to_xml():
         assert etree.tostring(output_xml, pretty_print=True) == analysis_example.read()
 
     with pytest.raises(Exception):
-        tsv_readers = {
-            'Exception': TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Exception'),
-            'Expected': TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Expected')
-        }
+        tsv_readers = [
+            ('Exception', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Exception')),
+            ('Expected', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Expected'))
+        ]
         utils.multiple_objects_to_xml(tsv_readers, 'data/T2D_xls2xml_v1.schema',
                                       'data/T2D_xls2xml_v2.xslt')
