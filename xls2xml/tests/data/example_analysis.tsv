@@ -1,0 +1,2 @@
+Analysis_name	Analysis_alias	Title	Description	Project_name	Experiment_type	Platform	Standard_refname or Sequence_accession	Imputation	Sequence_accession_label	External_link	Software	Pipeline Description	Run Accession(s)	Center_name	Analysis_date
+raremetalworker	AN001	WTGC T2D Analysis		AMP DCC T2D  submission example	Exome sequencing	Illumina Genome Analyzer II	GRCh37	0			BWA, GATK, PLINK	Alignment using BWA. Variant calling using the standard GATK pipeline. Association done using PLINK	EGAR01000000002	WTGC	2013-11-01T10:10:10.0Z
