@@ -1,22 +1,22 @@
 import sys
 def GT_comp(GT, lines_holder, sample_index, mis, fields):
 	if GT in {"0|1", "1|0", "1/0", "0/1"}:
-		string= str(sample_index) + ":" + "1"
+		string= "".join([str(sample_index), ":", "1"])
 		lines_holder.append(string)
  		sample_index = sample_index + 1
 		return sample_index, lines_holder
 	elif GT in {"1|1", "1/1"}:
-		string= str(sample_index)+ ":" + "2"
+		string= "".join([str(sample_index), ":", "2"])
 		lines_holder.append(string)
 		sample_index = sample_index + 1  
 		return sample_index, lines_holder
 	elif GT in {".|1", "1|.", "./1", "1/.", ".|0", "0|.", "./0", "0/."}: # missing variants, Key value with variants and sample is better than this. test dataset has little missing variants so not an issue just yet 
-		string = "Sample# " + str(sample_index) + " has a single allele missing at pos ->  " + str(fields[:4])
+		string = "".join(["Sample# ", str(sample_index), " has a single allele missing at pos ->  ", str(fields[:4])])
 		mis.append(string)
 		sample_index = sample_index + 1
 		return sample_index, mis
 	elif GT in { "./.", ".|."}:
-		string = "Sample# " + str(sample_index) + " has a both alleles missing at pos ->  " + str(fields[:4])
+		string = "".join(["Sample# ", str(sample_index), " has a both alleles missing at pos ->  ", str(fields[:4])])
 		mis.append(string)
 		sample_index = sample_index + 1
 		return sample_index, mis
@@ -26,7 +26,7 @@ def GT_comp(GT, lines_holder, sample_index, mis, fields):
 
 def DS_comp(DS, lines_holder, sample_index):
 	if float(DS) != 0:
-		string= str(sample_index) + ":" + str(DS)
+		string= "".join([str(sample_index), ":", str(DS)])
 		lines_holder.append(string)
 		sample_index = sample_index + 1
 		return lines_holder, sample_index
@@ -39,21 +39,21 @@ def DS_comp(DS, lines_holder, sample_index):
 
 def mult_al(GT, lines_holderMS, sample_indexMS, mis):
 	if GT in {"2|2", "2/2"}:
-		string= str(sample_indexMS)+ ":" + "2"
+		string= "".join([str(sample_indexMS), ":", "2"])
 		lines_holderMS.append(string)
 		return sample_indexMS, lines_holderMS
 	elif GT in {"0|2", "2|0", "2/0", "0/2"}: # need to clarify the odds of seeing 1|2. This will most probably be a sequencing error. So for the moment I am only including the referernce "0"
 	# This is one implementation the second is to just add extra indices 
-		string= str(sample_indexMS)+ ":" + "1"
+		string= "".join([str(sample_indexMS), ":", "1"])
 		lines_holderMS.append(string)
 		return sample_indexMS, lines_holderMS
 	elif GT in {".|.","./."}:
-                string = "Sample# " + str(sample_index) + " has a both alleles missing at pos ->  " + str(fields[:5])
+                string = "".join(["Sample# ", str(sample_index), " has a both alleles missing at pos ->  ", str(fields[:5])])
                 mis.append(string)
                 sample_indexMS = sample_indexMS + 1
                 return sample_indexMS, mis
 	elif GT in {".|2", "2|.", "2/.", "./2", ".|1", "1|.", "1/.", "./1",".|0", "0|.", "0/.", "./0"}:
-		string = "Sample# " + str(sample_index) + " has asingle allele missing at pos ->  " + str(fields[:5])
+		string = "".join(["Sample# ", str(sample_index), " has asingle allele missing at pos ->  ", str(fields[:5])])
                 mis.append(string)
                 sample_indexMS = sample_indexMS + 1
                 return sample_indexMS, mis
