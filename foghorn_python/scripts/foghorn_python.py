@@ -12,7 +12,7 @@ args = parser.parse_args()
 
 if args.genotype:
 	outhandle = str(args.out)+ "_GT.cvcf"
-	out=open(outhandle,"w", 40*(1024**2))
+	out=open(outhandle,"w", 1)
 	mis_vars= open("missing_vars_GT.txt", "w")
 	for line in sys.stdin:
 		GT(line,out,mis_vars)
@@ -20,7 +20,7 @@ if args.genotype:
 	mis_vars.close()
 elif args.dosage:
 	outhandle = str(args.out)+ "_DS.cvcf"
-	out=open(outhandle,"w", 40*(1024**2))
+	out=open(outhandle,"w", 1)
 #	mis_vars= open("missing_vars_DS.txt", "w")
 	for line in sys.stdin:
 		DS(line,out)

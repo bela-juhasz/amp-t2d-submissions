@@ -1,13 +1,13 @@
 import sys
 def GT_comp(GT, lines_holder, sample_index, mis, fields):
 	if GT in {"0|1", "1|0", "1/0", "0/1"}:
-		string= "".join([str(sample_index), ":", "1"])
-		lines_holder.append(string)
+		lines_holder.append("".join([str(sample_index), ":", "1"]))
+	#	lines_holder.append(string)
  		sample_index = sample_index + 1
 		return sample_index, lines_holder
 	elif GT in {"1|1", "1/1"}:
-		string= "".join([str(sample_index), ":", "2"])
-		lines_holder.append(string)
+		lines_holder.append("".join([str(sample_index), ":", "2"]))
+	#	lines_holder.append(string)
 		sample_index = sample_index + 1  
 		return sample_index, lines_holder
 	elif GT in {".|1", "1|.", "./1", "1/.", ".|0", "0|.", "./0", "0/."}: # missing variants, Key value with variants and sample is better than this. test dataset has little missing variants so not an issue just yet 
