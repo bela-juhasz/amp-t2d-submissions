@@ -10,12 +10,12 @@ def GT_comp(GT, lines_holder, sample_index, mis, fields):
         sample_index = sample_index + 1
         return sample_index, lines_holder
     elif GT in {".|1", "1|.", "./1", "1/.", ".|0", "0|.", "./0", "0/."}:  # missing variants, Key value with variants and sample is better than this. test dataset has little missing variants so not an issue just yet
-        string = "".join(["Sample# ", str(sample_index), " has a single allele missing at pos ->  ", str(fields[:4])])
+        string = "".join(["Sample# ", str(sample_index), " has a single allele missing at pos ->  ", str(fields[:4]), "\n"])
         mis.append(string)
         sample_index = sample_index + 1
         return sample_index, mis
     elif GT in {"./.", ".|."}:
-        string = "".join(["Sample# ", str(sample_index), " has a both alleles missing at pos ->  ", str(fields[:4])])
+        string = "".join(["Sample# ", str(sample_index), " has a both alleles missing at pos ->  ", str(fields[:4]), "\n"])
         mis.append(string)
         sample_index = sample_index + 1
         return sample_index, mis
@@ -33,7 +33,7 @@ def DS_comp(DS, lines_holder, sample_index):
         sample_index = sample_index + 1
         return sample_index
 
-def mult_al(GT, lines_holderMS, sample_indexMS, mis):
+def mult_al(GT, lines_holderMS, sample_indexMS, mis, fields):
     if GT in {"2|2", "2/2"}:
         string = "".join([str(sample_indexMS), ":", "2"])
         lines_holderMS.append(string)
@@ -44,12 +44,12 @@ def mult_al(GT, lines_holderMS, sample_indexMS, mis):
         lines_holderMS.append(string)
         return sample_indexMS, lines_holderMS
     elif GT in {".|.", "./."}:
-        string = "".join(["Sample# ", str(sample_index), " has a both alleles missing at pos ->  ", str(fields[:5])])
+        string = "".join(["Sample# ", str(sample_indexMS), " has a both alleles missing at pos ->  ", str(fields[:5]), "\n"])
         mis.append(string)
         sample_indexMS = sample_indexMS + 1
         return sample_indexMS, mis
     elif GT in {".|2", "2|.", "2/.", "./2", ".|1", "1|.", "1/.", "./1", ".|0", "0|.", "0/.", "./0"}:
-        string = "".join(["Sample# ", str(sample_index), " has asingle allele missing at pos ->  ", str(fields[:5])])
+        string = "".join(["Sample# ", str(sample_indexMS), " has asingle allele missing at pos ->  ", str(fields[:5]), "\n"])
         mis.append(string)
         sample_indexMS = sample_indexMS + 1
         return sample_indexMS, mis
@@ -74,7 +74,7 @@ def GT(line, out, mis_vars):
                 GT = column.strip().split(":")[0]
                 GT_comp(GT, lines_holder, sample_index, mis, fields)
                 sample_index = sample_index + 1
-                mult_al(GT, lines_holderMS, sample_indexMS, mis)
+                mult_al(GT, lines_holderMS, sample_indexMS, mis, fields)
                 sample_indexMS = sample_indexMS + 1
         else:
             lines_holder.append(fields[4])
