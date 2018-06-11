@@ -94,7 +94,7 @@ def GT(line, out, mis_vars):
             out.write('\n')
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
 
 
@@ -107,6 +107,7 @@ def DS(line, out):
             DOSidx = fields[8].split(":").index("DS")
         sample_index = 0
         lines_holder = []
+        lines_holder.extend(fields[:4]) # append first few columns
         if "," in fields[4]:  # not set up for multiple variants yet this is redundant until multivariants are incorported
             lines_holder.append(str(str(fields[4]).split(",")[0]))  # ALT1
             for column in fields[9:]:
@@ -124,5 +125,5 @@ def DS(line, out):
         out.write("\n")
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
