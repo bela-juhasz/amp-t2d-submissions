@@ -1,5 +1,5 @@
+from __future__ import print_function
 import argparse
-
 from vcf_comp_funcs import *
 
 param = sys.argv
@@ -14,14 +14,25 @@ parser.add_argument("-DS", "--dosage", help="Select for dosage transformation", 
 args = parser.parse_args()
 
 if args.genotype:
-    outhandle = str(args.out) + "_GT.cvcf"
-    out = open(outhandle, "w", 1)
-    mis_vars = open("missing_vars_GT.txt", "w")
-    compress_genotypes(sys.stdin, out, mis_vars)
-    out.close()
-    mis_vars.close()
+    out_filename = str(args.out) + "_GT.cvcf"
+    try:
+        output = open(out_filename, "w", 1)
+        missing_vars = open("missing_vars_GT.txt", "w")
+        compress_genotypes(sys.stdin, output, missing_vars)
+        output.close()
+        missing_vars.close()
+    except IOError as e:
+        print("I/O error({0}): {1}".format(e.errno, e.strerror), file=sys.stderr)
+        quit(1)
 elif args.dosage:
-    outhandle = str(args.out) + "_DS.cvcf"
-    out = open(outhandle, "w", 1)
-    compress_dosages(sys.stdin, out)
-    out.close()
+    out_filename = str(args.out) + "_DS.cvcf"
+    try:
+        output = open(out_filename, "w", 1)
+        compress_dosages(sys.stdin, output)
+        output.close()
+    except IOError as e:
+        print("I/O error({0}): {1}".format(e.errno, e.strerror), file=sys.stderr)
+        quit(1)
+else:
+    print('Please select either genotype or dosage for processing.', file=sys.stderr)
+    quit(1)
