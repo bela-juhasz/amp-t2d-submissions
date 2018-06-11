@@ -94,7 +94,7 @@ def GT(line, out, mis_vars):
             out.write('\n')
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
 
 def DS(line, out):
@@ -124,7 +124,7 @@ def DS(line, out):
         out.write("\n")
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
 
 def compress_genotypes(input, output, missing_output):
