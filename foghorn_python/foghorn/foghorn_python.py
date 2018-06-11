@@ -17,13 +17,11 @@ if args.genotype:
     outhandle = str(args.out) + "_GT.cvcf"
     out = open(outhandle, "w", 1)
     mis_vars = open("missing_vars_GT.txt", "w")
-    for line in sys.stdin:
-        GT(line, out, mis_vars)
+    compress_genotypes(sys.stdin, out, mis_vars)
     out.close()
     mis_vars.close()
 elif args.dosage:
     outhandle = str(args.out) + "_DS.cvcf"
     out = open(outhandle, "w", 1)
-    for line in sys.stdin:
-        DS(line, out)
+    compress_dosages(sys.stdin, out)
     out.close()

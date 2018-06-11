@@ -97,7 +97,6 @@ def GT(line, out, mis_vars):
         out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
 
-
 def DS(line, out):
     if not line.startswith("##") and not line.startswith("#"):
         fields = line.strip().split()
@@ -127,3 +126,11 @@ def DS(line, out):
         field = line.strip().split()
         out.write("#CHR" + '\t' + "POS" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
+
+def compress_genotypes(input, output, missing_output):
+    for line in input:
+        GT(line, output, missing_output)
+
+def compress_dosages(input, output):
+    for line in input:
+        DS(line, output)
