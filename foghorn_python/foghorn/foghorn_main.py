@@ -6,7 +6,7 @@ This script compresses genotypes or dosages information stored in a VCF file.
 from __future__ import print_function
 import argparse
 import sys
-from foghorn import foghorn_compression
+import foghorn_compression
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                                  description="Command line python tool for transforming VCF files into cVCF files as required by the AMP-T2D GAIT analysis machines. GT flag will compress genotypes splitting multiallelic sites into two lines. The DS flag will compress dosage format, currently not implemented for multi-allelics",
