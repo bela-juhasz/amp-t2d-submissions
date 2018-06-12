@@ -6,6 +6,7 @@ python:
 install:
   - cd xls2xml && pip install -r requirements.txt && cd ..
   - cd samples_checker && pip install -r requirements.txt && cd ..
+  - cd foghorn_python && pip install -r requirements.txt && cd ..
 
 script:
   - cd xls2xml && pylint --errors-only ./xls2xml/ && cd ..
