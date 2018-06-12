@@ -42,7 +42,7 @@ def compress_dosage(dosage, lines_holder, sample_index):
     :param sample_index: the index of sample in the sample list
     :type sample_index: int
     """
-    if float(dosage) != 0:
+    if dosage != "0":
         string = str(sample_index) + ":" + dosage
         lines_holder.append(string)
 
