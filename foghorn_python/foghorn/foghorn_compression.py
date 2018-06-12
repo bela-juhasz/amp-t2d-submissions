@@ -89,7 +89,7 @@ def transform_genotypes(line, out, mis_vars):
     """
     if not line.startswith("##") and not line.startswith("#"):  # Need to spend time making robust and reporting file format and missingness errors
         fields = line.strip().split()
-        if "DS" not in fields[8]:
+        if "GT" not in fields[8]:
             sys.exit("No genotype tag in format field")  # raise error that there is no GT fields in
         else:
             GTidx = fields[8].split(":").index("GT")
