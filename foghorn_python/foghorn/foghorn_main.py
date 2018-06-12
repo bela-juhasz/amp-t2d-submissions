@@ -1,6 +1,6 @@
 from __future__ import print_function
 import argparse
-from vcf_comp_funcs import *
+from foghorn_compression import *
 
 param = sys.argv
 
@@ -14,10 +14,10 @@ parser.add_argument("-DS", "--dosage", help="Select for dosage transformation", 
 args = parser.parse_args()
 
 if args.genotype:
-    out_filename = str(args.out) + "_GT.cvcf"
+    out_filename = str(args.out) + "_genotypes.cvcf"
     try:
         output = open(out_filename, "w", 1)
-        missing_vars = open("missing_vars_GT.txt", "w")
+        missing_vars = open("missing_vars_genotypes.txt", "w")
         compress_genotypes(sys.stdin, output, missing_vars)
         output.close()
         missing_vars.close()
@@ -25,7 +25,7 @@ if args.genotype:
         print("I/O error({0}): {1}".format(e.errno, e.strerror), file=sys.stderr)
         quit(1)
 elif args.dosage:
-    out_filename = str(args.out) + "_DS.cvcf"
+    out_filename = str(args.out) + "_dosages.cvcf"
     try:
         output = open(out_filename, "w", 1)
         compress_dosages(sys.stdin, output)
