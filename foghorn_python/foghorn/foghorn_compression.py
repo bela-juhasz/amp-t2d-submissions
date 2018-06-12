@@ -37,6 +37,8 @@ def transform_genotypes(line, out, mis_vars):
         fields = line.strip().split()
         if "DS" not in fields[8]:
             sys.exit("No genotype tag in format field")  # raise error that there is no GT fields in
+        else:
+            GTidx = fields[8].split(":").index("GT")
         sample_index = sample_indexMS = 0
         lines_holderMS = []  # refresh every iteration need to check if this has any effect on the memory management of large datasets
         lines_holder = []
@@ -47,7 +49,7 @@ def transform_genotypes(line, out, mis_vars):
             lines_holder.append(str(fields[4]).split(",")[0])  # ALT1
             lines_holderMS.append(str(fields[4]).split(",")[1])  # ALT2
             for column in fields[9:]:
-                GT = column.strip().split(":")[0]
+                GT = column.strip().split(":")[GTidx]
                 compress_genotype(GT, lines_holder, sample_index, mis, fields)
                 sample_index = sample_index + 1
                 compress_genotype_multiallelic(GT, lines_holderMS, sample_indexMS, mis, fields)
@@ -55,7 +57,7 @@ def transform_genotypes(line, out, mis_vars):
         else:
             lines_holder.append(fields[4])
             for column in fields[9:]:
-                GT = column.strip().split(":")[0]
+                GT = column.strip().split(":")[GTidx]
                 compress_genotype(GT, lines_holder, sample_index, mis, fields)
                 sample_index = sample_index + 1
         lines_holder.append("")
@@ -86,13 +88,13 @@ def transform_dosages(line, out):
         if "," in fields[4]:  # not set up for multiple variants yet this is redundant until multivariants are incorported
             lines_holder.append(str(fields[4]).split(",")[0])  # ALT1
             for column in fields[9:]:
-                DS = column.strip().split(":")[int(DOSidx)]
+                DS = column.strip().split(":")[DOSidx]
                 compress_dosage(DS, lines_holder, sample_index)
                 sample_index = sample_index + 1
         else:
             lines_holder.append(fields[4])
             for column in fields[9:]:
-                DS = column.strip().split(":")[int(DOSidx)]
+                DS = column.strip().split(":")[DOSidx]
                 compress_dosage(DS, lines_holder, sample_index)
                 sample_index = sample_index + 1
         lines_holder.append("")
