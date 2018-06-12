@@ -21,9 +21,9 @@ def compress_genotype(genotype, lines_holder, sample_index, mis, fields):
     :type fields: list
     """
     if genotype in {"0|1", "1|0", "1/0", "0/1"}:
-        lines_holder.append("".join([str(sample_index), ":", "1"]))
+        lines_holder.append(str(sample_index) + ":1")
     elif genotype in {"1|1", "1/1"}:
-        lines_holder.append("".join([str(sample_index), ":", "2"]))
+        lines_holder.append(str(sample_index) + ":2")
     elif genotype in {".|1", "1|.", "./1", "1/.", ".|0", "0|.", "./0", "0/."}:  # missing variants, Key value with variants and sample is better than this. test dataset has little missing variants so not an issue just yet
         string = "".join(["Sample# ", str(sample_index), " has a single allele missing at pos ->  ", str(fields[:4]), "\n"])
         mis.append(string)
@@ -43,7 +43,7 @@ def compress_dosage(dosage, lines_holder, sample_index):
     :type sample_index: int
     """
     if float(dosage) != 0:
-        string = "".join([str(sample_index), ":", str(dosage)])
+        string = str(sample_index) + ":" + dosage
         lines_holder.append(string)
 
 def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis, fields):
@@ -63,12 +63,10 @@ def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis
     :type fields: list
     """
     if genotype in {"2|2", "2/2"}:
-        string = "".join([str(sample_indexMS), ":", "2"])
-        lines_holderMS.append(string)
+        lines_holderMS.append(str(sample_indexMS) + ":2")
     elif genotype in {"0|2", "2|0", "2/0", "0/2"}:  # need to clarify the odds of seeing 1|2. This will most probably be a sequencing error. So for the moment I am only including the referernce "0"
         # This is one implementation the second is to just add extra indices
-        string = "".join([str(sample_indexMS), ":", "1"])
-        lines_holderMS.append(string)
+        lines_holderMS.append(str(sample_indexMS) + ":1")
     elif genotype in {".|.", "./."}:
         string = "".join(["Sample# ", str(sample_indexMS), " has a both alleles missing at pos ->  ", str(fields[:5]), "\n"])
         mis.append(string)
@@ -100,8 +98,8 @@ def transform_genotypes(line, out, mis_vars):
         lines_holder.extend(fields[:4])  # append first few columns
         if "," in fields[4]:
             lines_holderMS.extend(fields[:4])
-            lines_holder.append(str(fields[4]).split(",")[0])  # ALT1
-            lines_holderMS.append(str(fields[4]).split(",")[1])  # ALT2
+            lines_holder.append(fields[4].split(",")[0])  # ALT1
+            lines_holderMS.append(fields[4].split(",")[1])  # ALT2
             for column in fields[9:]:
                 GT = column.strip().split(":")[GTidx]
                 compress_genotype(GT, lines_holder, sample_index, mis, fields)
@@ -117,16 +115,16 @@ def transform_genotypes(line, out, mis_vars):
         lines_holder.append("")
         lines_holderMS.append("")
         mis.append("")
-        out.write('\t'.join(map(str, lines_holder)))
+        out.write('\t'.join(lines_holder))
         out.write("\n")
-        mis_vars.write('\t'.join(map(str, mis)))
+        mis_vars.write('\t'.join(mis))
         if len(lines_holderMS) > 1:  # the "" appendage makes the list non-empty need to convert to hexdecimal again to compare to foghorn
-            out.write('\t'.join(map(str, lines_holderMS)))
-            mis_vars.write('\t'.join(map(str, mis)))
+            out.write('\t'.join(lines_holderMS))
+            mis_vars.write('\t'.join(mis))
             out.write('\n')
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
         out.write('\n')
 
 def transform_dosages(line, out):
@@ -160,11 +158,11 @@ def transform_dosages(line, out):
                 compress_dosage(DS, lines_holder, sample_index)
                 sample_index = sample_index + 1
         lines_holder.append("")
-        out.write('\t'.join(map(str, lines_holder)))
+        out.write('\t'.join(lines_holder))
         out.write("\n")
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
         out.write('\n')
 
 def compress_genotypes(vcf, output, missing_output):
