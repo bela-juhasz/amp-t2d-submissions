@@ -35,8 +35,8 @@ def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis
 def transform_genotypes(line, out, mis_vars):
     if not line.startswith("##") and not line.startswith("#"):  # Need to spend time making robust and reporting file format and missingness errors
         fields = line.strip().split()
-        if "transform_genotypes" not in fields[8]:
-            sys.exit("No genotype tag in format field")  # raise error that there is no transform_genotypes fields in
+        if "DS" not in fields[8]:
+            sys.exit("No genotype tag in format field")  # raise error that there is no GT fields in
         sample_index = sample_indexMS = 0
         lines_holderMS = []  # refresh every iteration need to check if this has any effect on the memory management of large datasets
         lines_holder = []
@@ -76,10 +76,10 @@ def transform_genotypes(line, out, mis_vars):
 def transform_dosages(line, out):
     if not line.startswith("##") and not line.startswith("#"):
         fields = line.strip().split()
-        if "transform_dosages" not in fields[8]:
-            sys.exit("No dosage (transform_dosages/DOS) found in format field")  # raise error that there is no transform_genotypes fields in VCF
+        if "DS" not in fields[8]:
+            sys.exit("No dosage (DS/DOS) found in format field")  # raise error that there is no DS fields in VCF
         else:
-            DOSidx = fields[8].split(":").index("transform_dosages")
+            DOSidx = fields[8].split(":").index("DS")
         sample_index = 0
         lines_holder = []
         lines_holder.extend(fields[:4]) # append first few columns
