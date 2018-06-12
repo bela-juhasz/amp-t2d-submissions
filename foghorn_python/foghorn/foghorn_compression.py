@@ -1,3 +1,8 @@
+"""
+Functions that implement foghorn VCF compression algorithms
+"""
+# pylint: disable=C0103
+
 import sys
 
 def compress_genotype(genotype, lines_holder, sample_index, mis, fields):
@@ -162,28 +167,28 @@ def transform_dosages(line, out):
         out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(map(str, field[9:])))
         out.write('\n')
 
-def compress_genotypes(input, output, missing_output):
+def compress_genotypes(vcf, output, missing_output):
     """
     Entry function to take a VCF input and write the transformed genotype information to new output
 
-    :param input: file for reading lines from VCF
-    :type input: file
+    :param vcf: file for reading lines from VCF
+    :type vcf: file
     :param output: file to write transformed genotype information into
     :type output: file
     :param missing_output: file to write missing allelic information into
     :type missing_output: file
     """
-    for line in input:
+    for line in vcf:
         transform_genotypes(line, output, missing_output)
 
-def compress_dosages(input, output):
+def compress_dosages(vcf, output):
     """
     Entry function to take a VCF input and write the transformed dosage information to new output
 
-    :param input: file for reading lines from VCF
-    :type input: file
+    :param vcf: file for reading lines from VCF
+    :type vcf: file
     :param output: file to write transformed dosage information into
     :type output: file
     """
-    for line in input:
+    for line in vcf:
         transform_dosages(line, output)
