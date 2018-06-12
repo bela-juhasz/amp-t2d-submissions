@@ -1,3 +1,6 @@
+"""
+This script compresses genotypes or dosages information stored in a VCF file.
+"""
 from __future__ import print_function
 import argparse
 from foghorn_compression import *

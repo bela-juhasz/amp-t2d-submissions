@@ -1,6 +1,20 @@
 import sys
 
 def compress_genotype(genotype, lines_holder, sample_index, mis, fields):
+    """
+    Transform a genotype into another format (sample_index:num_of_alt_alleles)
+
+    :param genotype: genotype value for the sample at that position
+    :type genotype: basestring
+    :param lines_holder: container to store transformed information in new format
+    :type lines_holder: list
+    :param sample_index: the index of sample in the sample list
+    :type sample_index: int
+    :param mis: container to store missing allelic information
+    :type mis: list
+    :param fields: the split list of a VCF line
+    :type fields: list
+    """
     if genotype in {"0|1", "1|0", "1/0", "0/1"}:
         lines_holder.append("".join([str(sample_index), ":", "1"]))
     elif genotype in {"1|1", "1/1"}:
@@ -13,11 +27,36 @@ def compress_genotype(genotype, lines_holder, sample_index, mis, fields):
         mis.append(string)
 
 def compress_dosage(dosage, lines_holder, sample_index):
+    """
+    Transform a dosage information into another format (sample_index:dosage)
+
+    :param dosage: the dosage information stored in original VCF
+    :type dosage: basestring
+    :param lines_holder: container to store transformed information in new format
+    :type lines_holder: list
+    :param sample_index: the index of sample in the sample list
+    :type sample_index: int
+    """
     if float(dosage) != 0:
         string = "".join([str(sample_index), ":", str(dosage)])
         lines_holder.append(string)
 
 def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis, fields):
+    """
+    Transform a genotype into another format (sample_index:num_of_alt_alleles) for
+    multi-allelic sites
+
+    :param genotype: genotype value for the sample at that position
+    :type genotype: basestring
+    :param lines_holderMS: container to store transformed information in new format
+    :type lines_holderMS: list
+    :param sample_indexMS: the index of sample in the sample list
+    :type sample_indexMS: int
+    :param mis: container to store missing allelic information
+    :type mis: list
+    :param fields: the split list of a VCF line
+    :type fields: list
+    """
     if genotype in {"2|2", "2/2"}:
         string = "".join([str(sample_indexMS), ":", "2"])
         lines_holderMS.append(string)
@@ -33,6 +72,16 @@ def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis
         mis.append(string)
 
 def transform_genotypes(line, out, mis_vars):
+    """
+    Process a VCF line for genotypes and transform them into the new format
+
+    :param line: a line in a VCF (including headers)
+    :type line: basestring
+    :param out: file to write transformed information into
+    :type out: file
+    :param mis_vars: file to write missing allelic information into
+    :type mis_vars: file
+    """
     if not line.startswith("##") and not line.startswith("#"):  # Need to spend time making robust and reporting file format and missingness errors
         fields = line.strip().split()
         if "DS" not in fields[8]:
@@ -76,6 +125,14 @@ def transform_genotypes(line, out, mis_vars):
         out.write('\n')
 
 def transform_dosages(line, out):
+    """
+    Process a VCF line for dosages  and transform them into the new format
+
+    :param line: a line in a VCF (including headers)
+    :type line: basestring
+    :param out: file to write transformed information into
+    :type out: file
+    """
     if not line.startswith("##") and not line.startswith("#"):
         fields = line.strip().split()
         if "DS" not in fields[8]:
@@ -106,9 +163,27 @@ def transform_dosages(line, out):
         out.write('\n')
 
 def compress_genotypes(input, output, missing_output):
+    """
+    Entry function to take a VCF input and write the transformed genotype information to new output
+
+    :param input: file for reading lines from VCF
+    :type input: file
+    :param output: file to write transformed genotype information into
+    :type output: file
+    :param missing_output: file to write missing allelic information into
+    :type missing_output: file
+    """
     for line in input:
         transform_genotypes(line, output, missing_output)
 
 def compress_dosages(input, output):
+    """
+    Entry function to take a VCF input and write the transformed dosage information to new output
+
+    :param input: file for reading lines from VCF
+    :type input: file
+    :param output: file to write transformed dosage information into
+    :type output: file
+    """
     for line in input:
         transform_dosages(line, output)
