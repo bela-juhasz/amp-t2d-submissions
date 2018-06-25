@@ -71,7 +71,7 @@ def compress_genotype_multiallelic(genotype, lines_holderMS, sample_indexMS, mis
         string = "".join(["Sample# ", str(sample_indexMS), " has a both alleles missing at pos ->  ", str(fields[:5]), "\n"])
         mis.append(string)
     elif genotype in {".|2", "2|.", "2/.", "./2", ".|1", "1|.", "1/.", "./1", ".|0", "0|.", "0/.", "./0"}:
-        string = "".join(["Sample# ", str(sample_indexMS), " has asingle allele missing at pos ->  ", str(fields[:5]), "\n"])
+        string = "".join(["Sample# ", str(sample_indexMS), " has a single allele missing at pos ->  ", str(fields[:5]), "\n"])
         mis.append(string)
 
 def transform_genotypes(line, out, mis_vars):
@@ -120,7 +120,6 @@ def transform_genotypes(line, out, mis_vars):
         mis_vars.write('\t'.join(mis))
         if len(lines_holderMS) > 1:  # the "" appendage makes the list non-empty need to convert to hexdecimal again to compare to foghorn
             out.write('\t'.join(lines_holderMS))
-            mis_vars.write('\t'.join(mis))
             out.write('\n')
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
