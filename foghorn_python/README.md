@@ -26,7 +26,7 @@ To use, stream a vcf to the tool with with an outfile flag and compression type
 zcat inVCF.vcf.gz | python foghorn_python.py -o outfile -GT[DS]
 ```
 
-The GT flag implements the genotype compression algorithm 
+The GT flag implements the genotype compression algorithm.
 The DS flag implements the gene dosage compression algorithm
 
 The output from the compression tool needs to be parsed, bgzipped and indexed.
