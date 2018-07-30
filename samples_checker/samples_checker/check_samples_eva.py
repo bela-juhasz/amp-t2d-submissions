@@ -119,26 +119,31 @@ def rewrite_samples_and_files_tab(eva_metadata_file):
     return eva_metadata_sheet_copy
 
 
-arg_parser = argparse.ArgumentParser(
-        description='Transform and output validated data from an excel file to a XML file')
-arg_parser.add_argument('--metadata-file', required=True, dest='metadata_file',
-                        help='EVA Submission Metadata Excel sheet')
-arg_parser.add_argument('--file-path', required=True, dest='filepath',
-                        help='Path to the directory in which submitted files can be found')
+def main():
+    arg_parser = argparse.ArgumentParser(
+            description='Transform and output validated data from an excel file to a XML file')
+    arg_parser.add_argument('--metadata-file', required=True, dest='metadata_file',
+                            help='EVA Submission Metadata Excel sheet')
+    arg_parser.add_argument('--file-path', required=True, dest='filepath',
+                            help='Path to the directory in which submitted files can be found')
 
-args = arg_parser.parse_args()
-file_path = args.filepath
-metadata_file = args.metadata_file
+    args = arg_parser.parse_args()
+    file_path = args.filepath
+    metadata_file = args.metadata_file
 
-data_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-xls_conf = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.conf"
-xls_schema = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.schema"
-xslt_filename = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.xslt"
+    data_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    xls_conf = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.conf"
+    xls_schema = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.schema"
+    xslt_filename = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.xslt"
 
-file_xml = os.path.splitext(metadata_file)[0] + ".file.xml"
-sample_xml = os.path.splitext(metadata_file)[0] + ".sample.xml"
+    file_xml = os.path.splitext(metadata_file)[0] + ".file.xml"
+    sample_xml = os.path.splitext(metadata_file)[0] + ".sample.xml"
 
-rewritten_metadata_file = rewrite_samples_and_files_tab(metadata_file)
-xls2xml.convert_xls_to_xml(xls_conf, ["File_Names"], xls_schema, xslt_filename, rewritten_metadata_file, file_xml)
-xls2xml.convert_xls_to_xml(xls_conf, ["Sample_Names"], xls_schema, xslt_filename, rewritten_metadata_file, sample_xml)
-check_samples.get_sample_diff(file_path, file_xml, sample_xml, submission_type="eva")
+    rewritten_metadata_file = rewrite_samples_and_files_tab(metadata_file)
+    xls2xml.convert_xls_to_xml(xls_conf, ["File_Names"], xls_schema, xslt_filename, rewritten_metadata_file, file_xml)
+    xls2xml.convert_xls_to_xml(xls_conf, ["Sample_Names"], xls_schema, xslt_filename, rewritten_metadata_file, sample_xml)
+    check_samples.get_sample_diff(file_path, file_xml, sample_xml, submission_type="eva")
+
+
+if __name__ == "__main__":
+    main()
