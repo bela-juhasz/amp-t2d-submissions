@@ -38,5 +38,5 @@ python ./samples_checker/check_samples.py --sample-xml tests/data/T2D_Sample.xml
 ```
 For EVA:
 ```commandline
-python samples_checker/check_samples_eva.py --metadata-file /home/sundarvenkata/amp-t2d-submissions/samples_checker/tests/data/EVA_Submission.V1.0.5_LinMa_Nov_16_2017_garys.xlsx --file-path /nfs/production3/eva/submissions/ELOAD_318/20_scratch/eva
+python samples_checker/check_samples_eva.py --metadata-file /nfs/production3/eva/submissions/ELOAD_402/10_submitted/submission_files/eva/Craniosynostotic_Rabbit_Colony_Metadata.xlsx --file-path /nfs/production3/eva/submissions/ELOAD_402/10_submitted/vcf_files
 ```
