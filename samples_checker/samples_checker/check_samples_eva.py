@@ -20,17 +20,17 @@ def get_sample_names(eva_sample_sheet):
     for i in range(1, num_rows + 1):
         for j in range(1, num_cols + 1):
             if str(eva_sample_sheet.cell(i, j).value).strip().lower() == "sample name":
-                first_sample_accession = str(eva_sample_sheet.cell(i+1, j-3).value).strip()
-                first_sample_name = str(eva_sample_sheet.cell(i + 1, j).value).strip()
-                if not is_cell_value_empty(first_sample_accession) and not is_cell_value_empty(first_sample_name):
-                    raise Exception("ERROR: Both Novel Sample Names and Sample Accessions are present "
+                first_prereg_sample_name = str(eva_sample_sheet.cell(i+1, j-4).value).strip()
+                first_novel_sample_name = str(eva_sample_sheet.cell(i + 1, j).value).strip()
+                if not is_cell_value_empty(first_prereg_sample_name) and not is_cell_value_empty(first_novel_sample_name):
+                    raise Exception("ERROR: Both Novel Sample Names and Pre-registered sample names are present "
                                     "in the Metadata sheet. Only one of these should be present!")
-                if is_cell_value_empty(first_sample_accession) and is_cell_value_empty(first_sample_name):
-                    raise Exception("ERROR: Either Novel Sample Names or Sample Accessions should be present "
+                if is_cell_value_empty(first_prereg_sample_name) and is_cell_value_empty(first_novel_sample_name):
+                    raise Exception("ERROR: Either Novel Sample Names or Pre-registered sample names should be present "
                                     "in the Metadata sheet!")
-                # Use Biosample accessions by default
-                if not is_cell_value_empty(first_sample_accession):
-                    j -= 3
+                # Use pre-registered sample names if available
+                if not is_cell_value_empty(first_prereg_sample_name):
+                    j -= 4
                 while i <= num_rows:
                     i += 1
                     sample_name_value = str(eva_sample_sheet.cell(i, j).value).strip()
