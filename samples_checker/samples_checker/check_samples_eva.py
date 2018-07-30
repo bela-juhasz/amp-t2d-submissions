@@ -1,7 +1,7 @@
 from openpyxl import load_workbook
 import os
 import argparse
-
+from collections import OrderedDict
 import check_samples
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + os.path.sep + "xls2xml")
@@ -12,6 +12,7 @@ def is_cell_value_empty(cell_value):
     return cell_value == "None" or cell_value == ""
 
 
+# Get sample names from either the Novel Sample section or the Pre-registered sample section
 def get_sample_names(eva_sample_sheet):
     sample_names = []
     num_rows = eva_sample_sheet.max_row
@@ -42,30 +43,78 @@ def get_sample_names(eva_sample_sheet):
     raise Exception("Could not find sample names in the sheet: Sample")
 
 
-def rewrite_samples_tab(eva_metadata_sheet):
+# Get file names from either the Novel Sample section or the Pre-registered sample section
+def get_file_names(eva_files_sheet):
+    file_names = OrderedDict()
+    num_rows = eva_files_sheet.max_row
+    num_cols = eva_files_sheet.max_column
+
+    for i in range(1, num_rows + 1):
+        for j in range(1, num_cols + 1):
+            if str(eva_files_sheet.cell(i, j).value).strip().lower() == "file name":
+                while i <= num_rows:
+                    i += 1
+                    file_name = os.path.basename(str(eva_files_sheet.cell(i, j).value).strip())
+                    file_type = str(eva_files_sheet.cell(i, j+1).value).strip()
+                    if is_cell_value_empty(file_name):
+                        continue
+                    file_names[file_name] = file_type
+                return file_names
+
+    raise Exception("Could not find file names in the sheet: Files")
+
+
+# Since samples_checker utility expects data in a single column with header,
+# re-write the Sample names from the Samples tab in this expected format to a separate tab "Sample_Names"
+def rewrite_samples_tab(metadata_file_copy, sample_names):
+    if "Sample_Names" not in metadata_file_copy.sheetnames:
+        sample_name_sheet = metadata_file_copy.create_sheet("Sample_Names")
+    else:
+        sample_name_sheet = metadata_file_copy["Sample_Names"]
+    sample_name_sheet.cell(1, 1).value = "Sample Name"
+    row_index = 2
+    for sample_name in sample_names:
+        sample_name_sheet.cell(row_index, 1).value = sample_name
+        row_index += 1
+
+
+def rewrite_files_tab(metadata_file_copy, file_name_types):
+    if "File_Names" not in metadata_file_copy.sheetnames:
+        file_name_sheet = metadata_file_copy.create_sheet("File_Names")
+    else:
+        file_name_sheet = metadata_file_copy["File_Names"]
+    file_name_sheet.cell(1, 1).value = "File Name"
+    file_name_sheet.cell(1, 2).value = "File Type"
+    row_index = 2
+    for file_name in file_name_types:
+        file_name_sheet.cell(row_index, 1).value = file_name
+        file_name_sheet.cell(row_index, 2).value = file_name_types[file_name]
+        row_index += 1
+
+
+def rewrite_samples_and_files_tab(eva_metadata_file):
     eva_metadata_sheet_copy = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + \
-                              ".".join(os.path.basename(eva_metadata_sheet).split(".")[:-1]) + \
+                              ".".join(os.path.basename(eva_metadata_file).split(".")[:-1]) + \
                               "_with_sample_names_tab.xlsx"
-    metadata_wb = load_workbook(eva_metadata_sheet, data_only=True)
+    metadata_wb = load_workbook(eva_metadata_file, data_only=True)
 
     if "Sample" not in metadata_wb.sheetnames:
-        raise Exception("Sample tab could not be found in the EVA metadata sheet: " + eva_metadata_sheet)
-    else:
-        sample_names = get_sample_names(metadata_wb['Sample'])
-        metadata_wb.save(eva_metadata_sheet_copy)
-        metadata_wb.close()
-        metadata_wb_copy = load_workbook(eva_metadata_sheet_copy)
-        if "Sample_Names" not in metadata_wb_copy.sheetnames:
-            sample_name_sheet = metadata_wb_copy.create_sheet("Sample_Names")
-        else:
-            sample_name_sheet = metadata_wb_copy["Sample_Names"]
-        sample_name_sheet.cell(1, 1).value = "Sample Name"
-        row_index = 2
-        for sample_name in sample_names:
-            sample_name_sheet.cell(row_index, 1).value = sample_name
-            row_index += 1
-        metadata_wb_copy.save(eva_metadata_sheet_copy)
-        metadata_wb_copy.close()
+        raise Exception("Sample tab could not be found in the EVA metadata sheet: " + eva_metadata_file)
+    if "Files" not in metadata_wb.sheetnames:
+        raise Exception("Files tab could not be found in the EVA metadata sheet: " + eva_metadata_file)
+
+    sample_names = get_sample_names(metadata_wb['Sample'])
+    file_name_types = get_file_names (metadata_wb['Files'])
+
+    metadata_wb.save(eva_metadata_sheet_copy)
+    metadata_wb.close()
+    metadata_wb_copy = load_workbook(eva_metadata_sheet_copy)
+
+    rewrite_samples_tab(metadata_wb_copy, sample_names)
+    rewrite_files_tab(metadata_wb_copy, file_name_types)
+
+    metadata_wb_copy.save(eva_metadata_sheet_copy)
+    metadata_wb_copy.close()
 
     return eva_metadata_sheet_copy
 
@@ -89,7 +138,7 @@ xslt_filename = data_dir + os.path.sep + "tests/data/EVA_xls2xml_v2.xslt"
 file_xml = os.path.splitext(metadata_file)[0] + ".file.xml"
 sample_xml = os.path.splitext(metadata_file)[0] + ".sample.xml"
 
-rewritten_metadata_file = rewrite_samples_tab(metadata_file)
-xls2xml.convert_xls_to_xml(xls_conf, ["Files"], xls_schema, xslt_filename, rewritten_metadata_file, file_xml)
+rewritten_metadata_file = rewrite_samples_and_files_tab(metadata_file)
+xls2xml.convert_xls_to_xml(xls_conf, ["File_Names"], xls_schema, xslt_filename, rewritten_metadata_file, file_xml)
 xls2xml.convert_xls_to_xml(xls_conf, ["Sample_Names"], xls_schema, xslt_filename, rewritten_metadata_file, sample_xml)
 check_samples.get_sample_diff(file_path, file_xml, sample_xml, submission_type="eva")

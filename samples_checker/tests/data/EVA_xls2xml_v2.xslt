@@ -32,9 +32,9 @@ with underscores.
   </SAMPLE_SET>
 </xsl:template>
 
-<xsl:template match="/ResultSet/FilesSet">  
+<xsl:template match="/ResultSet/File_NamesSet">  
   <FILE_SET>
-    <xsl:for-each select="Files">
+    <xsl:for-each select="File_Names">
       <xsl:variable name="filetype" select="File_Type"/>
       <FILE>
         <FILE_NAME><xsl:value-of select="File_Name"/></FILE_NAME>

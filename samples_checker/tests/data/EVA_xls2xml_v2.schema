@@ -12,7 +12,7 @@ Sample_Names: # Key for this schema
       nullable: False
       required: True
 
-Files:
+File_Names:
   schema:
     "File Type":
       type: string
