@@ -95,7 +95,7 @@ def rewrite_files_tab(metadata_file_copy, file_name_types):
 def rewrite_samples_and_files_tab(eva_metadata_file):
     eva_metadata_sheet_copy = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + \
                               ".".join(os.path.basename(eva_metadata_file).split(".")[:-1]) + \
-                              "_with_sample_names_tab.xlsx"
+                              "_with_sample_names_file_names.xlsx"
     metadata_wb = load_workbook(eva_metadata_file, data_only=True)
 
     if "Sample" not in metadata_wb.sheetnames:
