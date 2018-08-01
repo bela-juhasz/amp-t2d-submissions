@@ -26,6 +26,18 @@ To use, stream a vcf to the tool with with an outfile flag and compression type
 zcat inVCF.vcf.gz | python foghorn_python.py -o outfile -GT[DS]
 ```
 
-The GT flag implements the genotype compression algorithm 
-
+The GT flag implements the genotype compression algorithm.
 The DS flag implements the gene dosage compression algorithm
+
+The output from the compression tool needs to be parsed, bgzipped and indexed.
+
+```commandline
+cut -f -3,6- chr.1_genotypes.cvcf > ALL.cvcf # remove allele columns important to check that multi-allelics are removed else positions will appear duplicated
+
+for i in {2..23}; do sed 1d chr.${i}_genotypes.cvcf | cut -f -3,6- >> ALL.cvcf; done #Concatenation.
+
+bgzip ALL.cvcf # run bgzip compression
+
+tabix -s 1 -b 2 -e 2 -c "#" ALL.cvcf.gz # tabix indexing
+
+```
