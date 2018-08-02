@@ -8,7 +8,7 @@ import argparse
 import utils
 
 
-def get_sample_diff(file_path, file_xml, sample_xml, submission_type="t2d"):
+def get_sample_diff(file_path, file_xml, sample_xml):
     submission_samples = utils.get_samples_from_xml(sample_xml)
     submitted_files = utils.get_files_from_xml(file_xml)
     has_difference = False
@@ -20,25 +20,21 @@ def get_sample_diff(file_path, file_xml, sample_xml, submission_type="t2d"):
         if difference_submitted_file_submission_xls:
             has_difference = True
             if file_type == 'vcf':
-                if submission_type == "t2d":
-                    print('The submission does not contain the following genotype ids:', file=sys.stderr)
-                if submission_type == "eva":
-                    print('Samples that appear in the VCF but not in the Metadata sheet:', file=sys.stderr)
+                print('Samples that appear in the VCF but not in the Metadata sheet:', file=sys.stderr)
             else:
                 print('The submission does not contain the following samples:', file=sys.stderr)
             print(difference_submitted_file_submission_xls, file=sys.stderr)
 
         if difference_submission_xls_submitted_file:
             has_difference = True
-            if submission_type == "t2d":
-                print('The following samples are not found in file ' + file_name, file=sys.stderr)
-            if submission_type == "eva":
-                print('Samples that appear in the Metadata sheet but not in the VCF: ' + file_name,
-                      file=sys.stderr)
+            print('Samples that appear in the Metadata sheet but not in the VCF: ' + file_name,
+                  file=sys.stderr)
             print(difference_submission_xls_submitted_file, file=sys.stderr)
+    print('Samples checking completed!', file=sys.stdout)
     if has_difference:
         quit(1)
-    print('Samples checking completed!', file=sys.stdout)
+    else:
+        print('No differences found between the samples in the Metadata sheet and the VCF(s)!', file=sys.stdout)
 
 
 def main():
