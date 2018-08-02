@@ -30,11 +30,11 @@ def get_sample_diff(file_path, file_xml, sample_xml):
             print('Samples that appear in the Metadata sheet but not in the VCF: ' + file_name,
                   file=sys.stderr)
             print(difference_submission_xls_submitted_file, file=sys.stderr)
+    if not has_difference:
+        print('No differences found between the samples in the Metadata sheet and the VCF(s)!', file=sys.stdout)
     print('Samples checking completed!', file=sys.stdout)
     if has_difference:
         quit(1)
-    else:
-        print('No differences found between the samples in the Metadata sheet and the VCF(s)!', file=sys.stdout)
 
 
 def main():
