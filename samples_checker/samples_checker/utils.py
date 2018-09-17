@@ -19,19 +19,43 @@ def get_samples_from_xml(sample_xml):
                   for sample in sample_root.findall('SAMPLE')}
     return sample_ids
 
-def get_files_from_xml(file_xml):
+def get_file_groups_from_xml(file_xml):
     """
-    Get the {file_name : file_type} has from xml configuration file
+    Get the file groups from xml configuration file in the form as
+    {
+        'file_type' : 'vcf',
+        'file_names' : ['genotypes.4.vcf', 'genotypes.6.vcf']
+    }
     :param file_xml: path to the xml configuration file
     :type file_xml: basestring
-    :return: mapping between file_name and file_type
+    :return: mapping for file_names and file_type
     :rtype: dict
     """
     file_tree = etree.parse(file_xml)
     file_root = file_tree.getroot()
-    files = {file.findtext('FILE_NAME') : file.findtext('FILE_TYPE')
-             for file in file_root.findall('FILE')}
+    files = [ { 'file_type' : file_group.findtext('FILE_TYPE'),
+                'file_names' : [ file_name.text for file_name in file_group.findall('FILE')] }
+             for file_group in file_root.findall('FILE_GROUP') ]
     return files
+
+def get_samples_from_file_group(file_group, file_path):
+    """
+    Get the set of the samples appear in the file group.
+    :param file_group: mapping for file_names and file_type
+    :type file_group: dict
+    :param file_path: the path to the directory where files could be found
+    :type file_path: basestring
+    :return: Sample set
+    :rtype: set
+    """
+    samples = set([])
+    file_type = file_group.get('file_type', '')
+    if file_type and file_type in FILE_TYPE_TO_FUNCTION:
+        file_names = file_group.get('file_names', [])
+        for file_name in file_names:
+            samples = samples.union(set(FILE_TYPE_TO_FUNCTION[file_type](file_path + '/' + file_name)))
+    return samples
+
 
 def get_samples_from_vcf(vcf_file):
     """
@@ -68,13 +92,13 @@ def get_genotype_ids(samples):
     """
     return [samples[key] if samples[key] else key for key in samples]
 
-def get_sample_difference(submission_samples, submitted_file, submitted_file_type):
+def get_sample_difference(submission_samples, samples_from_submitted_files, submitted_file_type):
     """
     Get the set difference between the submission_samples and the samples found in submitted_file
     :param submission_samples: mapping between sample_id and genotype_id from submission xls
     :type submission_samples: dict
-    :param submitted_file: path to the submitted file
-    :type submitted_file: basestring
+    :param samples_from_submitted_files: samples from the submitted files
+    :type samples_from_submitted_files: set
     :param submitted_file_type: the type of the submitted file, e.g.: vcf
     :type submitted_file_type: basestring
     :return: two lists of submission_samples
@@ -82,15 +106,8 @@ def get_sample_difference(submission_samples, submitted_file, submitted_file_typ
     """
 
     # Check arguments
-    if not submission_samples or not submitted_file_type or not submitted_file:
+    if not submission_samples or not submitted_file_type or not samples_from_submitted_files:
         return [], []
-
-    # Make sure we know how to get the samples out of submitted_file
-    if submitted_file_type not in FILE_TYPE_TO_FUNCTION:
-        return [], []
-
-    # Get the sample set out of submitted_file
-    samples_from_submitted_file = FILE_TYPE_TO_FUNCTION[submitted_file_type](submitted_file)
 
     # Get the sample set from submission template
     samples_from_submission = []
@@ -105,8 +122,8 @@ def get_sample_difference(submission_samples, submitted_file, submitted_file_typ
 
     # Get the bi-directional set differences between above two sets.
     diff_submission_submitted_file = list(set(samples_from_submission)-
-                                          set(samples_from_submitted_file))
-    diff_submitted_file_submission = list(set(samples_from_submitted_file)-
+                                          set(samples_from_submitted_files))
+    diff_submitted_file_submission = list(set(samples_from_submitted_files)-
                                           set(samples_from_submission))
 
     return diff_submission_submitted_file, diff_submitted_file_submission

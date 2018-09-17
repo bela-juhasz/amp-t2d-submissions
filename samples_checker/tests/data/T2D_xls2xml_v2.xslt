@@ -20,7 +20,7 @@ with underscores.
 </my:typemap>
   
 <xsl:output method="xml" indent="yes"/>
-<xsl:template match="/SampleSet"><!-->Should match <key_in_config>+'Set'<-->
+<xsl:template match="/ResultSet/SampleSet"><!-->Should match <key_in_config>+'Set'<-->
   <SAMPLE_SET>
     <xsl:for-each select="Sample"><!-->Should select from <key_in_config><-->
       <SAMPLE>
@@ -31,16 +31,16 @@ with underscores.
   </SAMPLE_SET>
 </xsl:template>
 
-<xsl:template match="/FileSet">
-  <FILE_SET>
+<xsl:template match="/ResultSet/FileSet">
+  <FILE_GROUP_SET>
     <xsl:for-each select="File">
       <xsl:variable name="filetype" select="Filetype"/>
-      <FILE>
-        <FILE_NAME><xsl:value-of select="Filename"/></FILE_NAME>
+      <FILE_GROUP>
+        <FILE><xsl:value-of select="Filename"/></FILE>
         <FILE_TYPE><xsl:value-of select="document('')/*/my:typemap/entry[@key=$filetype]"/></FILE_TYPE>
-      </FILE>
+      </FILE_GROUP>
     </xsl:for-each>
-  </FILE_SET>
+  </FILE_GROUP_SET>
 </xsl:template>
 
 </xsl:stylesheet>
