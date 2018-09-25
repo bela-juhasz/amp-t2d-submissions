@@ -2,7 +2,7 @@
 Utility functions for samples checker
 """
 # pylint: disable=no-member
-from lxml import etree
+import xml.etree.ElementTree as ET
 import pysam
 
 def get_samples_from_xml(sample_xml):
@@ -13,7 +13,7 @@ def get_samples_from_xml(sample_xml):
     :return: mapping between sample_id and genotype_id
     :rtype: dict
     """
-    sample_tree = etree.parse(sample_xml)
+    sample_tree = ET.parse(sample_xml)
     sample_root = sample_tree.getroot()
     sample_ids = {sample.findtext('SAMPLE_ID') : sample.findtext('GENOTYPE_ID')
                   for sample in sample_root.findall('SAMPLE')}
@@ -31,7 +31,7 @@ def get_file_groups_from_xml(file_xml):
     :return: mapping for file_names and file_type
     :rtype: dict
     """
-    file_tree = etree.parse(file_xml)
+    file_tree = ET.parse(file_xml)
     file_root = file_tree.getroot()
     files = [ { 'file_type' : file_group.findtext('FILE_TYPE'),
                 'file_names' : [ file_name.text for file_name in file_group.findall('FILE')] }
