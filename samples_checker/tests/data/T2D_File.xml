@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<FILE_SET>
-  <FILE>
-    <FILE_NAME>genotypes.8.vcf</FILE_NAME>
+<FILE_GROUP_SET>
+  <FILE_GROUP>
+    <FILE>genotypes.8.vcf</FILE>
     <FILE_TYPE>vcf</FILE_TYPE>
-  </FILE>
-  <FILE>
-    <FILE_NAME>summary.hyperinsulinism.tsv</FILE_NAME>
+  </FILE_GROUP>
+  <FILE_GROUP>
+    <FILE>summary.hyperinsulinism.tsv</FILE>
     <FILE_TYPE/>
-  </FILE>
-  <FILE>
-    <FILE_NAME>genotypes.6.vcf</FILE_NAME>
+  </FILE_GROUP>
+  <FILE_GROUP>
+    <FILE>genotypes.6.vcf</FILE>
     <FILE_TYPE>vcf</FILE_TYPE>
-  </FILE>
-  <FILE>
-    <FILE_NAME>genotypes.4.vcf</FILE_NAME>
+  </FILE_GROUP>
+  <FILE_GROUP>
+    <FILE>genotypes.4.vcf</FILE>
     <FILE_TYPE>vcf</FILE_TYPE>
-  </FILE>
-</FILE_SET>
+  </FILE_GROUP>
+</FILE_GROUP_SET>

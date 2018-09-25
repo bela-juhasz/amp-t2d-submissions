@@ -33,4 +33,5 @@ Here are some of the examples you could try out:
 python ../xls2xml/xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v2.conf --conf-key File --schema tests/data/T2D_xls2xml_v2.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/T2D_File.xml
 python ../xls2xml/xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v2.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v2.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/T2D_Sample.xml
 python ./samples_checker/check_samples.py --sample-xml tests/data/T2D_Sample.xml --file-xml tests/data/T2D_File.xml --file-path ./tests/data
+python ./samples_checker/check_samples.py --sample-xml tests/data/T2D_Sample.xml --file-xml tests/data/T2D_File_v2.xml --file-path ./tests/data
 ```

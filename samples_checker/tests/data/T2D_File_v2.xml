@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FILE_GROUP_SET>
+  <FILE_GROUP>
+    <FILE>genotypes.2.vcf</FILE>
+    <FILE>genotypes.4.vcf</FILE>
+    <FILE_TYPE>vcf</FILE_TYPE>
+  </FILE_GROUP>
+</FILE_GROUP_SET>
