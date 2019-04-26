@@ -95,7 +95,8 @@ def transform_genotypes(line, out, mis_vars):
         lines_holderMS = []  # refresh every iteration need to check if this has any effect on the memory management of large datasets
         lines_holder = []
         mis = []
-        lines_holder.extend(fields[:4])  # append first few columns
+        lines_holder.extend(fields[:2])  # append first few columns
+        lines_holder.extend(fields[3])
         if "," in fields[4]:
             lines_holderMS.extend(fields[:4])
             lines_holder.append(fields[4].split(",")[0])  # ALT1
@@ -123,7 +124,7 @@ def transform_genotypes(line, out, mis_vars):
             out.write('\n')
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "REF" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
         out.write('\n')
 
 def transform_dosages(line, out):
@@ -143,7 +144,8 @@ def transform_dosages(line, out):
             DOSidx = fields[8].split(":").index("DS")
         sample_index = 0
         lines_holder = []
-        lines_holder.extend(fields[:4]) # append first few columns
+        lines_holder.extend(fields[:2])
+        lines_holder.extend(fields[3])
         if "," in fields[4]:  # not set up for multiple variants yet this is redundant until multivariants are incorported
             lines_holder.append(str(fields[4]).split(",")[0])  # ALT1
             for column in fields[9:]:
@@ -161,7 +163,7 @@ def transform_dosages(line, out):
         out.write("\n")
     elif not line.startswith("##") and line.startswith("#"):
         field = line.strip().split()
-        out.write("#CHR" + '\t' + "POS" + '\t' + "ID" + '\t' + "Ref" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
+        out.write("#CHR" + '\t' + "POS" + '\t' + "REF" + '\t' + "ALT" + '\t' + '\t'.join(field[9:]))
         out.write('\n')
 
 def compress_genotypes(vcf, output, missing_output):
