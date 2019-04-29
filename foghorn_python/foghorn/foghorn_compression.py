@@ -98,7 +98,8 @@ def transform_genotypes(line, out, mis_vars):
         lines_holder.extend(fields[:2])  # append first few columns
         lines_holder.extend(fields[3])
         if "," in fields[4]:
-            lines_holderMS.extend(fields[:4])
+            lines_holderMS.extend(fields[:2])  # append first few columns
+            lines_holderMS.extend(fields[3])
             lines_holder.append(fields[4].split(",")[0])  # ALT1
             lines_holderMS.append(fields[4].split(",")[1])  # ALT2
             for column in fields[9:]:
