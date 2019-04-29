@@ -116,10 +116,9 @@ def transform_genotypes(line, out, mis_vars):
                 sample_index = sample_index + 1
         lines_holder.append("")
         lines_holderMS.append("")
-        mis.append("")
         out.write('\t'.join(lines_holder))
         out.write("\n")
-        mis_vars.write('\t'.join(mis))
+        mis_vars.write(''.join(mis))
         if len(lines_holderMS) > 1:  # the "" appendage makes the list non-empty need to convert to hexdecimal again to compare to foghorn
             out.write('\t'.join(lines_holderMS))
             out.write('\n')
