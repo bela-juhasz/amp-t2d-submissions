@@ -121,6 +121,10 @@ def transform_xml(input_xml, xslt_filename):
     xslt_tree = etree.parse(xslt_filename)
     transform = etree.XSLT(xslt_tree)
     output_xml = transform(input_xml)
+
+    if transform.error_log:
+        print('Errors during XSLT transformation: {}'.format(transform.error_log))
+
     return output_xml
 
 def save_xml(input_xml, outfile):
@@ -134,7 +138,11 @@ def save_xml(input_xml, outfile):
     """
     outfile.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     if input_xml.getroot() is not None:
+        # The original method to serialize XML (i.e. etree.tostring)
+        # couldn't handle non-well-formed XML:
         outfile.write(etree.tostring(input_xml, pretty_print=True))
+        # TODO bjuhasz: write a test for this, demonstrating it
+        #outfile.write(unicode(input_xml))
 
 def multiple_objects_to_xml(input_readers, xls_schema_filename, xslt_filename):
     """

@@ -452,3 +452,5 @@ ENV/
 # mypy
 .mypy_cache/
 /.project
+
+.idea/
